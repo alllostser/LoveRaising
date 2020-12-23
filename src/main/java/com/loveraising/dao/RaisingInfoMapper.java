@@ -1,17 +1,8 @@
 package com.loveraising.dao;
 
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.loveraising.pojo.RaisingInfo;
 
-public interface RaisingInfoMapper {
-    int deleteByPrimaryKey(Integer id);
+public interface RaisingInfoMapper extends BaseMapper<RaisingInfo> {
 
-    int insert(RaisingInfo record);
-
-    int insertSelective(RaisingInfo record);
-
-    RaisingInfo selectByPrimaryKey(Integer id);
-
-    int updateByPrimaryKeySelective(RaisingInfo record);
-
-    int updateByPrimaryKey(RaisingInfo record);
 }

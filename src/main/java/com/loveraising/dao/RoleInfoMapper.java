@@ -1,17 +1,8 @@
 package com.loveraising.dao;
 
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.loveraising.pojo.RoleInfo;
 
-public interface RoleInfoMapper {
-    int deleteByPrimaryKey(Integer id);
+public interface RoleInfoMapper extends BaseMapper<RoleInfo> {
 
-    int insert(RoleInfo record);
-
-    int insertSelective(RoleInfo record);
-
-    RoleInfo selectByPrimaryKey(Integer id);
-
-    int updateByPrimaryKeySelective(RoleInfo record);
-
-    int updateByPrimaryKey(RoleInfo record);
 }

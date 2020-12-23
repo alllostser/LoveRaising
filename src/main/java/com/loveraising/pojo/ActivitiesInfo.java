@@ -1,5 +1,8 @@
 package com.loveraising.pojo;
 
+import com.baomidou.mybatisplus.annotation.TableName;
+
+@TableName("activitiesinfo")
 public class ActivitiesInfo {
     private int id;
 

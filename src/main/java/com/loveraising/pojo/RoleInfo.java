@@ -1,5 +1,8 @@
 package com.loveraising.pojo;
 
+import com.baomidou.mybatisplus.annotation.TableName;
+
+@TableName("roleinfo")
 public class RoleInfo {
     private int id;
 
