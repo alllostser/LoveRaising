@@ -23,4 +23,12 @@ public class StatusInfo {
     public void setStatus(String status) {
         this.status = status == null ? null : status.trim();
     }
+
+    @Override
+    public String toString() {
+        return "StatusInfo{" +
+                "id=" + id +
+                ", status='" + status + '\'' +
+                '}';
+    }
 }

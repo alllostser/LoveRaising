@@ -4,9 +4,9 @@ import com.baomidou.mybatisplus.annotation.TableName;
 
 @TableName("raisinginfo")
 public class RaisingInfo {
-    private int id;
+    private Integer id;
 
-    private int status;
+    private Integer status;
 
     private String raisingTitle;
 
@@ -20,33 +20,19 @@ public class RaisingInfo {
 
     private String imageUrl;
 
-    public RaisingInfo() {
-    }
-
-    public RaisingInfo(int id, int status, String raisingTitle, String raisingName, String targetAmount, String creatTime, String raisingDescription, String imageUrl) {
-        this.id = id;
-        this.status = status;
-        this.raisingTitle = raisingTitle;
-        this.raisingName = raisingName;
-        this.targetAmount = targetAmount;
-        this.creatTime = creatTime;
-        this.raisingDescription = raisingDescription;
-        this.imageUrl = imageUrl;
-    }
-
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
-    public int getStatus() {
+    public Integer getStatus() {
         return status;
     }
 
-    public void setStatus(int status) {
+    public void setStatus(Integer status) {
         this.status = status;
     }
 

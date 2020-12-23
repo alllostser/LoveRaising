@@ -4,23 +4,15 @@ import com.baomidou.mybatisplus.annotation.TableName;
 
 @TableName("roleinfo")
 public class RoleInfo {
-    private int id;
+    private Integer id;
 
     private String roleName;
 
-    public RoleInfo() {
-    }
-
-    public RoleInfo(int id, String roleName) {
-        this.id = id;
-        this.roleName = roleName;
-    }
-
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 

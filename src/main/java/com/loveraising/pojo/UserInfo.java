@@ -6,7 +6,7 @@ import java.io.Serializable;
 
 @TableName("userinfo")
 public class UserInfo implements Serializable {
-    private int id;
+    private Integer id;
 
     private String userName;
 
@@ -29,7 +29,7 @@ public class UserInfo implements Serializable {
     public UserInfo() {
     }
 
-    public UserInfo(int id, String userName, String password, String realName, String sex, String email, String telephone, String birthday, String idNumber, int status) {
+    public UserInfo(Integer id, String userName, String password, String realName, String sex, String email, String telephone, String birthday, String idNumber, int status) {
         this.id = id;
         this.userName = userName;
         this.password = password;
@@ -42,11 +42,11 @@ public class UserInfo implements Serializable {
         this.status = status;
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 

@@ -4,9 +4,9 @@ import com.baomidou.mybatisplus.annotation.TableName;
 
 @TableName("activitiesinfo")
 public class ActivitiesInfo {
-    private int id;
+    private Integer id;
 
-    private int status;
+    private Integer status;
 
     private String activityTitle;
 
@@ -14,39 +14,39 @@ public class ActivitiesInfo {
 
     private String activityDescription;
 
-    private int activityNum;
+    private Integer activityNum;
 
-    private int currentNum;
+    private Integer currentNum;
 
     private String imageUrl;
 
-    public ActivitiesInfo() {
+    @Override
+    public String toString() {
+        return "ActivitiesInfo{" +
+                "id=" + id +
+                ", status=" + status +
+                ", activityTitle='" + activityTitle + '\'' +
+                ", activityLocation='" + activityLocation + '\'' +
+                ", activityDescription='" + activityDescription + '\'' +
+                ", activityNum=" + activityNum +
+                ", currentNum=" + currentNum +
+                ", imageUrl='" + imageUrl + '\'' +
+                '}';
     }
 
-    public ActivitiesInfo(int id, int status, String activityTitle, String activityLocation, String activityDescription, int activityNum, int currentNum, String imageUrl) {
-        this.id = id;
-        this.status = status;
-        this.activityTitle = activityTitle;
-        this.activityLocation = activityLocation;
-        this.activityDescription = activityDescription;
-        this.activityNum = activityNum;
-        this.currentNum = currentNum;
-        this.imageUrl = imageUrl;
-    }
-
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
-    public int getStatus() {
+    public Integer getStatus() {
         return status;
     }
 
-    public void setStatus(int status) {
+    public void setStatus(Integer status) {
         this.status = status;
     }
 
@@ -74,19 +74,19 @@ public class ActivitiesInfo {
         this.activityDescription = activityDescription;
     }
 
-    public int getActivityNum() {
+    public Integer getActivityNum() {
         return activityNum;
     }
 
-    public void setActivityNum(int activityNum) {
+    public void setActivityNum(Integer activityNum) {
         this.activityNum = activityNum;
     }
 
-    public int getCurrentNum() {
+    public Integer getCurrentNum() {
         return currentNum;
     }
 
-    public void setCurrentNum(int currentNum) {
+    public void setCurrentNum(Integer currentNum) {
         this.currentNum = currentNum;
     }
 
@@ -96,19 +96,5 @@ public class ActivitiesInfo {
 
     public void setImageUrl(String imageUrl) {
         this.imageUrl = imageUrl;
-    }
-
-    @Override
-    public String toString() {
-        return "ActivitiesInfo{" +
-                "id=" + id +
-                ", status=" + status +
-                ", activityTitle='" + activityTitle + '\'' +
-                ", activityLocation='" + activityLocation + '\'' +
-                ", activityDescription='" + activityDescription + '\'' +
-                ", activityNum=" + activityNum +
-                ", currentNum=" + currentNum +
-                ", imageUrl='" + imageUrl + '\'' +
-                '}';
     }
 }

@@ -4,7 +4,7 @@ import com.baomidou.mybatisplus.annotation.TableName;
 
 @TableName("newsinfo")
 public class NewsInfo {
-    private int id;
+    private Integer id;
 
     private String newsTitle;
 
@@ -12,21 +12,11 @@ public class NewsInfo {
 
     private String imageUrl;
 
-    public NewsInfo() {
-    }
-
-    public NewsInfo(int id, String newsTitle, String newsDescription, String imageUrl) {
-        this.id = id;
-        this.newsTitle = newsTitle;
-        this.newsDescription = newsDescription;
-        this.imageUrl = imageUrl;
-    }
-
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
