@@ -1,5 +1,7 @@
 package com.loveraising.controller;
 
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.extension.service.additional.update.impl.LambdaUpdateChainWrapper;
 import com.loveraising.dao.UserInfoMapper;
 import com.loveraising.pojo.UserInfo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +19,7 @@ public class TestController {
     @Autowired
     private UserInfoMapper userInfoMapper;
     @RequestMapping("/test")
-    public UserInfo test(){
-        return userInfoMapper.selectByPrimaryKey(1);
+    public List<UserInfo> test(){
+        return userInfoMapper.selectList(new LambdaQueryWrapper<UserInfo>());
     }
 }
