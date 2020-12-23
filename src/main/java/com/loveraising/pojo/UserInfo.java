@@ -2,8 +2,10 @@ package com.loveraising.pojo;
 
 import com.baomidou.mybatisplus.annotation.TableName;
 
+import java.io.Serializable;
+
 @TableName("userinfo")
-public class UserInfo {
+public class UserInfo implements Serializable {
     private int id;
 
     private String userName;
