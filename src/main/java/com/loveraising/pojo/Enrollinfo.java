@@ -1,9 +1,12 @@
 package com.loveraising.pojo;
 
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 
 @TableName("enrollinfo")
 public class Enrollinfo {
+    @TableId(type= IdType.AUTO)
     private int id;
     private int userId;
     private int activityId;

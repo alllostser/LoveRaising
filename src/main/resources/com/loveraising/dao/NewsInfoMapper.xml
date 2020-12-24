@@ -1,14 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.loveraising.dao.NewsInfoMapper">
-  <resultMap id="BaseResultMap" type="com.loveraising.pojo.NewsInfo">
-    <id column="id" jdbcType="INTEGER" property="id" />
-    <result column="news_title" jdbcType="VARCHAR" property="newsTitle" />
-    <result column="image_url" jdbcType="VARCHAR" property="imageUrl" />
-    <result column="news_description" jdbcType="VARCHAR" property="newsDescription" />
-  </resultMap>
-  <sql id="Base_Column_List">
-    id, news_title, image_url, news_description
-  </sql>
+
 
 </mapper>

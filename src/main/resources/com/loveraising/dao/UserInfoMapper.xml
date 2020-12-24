@@ -1,19 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.loveraising.dao.UserInfoMapper">
-  <resultMap id="BaseResultMap" type="com.loveraising.pojo.UserInfo">
-    <id column="id" jdbcType="INTEGER" property="id" />
-    <result column="user_name" jdbcType="VARCHAR" property="userName" />
-    <result column="password" jdbcType="VARCHAR" property="password" />
-    <result column="real_name" jdbcType="VARCHAR" property="realName" />
-    <result column="sex" jdbcType="VARCHAR" property="sex" />
-    <result column="email" jdbcType="VARCHAR" property="email" />
-    <result column="telephone" jdbcType="VARCHAR" property="telephone" />
-    <result column="birthday" jdbcType="TIMESTAMP" property="birthday" />
-    <result column="id_number" jdbcType="VARCHAR" property="idNumber" />
-    <result column="status" jdbcType="INTEGER" property="status" />
-  </resultMap>
-  <sql id="Base_Column_List">
-    id, user_name, password, real_name, sex, email, telephone, birthday, id_number, status
-  </sql>
+
+
 </mapper>

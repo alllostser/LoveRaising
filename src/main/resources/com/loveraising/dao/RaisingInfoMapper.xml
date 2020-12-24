@@ -1,19 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.loveraising.dao.RaisingInfoMapper">
-  <resultMap id="BaseResultMap" type="com.loveraising.pojo.RaisingInfo">
-    <id column="id" jdbcType="INTEGER" property="id" />
-    <result column="raising_title" jdbcType="VARCHAR" property="raisingTitle" />
-    <result column="raising_name" jdbcType="VARCHAR" property="raisingName" />
-    <result column="target_amount" jdbcType="DOUBLE" property="targetAmount" />
-    <result column="creat_time" jdbcType="TIMESTAMP" property="creatTime" />
-    <result column="raising_description" jdbcType="VARCHAR" property="raisingDescription" />
-    <result column="image_url" jdbcType="VARCHAR" property="imageUrl" />
-    <result column="status" jdbcType="INTEGER" property="status" />
-  </resultMap>
-  <sql id="Base_Column_List">
-    id, raising_title, raising_name, target_amount, creat_time, raising_description, 
-    image_url, status
-  </sql>
 
 </mapper>
