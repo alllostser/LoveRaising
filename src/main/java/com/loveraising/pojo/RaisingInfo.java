@@ -12,13 +12,30 @@ public class RaisingInfo {
 
     private String raisingName;
 
-    private String targetAmount;
+    private double targetAmount;
+
+    private double currentAmount;
 
     private String creatTime;
 
     private String raisingDescription;
 
     private String imageUrl;
+
+    public RaisingInfo() {
+    }
+
+    public RaisingInfo(Integer id, Integer status, String raisingTitle, String raisingName, double targetAmount, double currentAmount, String creatTime, String raisingDescription, String imageUrl) {
+        this.id = id;
+        this.status = status;
+        this.raisingTitle = raisingTitle;
+        this.raisingName = raisingName;
+        this.targetAmount = targetAmount;
+        this.currentAmount = currentAmount;
+        this.creatTime = creatTime;
+        this.raisingDescription = raisingDescription;
+        this.imageUrl = imageUrl;
+    }
 
     public Integer getId() {
         return id;
@@ -52,13 +69,6 @@ public class RaisingInfo {
         this.raisingName = raisingName;
     }
 
-    public String getTargetAmount() {
-        return targetAmount;
-    }
-
-    public void setTargetAmount(String targetAmount) {
-        this.targetAmount = targetAmount;
-    }
 
     public String getCreatTime() {
         return creatTime;
@@ -84,6 +94,22 @@ public class RaisingInfo {
         this.imageUrl = imageUrl;
     }
 
+    public double getTargetAmount() {
+        return targetAmount;
+    }
+
+    public void setTargetAmount(double targetAmount) {
+        this.targetAmount = targetAmount;
+    }
+
+    public double getCurrentAmount() {
+        return currentAmount;
+    }
+
+    public void setCurrentAmount(double currentAmount) {
+        this.currentAmount = currentAmount;
+    }
+
     @Override
     public String toString() {
         return "RaisingInfo{" +
@@ -91,7 +117,8 @@ public class RaisingInfo {
                 ", status=" + status +
                 ", raisingTitle='" + raisingTitle + '\'' +
                 ", raisingName='" + raisingName + '\'' +
-                ", targetAmount='" + targetAmount + '\'' +
+                ", targetAmount=" + targetAmount +
+                ", currentAmount=" + currentAmount +
                 ", creatTime='" + creatTime + '\'' +
                 ", raisingDescription='" + raisingDescription + '\'' +
                 ", imageUrl='" + imageUrl + '\'' +

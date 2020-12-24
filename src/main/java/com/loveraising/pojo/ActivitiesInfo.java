@@ -34,6 +34,20 @@ public class ActivitiesInfo {
                 '}';
     }
 
+    public ActivitiesInfo() {
+    }
+
+    public ActivitiesInfo(Integer id, Integer status, String activityTitle, String activityLocation, String activityDescription, Integer activityNum, Integer currentNum, String imageUrl) {
+        this.id = id;
+        this.status = status;
+        this.activityTitle = activityTitle;
+        this.activityLocation = activityLocation;
+        this.activityDescription = activityDescription;
+        this.activityNum = activityNum;
+        this.currentNum = currentNum;
+        this.imageUrl = imageUrl;
+    }
+
     public Integer getId() {
         return id;
     }

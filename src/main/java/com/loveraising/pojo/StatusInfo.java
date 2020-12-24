@@ -8,6 +8,7 @@ public class StatusInfo {
 
     private String status;
 
+
     public Integer getId() {
         return id;
     }
