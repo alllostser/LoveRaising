@@ -10,17 +10,14 @@ import com.loveraising.pojo.UserInfo;
 import com.loveraising.service.UserInfoService;
 import com.loveraising.util.CommonResult;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @RestController
 @RequestMapping("/userinfo")
-public class UserInfoController {
+public class AdminController {
     @Autowired
     private UserInfoService userInfoService;
     /**
@@ -42,18 +39,42 @@ public class UserInfoController {
      */
     @GetMapping("/list")
     public R getUserList(Page<UserInfo> page, UserInfo userInfo){
-        IPage<UserInfo> infoIPage = userInfoService.page(page,new QueryWrapper<UserInfo>(userInfo));
-        List<UserInfo> list = infoIPage.getRecords();
-        List<UserInfo> userVOs = new ArrayList<>();
+        IPage<UserInfo> infoIpage = userInfoService.page(page,new QueryWrapper<UserInfo>(userInfo));
+        List<UserInfo> list = infoIpage.getRecords();
+        List<UserInfo> userVos = new ArrayList<>();
         list.forEach((user)->{
            UserInfo userVo = ObjectUtil.cloneByStream(user);
            userVo.setPassword("");
-           userVOs.add(userVo);
+           userVos.add(userVo);
         });
-        infoIPage.setRecords(userVOs);
-        return R.ok(infoIPage);
+        infoIpage.setRecords(userVos);
+        return R.ok(infoIpage);
     }
 
+    /**
+     * 查询一个用户byid
+     * @param id
+     * @return
+     */
+    @GetMapping("/getOneById")
+    public R getUserById(Integer id){
+        UserInfo userInfo = userInfoService.getById(id);
+       // boolean result = ObjectUtil.isNotNull(userInfo);
+        return R.ok(userInfo);
+    }
 
+    /**
+     * 根据id更新用户信息
+     * @param userInfo
+     * @return
+     */
+    @PutMapping("/update")
+    public R update(UserInfo userInfo){
+        boolean result = userInfoService.updateById(userInfo);
+        if (!result){
+            return R.failed("更新失败");
+        }
+        return R.ok("更新成功");
+    }
 
 }
