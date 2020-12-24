@@ -12,6 +12,16 @@ public class NewsInfo {
 
     private String imageUrl;
 
+    public NewsInfo() {
+    }
+
+    public NewsInfo(Integer id, String newsTitle, String newsDescription, String imageUrl) {
+        this.id = id;
+        this.newsTitle = newsTitle;
+        this.newsDescription = newsDescription;
+        this.imageUrl = imageUrl;
+    }
+
     public Integer getId() {
         return id;
     }
