@@ -18,7 +18,7 @@ public interface UserInfoMapper extends BaseMapper<UserInfo> {
     int updateStatus(UserInfo userInfo);
     @Select("select id,user_name,real_name,sex,email,telephone,birthday,id_number,status,creat_time,role_id " +
             "from userinfo where id = #{id}")
-    UserInfo selectOne(int id);
+    UserInfo selectUserInfo(int id);
     @Select(value = "select id,user_name,real_name,sex,email,telephone,birthday,id_number,status,creat_time,role_id " +
             "from userinfo where locate(#{keyword},user_name)>0 OR locate(#{keyword},real_name)>0 OR " +
             "locate(#{keyword},role_id)>0 OR locate(#{keyword},email)>0 OR locate(#{keyword},birthday)>0 " +

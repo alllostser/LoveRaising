@@ -72,7 +72,7 @@ public class UserInfoServiceImpl extends ServiceImpl<UserInfoMapper,UserInfo> im
     @Override
     public UserInfo selectOne(int id) {
         if(id>0){
-            return userInfoMapper.selectOne(id);
+            return userInfoMapper.selectUserInfo(id);
         }else {
             return null;
         }
