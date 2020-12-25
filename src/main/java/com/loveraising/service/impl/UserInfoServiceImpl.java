@@ -8,6 +8,7 @@ import com.loveraising.pojo.UserInfo;
 import com.loveraising.service.UserInfoService;
 import com.loveraising.util.PageBean;
 
+import com.loveraising.util.Utils;
 import org.springframework.stereotype.Service;
 import javax.annotation.Resource;
 import java.util.List;
@@ -48,6 +49,7 @@ public class UserInfoServiceImpl extends ServiceImpl<UserInfoMapper,UserInfo> im
 
     @Override
     public int insertUserInfo(UserInfo userInfo) {
+        userInfo.setCreatTime(Utils.getDateTime());
 
         if(userInfo != null) {
             if(userInfo.getRoleId() != 1){
