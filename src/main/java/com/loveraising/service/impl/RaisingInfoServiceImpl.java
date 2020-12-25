@@ -63,8 +63,8 @@ public class RaisingInfoServiceImpl extends ServiceImpl<RaisingInfoMapper, Raisi
     }
 
     @Override
-    public int updateStatus(int id, int statusId) {
-        return raisingInfoMapper.updateStatus(id,statusId);
+    public int updateStatus(int id) {
+        return raisingInfoMapper.updateStatus(id);
     }
 
     @Override

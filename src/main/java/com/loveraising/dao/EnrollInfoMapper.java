@@ -13,4 +13,6 @@ public interface EnrollInfoMapper extends BaseMapper<Enrollinfo> {
     int insertEnrollInfo(int userId,int activityId,String creatTime);
     @Delete("delete from enrollinfo where user_id=#{userId} and activity_id = #{activityId}")
     int deleteEnrollInfo(int userId,int activityId);
+    @Select("select * from enrollinfo where user_id=#{userId} and activity_id = #{activityId}")
+    Enrollinfo checkActivityByUserId(int userId,int activityId);
 }

@@ -62,18 +62,26 @@ public class ActivitiesInfoController {
         return new CommonResult(200,"操作成功",activitiesService.selectById(id));
     }
     /**
+     * 根据用户id查看该用户发起报名的活动列表
+     */
+    @PostMapping("selectCreateActivitiesByUserId")
+    public CommonResult selectCreateActivitiesByUserId(Integer id) {
+        return new CommonResult(200,"操作成功",activitiesService.selectCreateActivitiesByUserId(id));
+    }
+    /**
      * 根据用户id查看该用户报名的活动列表（对应enrollinfo表中的user_id）
      * */
-    @PostMapping("selectActivitiesByUserId")
-    public CommonResult selectActivitiesByUserId(Integer id){
+    @PostMapping("selectJoinActivitiesByUserId")
+    public CommonResult selectJoinActivitiesByUserId(Integer id){
         return new CommonResult(200,"操作成功",activitiesService.selectActivitiesByUserId(id));
     }
+
     /**
      * 禁用恢复当前活动信息
      */
     @PostMapping("updateActivityStatus")
-    public CommonResult updateActicityStatus(Integer statusId) {
-        return new CommonResult(200,"操作成功",activitiesService.updateStatus(statusId));
+    public CommonResult updateActicityStatus(Integer id,Integer statusId) {
+        return new CommonResult(200,"操作成功",activitiesService.updateStatus(id,statusId));
     }
     /**
      *分页关键字查询相关活动信息列表
@@ -97,6 +105,14 @@ public class ActivitiesInfoController {
     @PostMapping("unjoinActivity")
     public CommonResult unjoinActivity(Integer userId, Integer activityId) {
         int result = enrollInfoService.deleteEnrollInfo(userId,activityId);
+        return new CommonResult(200,"操作成功",result);
+    }
+    /**
+     * 根据用户id查看用户是否报名此活动
+     */
+    @PostMapping("checkActivityByUserId")
+    public CommonResult checkActivityByUserId(Integer userId,Integer activityId){
+        boolean result = enrollInfoService.checkActivityByUserId(userId,activityId);
         return new CommonResult(200,"操作成功",result);
     }
 }

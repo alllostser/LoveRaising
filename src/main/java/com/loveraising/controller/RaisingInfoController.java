@@ -45,7 +45,7 @@ public class RaisingInfoController {
     /**
      * 根据用户id查看该用户发起的筹款(对应数据库中user_id)
      * */
-    @PostMapping("selectRaisingByUserName")
+    @PostMapping("selectRaisingByUserId")
     public CommonResult selectRaisingByUserId(int id) {
         return new CommonResult(200,"操作成功",raisingInfoService.selectRaisingByUserId(id));
     }
@@ -91,8 +91,8 @@ public class RaisingInfoController {
      * 禁用当前筹款（已通过的筹款才会禁用）
      * */
     @PostMapping("updateRaisingStatus")
-    public CommonResult updateRaisingStatus(Integer id,Integer statusId) {
-        return new CommonResult(200,"操作成功",raisingInfoService.updateStatus(id,statusId));
+    public CommonResult updateRaisingStatus(Integer id) {
+        return new CommonResult(200,"操作成功",raisingInfoService.updateStatus(id));
     }
     /**
      *分页查看所有已通过筹款信息

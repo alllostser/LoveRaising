@@ -14,6 +14,7 @@ public interface ActivitiesService extends IService<ActivitiesInfo> {
     PageBean<ActivitiesInfo> selectDoingActivities(int currentPage,int pageSize);
     ActivitiesInfo selectById(int id);
     List<ActivitiesInfo> selectActivitiesByUserId(int id);
-    int updateStatus(int statusId);
+    List<ActivitiesInfo> selectCreateActivitiesByUserId(int id);
+    int updateStatus(int id,int statusId);
     PageBean<ActivitiesInfo> selectByKeyWordInPage(String keyword,int currentPage,int pageSize);
 }

@@ -87,7 +87,11 @@ public class UserInfoController {
         }
     }
 
-
+    @PostMapping("checkUserName")
+    public CommonResult checkUserName(String userName) {
+        boolean result = userInfoService.checkUserName(userName);
+        return new CommonResult(200,"操作成功",result);
+    }
 
 
 }

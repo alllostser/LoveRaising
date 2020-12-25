@@ -15,7 +15,7 @@ public interface RaisingInfoService extends IService<RaisingInfo> {
     PageBean<RaisingInfo> selectRaisingBefore(int currentPage,int pageSize);
     int passRaising(int id);
     int nopassRaising(int id);
-    int updateStatus(int id,int statusId);
+    int updateStatus(int id);
     PageBean<RaisingInfo> selectPassRaising(int currentPage,int pageSize);
     PageBean<RaisingInfo> selectByKeyWord(String keyword,int currentPage,int pageSize);
 }

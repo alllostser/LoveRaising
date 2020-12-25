@@ -28,4 +28,15 @@ public class EnrollInfoServiceImpl extends ServiceImpl<EnrollInfoMapper, Enrolli
         activitiesInfoMapper.lessCurrentAmount(activityId);
         return enrollInfoMapper.deleteEnrollInfo(userId,activityId);
     }
+
+    @Override
+    public boolean checkActivityByUserId(int userId, int activityId) {
+        Enrollinfo enrollinfo = enrollInfoMapper.checkActivityByUserId(userId,activityId);
+        if(enrollinfo == null){
+            return false;
+        }else {
+            return true;
+        }
+
+    }
 }

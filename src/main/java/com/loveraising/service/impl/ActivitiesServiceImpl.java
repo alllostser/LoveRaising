@@ -61,8 +61,13 @@ public class ActivitiesServiceImpl extends ServiceImpl<ActivitiesInfoMapper, Act
     }
 
     @Override
-    public int updateStatus(int statusId) {
-        return activitiesInfoMapper.updateStatus(statusId);
+    public List<ActivitiesInfo> selectCreateActivitiesByUserId(int id) {
+        return activitiesInfoMapper.selectCreateActivitiesByUserId(id);
+    }
+
+    @Override
+    public int updateStatus(int id,int statusId) {
+        return activitiesInfoMapper.updateStatus(id,statusId);
     }
 
     @Override

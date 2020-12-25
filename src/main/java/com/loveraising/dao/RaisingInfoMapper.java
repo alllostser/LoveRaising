@@ -16,7 +16,7 @@ public interface RaisingInfoMapper extends BaseMapper<RaisingInfo> {
             "values(#{raisingTitle},#{raisingName},#{targetAmount},#{currentAmount},#{creatTime},#{raisingDescription},#{bankNum},#{userName})")
     int insertRaising(RaisingInfo raisingInfo);
     @Update("update raisinginfo set raising_title=#{raisingTitle},raising_name=#{raisingName},target_amount=#{targetAmount}," +
-            "current_amount=#{currentAmount},raising_description=#{raisingDescription},bank_num=#{bankNum})")
+            "current_amount=#{currentAmount},raising_description=#{raisingDescription},bank_num=#{bankNum} where id=#{id})")
     int updateRaising(RaisingInfo raisingInfo);
     @Select("select * from raisinginfo where id=#{id}")
     RaisingInfo selectRaisingById(int id);
@@ -30,8 +30,8 @@ public interface RaisingInfoMapper extends BaseMapper<RaisingInfo> {
     int passRaising(int id);
     @Update("update raisinginfo set status_id=6 where id=#{id}")
     int nopassRaising(int id);
-    @Update("update raisinginfo set status_id=#{statusId} where id=#{id}")
-    int updateStatus(int id,int statusId);
+    @Update("update raisinginfo set status_id=2 where id=#{id}")
+    int updateStatus(int id);
     @Select("select * from raisinginfo where status_id=5 limit #{beginIndex},#{pageSize}")
     List<RaisingInfo> selectPassRaising(PageBean<RaisingInfo> pageBean);
     @Select("select count(id) from raisinginfo where status_id=5")

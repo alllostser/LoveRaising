@@ -35,8 +35,11 @@ public interface ActivitiesInfoMapper extends BaseMapper<ActivitiesInfo> {
     @Select("select a.id,a.activity_title,a.activity_location,a.activity_description,a.activity_num,a.current_num,a.creat_time,a.start_time,a.user_name,s.status " +
             "from activitiesinfo a,enrollinfo e,statusinfo s where a.id=e.activity_id and a.status_id=s.id and e.user_id=#{id}")
     List<ActivitiesInfo> selectActivitiesByUserId(int id);
-    @Update("update activitiesinfo set status_id=#{statusId}")
-    int updateStatus(int statusId);
+    @Select("select a.id,a.activity_title,a.activity_location,a.activity_description,a.activity_num,a.current_num,a.creat_time,a.start_time,a.user_name,s.status " +
+            "from activitiesinfo a,statusinfo s,userinfo u where a.status_id=s.id and a.user_name=u.user_name and u.id=#{id}")
+    List<ActivitiesInfo> selectCreateActivitiesByUserId(int id);
+    @Update("update activitiesinfo set status_id=#{statusId} where id=#{id}")
+    int updateStatus(int statusId,int id);
     @Select(value = "select a.* from activitiesinfo a,statusinfo s where a.status_id=s.id and(locate(#{keyword},a.activity_title)>0 OR " +
             "locate(#{keyword},a.activity_location)>0 OR locate(#{keyword},a.activity_description)>0 OR " +
             "locate(#{keyword},a.user_name)>0 OR locate(#{keyword},a.start_time)>0 OR locate(#{keyword},s.status)>0) " +
@@ -50,4 +53,5 @@ public interface ActivitiesInfoMapper extends BaseMapper<ActivitiesInfo> {
     int addCurrentAmount(int id);
     @Update("update activitiesinfo set current_num=current_num-1 where id=#{id}")
     int lessCurrentAmount(int id);
+
 }
