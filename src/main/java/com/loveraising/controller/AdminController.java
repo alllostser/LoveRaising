@@ -32,7 +32,7 @@ public class AdminController {
         if(userInfo != null){
             userInfo.setRoleId(1);
             if(userInfoService.checkUserName(userInfo.getUserName())){
-                if(userInfoService.insertUserInfo(userInfo)==1){
+                if(userInfoService.insertAdmin(userInfo) == 1){
                     return new CommonResult(200,"操作成功！",1);
                 }else {
                     return new CommonResult(500,"操作失败！",0);

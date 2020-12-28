@@ -49,18 +49,24 @@ public class UserInfoServiceImpl extends ServiceImpl<UserInfoMapper,UserInfo> im
 
     @Override
     public int insertUserInfo(UserInfo userInfo) {
-        userInfo.setCreatTime(Utils.getDateTime());
+
 
         if(userInfo != null) {
-            if(userInfo.getRoleId() != 1){
-                return userInfoMapper.insertUserInfo(userInfo);
-            }else {
-                return userInfoMapper.insertAdmin(userInfo);
-            }
+            String birthday = userInfo.getBirthday();
+            userInfo.setBirthday(birthday);
+            userInfo.setCreatTime(Utils.getDateTime());
 
+                return userInfoMapper.insertUserInfo(userInfo);
         }else {
             return 0;
         }
+
+    }
+
+    @Override
+    public int insertAdmin(UserInfo userInfo) {
+
+        return userInfoMapper.insertAdmin(userInfo);
 
     }
 
