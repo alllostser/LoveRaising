@@ -1,61 +1,99 @@
 package com.loveraising.controller;
 
-import com.baomidou.mybatisplus.extension.api.R;
-import org.springframework.util.StringUtils;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
-import java.io.File;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
+import javax.servlet.http.HttpServletResponse;
+import java.io.*;
+import java.net.URLEncoder;
 import java.util.UUID;
 
 /**
- * @ClassName UploadController
- * @Description //TODO
- * @Author GuXinYu
- * @Date 2020/12/27 0:20
- * @Version 1.0
- **/
-@RestController
+ * @program: LoveRaising
+ * @description: 文件上传
+ * @created: 2020/12/24 17:31
+ */
+@RequestMapping("/file")
+@Controller
 public class UploadController {
+
+    @GetMapping("/toupload.do")
+    public String toUpload(){
+        return "index";
+    }
+
+
+
     /**
-     * 文件上传
+     * 文件上传功能
      * @param file
-     * @param request
      * @return
+     * @throws IOException
      */
-    @RequestMapping(value = "/do_upload.do",method = RequestMethod.POST)
-    public R doUpload(@RequestParam("pic") MultipartFile[] file, HttpServletRequest request){
-        //生成图片上传路径
-        String servletContext = request.getSession().getServletContext().getRealPath("/image/");
-        List<String> fileNames = new ArrayList<>();
-        for (MultipartFile multipartFile : file) {
-            //step1:获取文件的名称
-            String filename = multipartFile.getOriginalFilename();
-            if (StringUtils.isEmpty(filename)){
-                return R.failed("上传文件名不能为空");
+    @RequestMapping(value="/upload.do",method= RequestMethod.POST)
+    @ResponseBody
+    public String upload(MultipartFile file, HttpServletRequest request)  {
+        String path = request.getSession().getServletContext().getRealPath("upload");
+        String fileName = file.getOriginalFilename();
+        String newFileName = UUID.randomUUID().toString()+fileName;
+        File dir = new File(path,newFileName);
+        if(!dir.exists()){
+            dir.mkdirs();
+        }
+        //MultipartFile自带的解析方法
+        try {
+            file.transferTo(dir);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return "ok!";
+    }
+
+    /**
+     * 文件下载功能
+     * @param request
+     * @param response
+     * @throws Exception
+     */
+    @RequestMapping("/down.do")
+    public void down(HttpServletRequest request, HttpServletResponse response){
+        //模拟文件，myfile.txt为需要下载的文件
+        String fileName = request.getSession().getServletContext().getRealPath("upload/")+request.getParameter("fileName");
+        String fileType = fileName.substring(fileName.lastIndexOf("."));
+        //获取输入流
+        InputStream bis = null;
+        BufferedOutputStream out =null;
+        try {
+            bis = new BufferedInputStream(new FileInputStream(new File(fileName)));
+            //假如以中文名下载的话
+            String filename = UUID.randomUUID().toString()+fileType;
+            //转码，免得文件名中文乱码
+            filename = URLEncoder.encode(filename,"UTF-8");
+            //设置文件下载头
+            response.addHeader("Content-Disposition", "attachment;filename=" + filename);
+            //1.设置文件ContentType类型，这样设置，会自动判断下载文件类型
+            response.setContentType("multipart/form-data");
+            out = new BufferedOutputStream(response.getOutputStream());
+            int len = 0;
+            while((len = bis.read()) != -1){
+                out.write(len);
+                out.flush();
             }
-            //step2:获取原文件的扩展名
-            String ext = filename.substring(filename.lastIndexOf("."));
-            //step3:定义新的文件名,为文件生产一个唯一名称
-            String newName = UUID.randomUUID().toString();
-            String newFilename = newName+ext;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }finally {
             try {
-                //step5:创建文件
-                File newFile = new File(servletContext+newFilename);
-                newFile.mkdirs();
-                multipartFile.transferTo(newFile);
+                out.close();
+                bis.close();
             } catch (IOException e) {
                 e.printStackTrace();
             }
-            fileNames.add(newFilename);
         }
-        return R.ok(fileNames);
+
     }
 }
