@@ -6,6 +6,7 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.api.R;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.loveraising.common.TableResult;
 import com.loveraising.pojo.UserInfo;
 import com.loveraising.service.UserInfoService;
 import com.loveraising.util.CommonResult;
@@ -69,7 +70,8 @@ public class AdminController {
      * @return
      */
     @GetMapping("/list")
-    public R getUserList(Page<UserInfo> page, UserInfo userInfo){
+    @CrossOrigin
+    public TableResult getUserList(Page<UserInfo> page, UserInfo userInfo){
         IPage<UserInfo> infoIpage = userInfoService.page(page,new QueryWrapper<UserInfo>(userInfo));
         List<UserInfo> list = infoIpage.getRecords();
         List<UserInfo> userVos = new ArrayList<>();
@@ -79,7 +81,7 @@ public class AdminController {
            userVos.add(userVo);
         });
         infoIpage.setRecords(userVos);
-        return R.ok(infoIpage);
+        return TableResult.ResponseBySucess("",infoIpage.getTotal(),userVos);
     }
 
     /**
