@@ -35,6 +35,6 @@ public interface UserInfoMapper extends BaseMapper<UserInfo> {
     List<UserInfo> checkUserName(String userName);
     @Select("select id,user_name,real_name,sex,email,telephone,birthday,id_number,status,creat_time,role_id " +
             "from userinfo where user_name=#{userName}")
-    List<UserInfo> selectUserInfo(String userName);
+    List<UserInfo> selectUserInfos(String userName);
 
 }
