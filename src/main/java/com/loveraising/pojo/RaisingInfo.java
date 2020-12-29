@@ -31,7 +31,7 @@ public class RaisingInfo {
 
     private String bankNum;
 
-    private Integer userName;
+    private String userName;
 
 
 }
