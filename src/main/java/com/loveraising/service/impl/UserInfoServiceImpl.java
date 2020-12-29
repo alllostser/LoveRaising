@@ -115,5 +115,15 @@ public class UserInfoServiceImpl extends ServiceImpl<UserInfoMapper,UserInfo> im
         return userInfoMapper.selectUserInfos(userName);
     }
 
+    @Override
+    public UserInfo selectUserWallet(int id) {
+        return userInfoMapper.selectUserWallet(id);
+    }
+
+    @Override
+    public int addRemainingSum(Integer id,Double add) {
+        return userInfoMapper.addRemainingSum(id,add);
+    }
+
 
 }

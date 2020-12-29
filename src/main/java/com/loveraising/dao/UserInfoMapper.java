@@ -36,5 +36,9 @@ public interface UserInfoMapper extends BaseMapper<UserInfo> {
     @Select("select id,user_name,real_name,sex,email,telephone,birthday,id_number,status,creat_time,role_id " +
             "from userinfo where user_name=#{userName}")
     List<UserInfo> selectUserInfos(String userName);
+    @Select("select id,user_name,real_name,remaining_sum from userinfo where id=#{id}")
+    UserInfo selectUserWallet(int id);
+    @Update("update userinfo set remaining_sum = remaining_sum+#{add} where id=#{id}")
+    int addRemainingSum(@Param("id")int id,@Param("add")double add);
 
 }

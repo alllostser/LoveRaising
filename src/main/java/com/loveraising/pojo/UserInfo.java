@@ -38,7 +38,7 @@ public class UserInfo implements Serializable {
 
     private String creatTime;
 
-
+    private double remainingSum;
 
 
 }
