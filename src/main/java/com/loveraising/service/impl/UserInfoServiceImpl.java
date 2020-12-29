@@ -112,7 +112,7 @@ public class UserInfoServiceImpl extends ServiceImpl<UserInfoMapper,UserInfo> im
     @Override
     public List<UserInfo> selectUserInfo(String keyword) {
         String userName = keyword;
-        return userInfoMapper.selectUserInfo(userName);
+        return userInfoMapper.selectUserInfos(userName);
     }
 
 

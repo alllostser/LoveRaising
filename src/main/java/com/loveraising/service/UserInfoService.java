@@ -17,7 +17,7 @@ public interface UserInfoService extends IService<UserInfo> {
     int insertUserInfo(UserInfo userInfo);
     int insertAdmin(UserInfo userInfo);
     int updateStatus(UserInfo userInfo);
-    UserInfo selectOne(@Param("id")int id);
+    UserInfo selectOne(int id);
     PageBean<UserInfo> findByKeyWordInPage(String keyword, int currentPage, int pageSize);
     boolean checkUserName(String userName);
     List<UserInfo> selectUserInfo(String keyword);
