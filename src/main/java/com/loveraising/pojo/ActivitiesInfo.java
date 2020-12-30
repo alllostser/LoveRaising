@@ -33,5 +33,5 @@ public class ActivitiesInfo {
 
     private String userName;
 
-
+    private String firstUrl;
 }

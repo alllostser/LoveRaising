@@ -29,7 +29,7 @@ public class RaisingInfoController {
      * */
     @PostMapping("updateRaising.do")
     public CommonResult updateRaising(RaisingInfo raisingInfo) {
-        if(raisingInfoService.updateRaising(raisingInfo)==1){
+        if(raisingInfo!=null && raisingInfoService.updateRaising(raisingInfo)==1){
             return new CommonResult(200,"操作成功",1);
         }else {
             return new CommonResult(500,"操作失败",0);
@@ -40,14 +40,24 @@ public class RaisingInfoController {
      * */
     @PostMapping("selectRaisingById.do")
     public CommonResult selectRaisingById(Integer id) {
-        return new CommonResult(200,"操作成功",raisingInfoService.selectRaisingById(id));
+        if(id > 0){
+            return new CommonResult(200,"操作成功",raisingInfoService.selectRaisingById(id));
+        }else {
+            return new CommonResult(500,"查询失败！参数大小错误","");
+        }
+
     }
     /**
      * 根据用户id查看该用户发起的筹款(对应数据库中user_id)
      * */
     @PostMapping("selectRaisingByUserId.do")
     public CommonResult selectRaisingByUserId(int id) {
-        return new CommonResult(200,"操作成功",raisingInfoService.selectRaisingByUserId(id));
+        if(id > 0) {
+            return new CommonResult(200,"操作成功",raisingInfoService.selectRaisingByUserId(id));
+        }else {
+            return new CommonResult(500,"查询失败","");
+        }
+
     }
 
     /**
@@ -56,7 +66,12 @@ public class RaisingInfoController {
      */
     @PostMapping("selectRaisingBefore.do")
     public CommonResult selectRaisingBefore(int currentPage,int pageSize) {
-        return new CommonResult(200,"操作成功",raisingInfoService.selectRaisingBefore(currentPage,pageSize));
+        if(currentPage>0 && pageSize>0) {
+            return new CommonResult(200,"操作成功",raisingInfoService.selectRaisingBefore(currentPage,pageSize));
+        }else {
+            return new CommonResult(500,"操作失败！","");
+        }
+
     }
 
     /**
@@ -92,20 +107,35 @@ public class RaisingInfoController {
      * */
     @PostMapping("updateRaisingStatus.do")
     public CommonResult updateRaisingStatus(Integer id) {
-        return new CommonResult(200,"操作成功",raisingInfoService.updateStatus(id));
+        if(id > 0){
+            return new CommonResult(200,"操作成功",raisingInfoService.updateStatus(id));
+        }else {
+            return new CommonResult(500,"操作失败",0);
+        }
+
     }
     /**
-     *分页查看所有已通过筹款信息
+     *分页查看所有已通过筹款信息（主页显示以及筹款页显示列表）
      * */
     @PostMapping("selectPassRaisingInPage.do")
     public CommonResult selectPassRaisingInPage(int currentPage,int pageSize) {
-        return new CommonResult(200,"操作成功",raisingInfoService.selectPassRaising(currentPage,pageSize));
+        if(currentPage > 0 && pageSize > 0) {
+            return new CommonResult(200,"操作成功",raisingInfoService.selectPassRaising(currentPage,pageSize));
+        }else {
+            return new CommonResult(500,"操作失败",0);
+        }
+
     }
     /**
      *关键词分页搜索筹款信息
      */
     @PostMapping("selectRaisingByKeyWordInPage.do")
     public CommonResult selectRaisingByKeyWordInPage(String keyword,int currentPage,int pageSize) {
-        return new CommonResult(200,"操作成功",raisingInfoService.selectByKeyWord(keyword,currentPage,pageSize));
+        if(!keyword.trim().equals("")) {
+            return new CommonResult(200,"搜索成功",raisingInfoService.selectByKeyWord(keyword,currentPage,pageSize));
+        }else {
+            return new CommonResult(200,"关键字为空！已搜索全部",raisingInfoService.selectAllInPage(currentPage,pageSize));
+        }
+
     }
 }

@@ -45,4 +45,8 @@ public interface RaisingInfoMapper extends BaseMapper<RaisingInfo> {
             "locate(#{keyword},raising_name)>0 OR locate(#{keyword},creat_time)>0 OR " +
             "locate(#{keyword},raising_description)>0 OR locate(#{keyword},user_name)>0 ")
     int countByKeyWord(String keyword);
+    @Select("select * from raisinginfo limit #{beginIndex},#{pageSize} orderby creat_time desc")
+    List<RaisingInfo> selectAllInPage(PageBean<RaisingInfo> pageBean);
+    @Select("select count(id) from raisinginfo")
+    int countAll();
 }

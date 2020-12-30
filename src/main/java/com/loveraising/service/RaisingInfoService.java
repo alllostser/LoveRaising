@@ -18,4 +18,5 @@ public interface RaisingInfoService extends IService<RaisingInfo> {
     int updateStatus(int id);
     PageBean<RaisingInfo> selectPassRaising(int currentPage,int pageSize);
     PageBean<RaisingInfo> selectByKeyWord(String keyword,int currentPage,int pageSize);
+    PageBean<RaisingInfo> selectAllInPage(int currentPage,int pageSize);
 }

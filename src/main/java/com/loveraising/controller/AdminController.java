@@ -89,9 +89,9 @@ public class AdminController {
         List<UserInfo> list = infoIpage.getRecords();
         List<UserInfo> userVos = new ArrayList<>();
         list.forEach((user)->{
-           UserInfo userVo = ObjectUtil.cloneByStream(user);
-           userVo.setPassword("");
-           userVos.add(userVo);
+            UserInfo userVo = ObjectUtil.cloneByStream(user);
+            userVo.setPassword("");
+            userVos.add(userVo);
         });
         infoIpage.setRecords(userVos);
         return TableResult.ResponseBySucess("",infoIpage.getTotal(),userVos);
@@ -105,7 +105,7 @@ public class AdminController {
     @GetMapping("/getOneById.do")
     public R getUserById(Integer id){
         UserInfo userInfo = userInfoService.getById(id);
-       // boolean result = ObjectUtil.isNotNull(userInfo);
+        // boolean result = ObjectUtil.isNotNull(userInfo);
         return R.ok(userInfo);
     }
 

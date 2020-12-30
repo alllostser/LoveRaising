@@ -33,5 +33,6 @@ public class RaisingInfo {
 
     private String userName;
 
+    private String firstUrl;
 
 }

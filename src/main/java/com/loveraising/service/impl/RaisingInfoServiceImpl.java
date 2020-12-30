@@ -92,4 +92,16 @@ public class RaisingInfoServiceImpl extends ServiceImpl<RaisingInfoMapper, Raisi
         pageBean.setPageData(list);
         return pageBean;
     }
+
+    @Override
+    public PageBean<RaisingInfo> selectAllInPage(int currentPage, int pageSize) {
+        PageBean<RaisingInfo> pageBean = new PageBean<RaisingInfo>();
+        pageBean.setCurrentPage(currentPage);
+        pageBean.setPageSize(pageSize);
+        List<RaisingInfo> list = raisingInfoMapper.selectAllInPage(pageBean);
+        int count = raisingInfoMapper.countAll();
+        pageBean.setTotalCount(count);
+        pageBean.setPageData(list);
+        return pageBean;
+    }
 }
