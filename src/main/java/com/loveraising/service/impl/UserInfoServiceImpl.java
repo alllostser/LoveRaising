@@ -55,7 +55,7 @@ public class UserInfoServiceImpl extends ServiceImpl<UserInfoMapper,UserInfo> im
         if(userInfo != null) {
             String birthday = userInfo.getBirthday();
             userInfo.setBirthday(birthday);
-            userInfo.setCreatTime(LocalDateTime.now());
+            userInfo.setCreatTime(Utils.getDateTime());
 
                 return userInfoMapper.insertUserInfo(userInfo);
         }else {

@@ -9,6 +9,7 @@ import com.loveraising.util.PageBean;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -81,5 +82,20 @@ public class ActivitiesServiceImpl extends ServiceImpl<ActivitiesInfoMapper, Act
         pageBean.setTotalCount(count);
         pageBean.setPageData(list);
         return pageBean;
+    }
+
+    @Override
+    public int updateFirstUrl(String firstUrl, String id) {
+        return activitiesInfoMapper.updateFirstUrl(firstUrl,id);
+    }
+
+    @Override
+    public int insretActivityImage(int activityId, String imageUrl) {
+        return activitiesInfoMapper.insretActivityImage(activityId,imageUrl);
+    }
+
+    @Override
+    public ArrayList selectImageInfo(int id) {
+        return activitiesInfoMapper.selectImageInfo(id);
     }
 }
