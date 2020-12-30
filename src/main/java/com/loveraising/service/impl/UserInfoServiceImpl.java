@@ -11,6 +11,7 @@ import com.loveraising.util.PageBean;
 import com.loveraising.util.Utils;
 import org.springframework.stereotype.Service;
 import javax.annotation.Resource;
+import java.time.LocalDateTime;
 import java.util.List;
 
 
@@ -54,7 +55,7 @@ public class UserInfoServiceImpl extends ServiceImpl<UserInfoMapper,UserInfo> im
         if(userInfo != null) {
             String birthday = userInfo.getBirthday();
             userInfo.setBirthday(birthday);
-            userInfo.setCreatTime(Utils.getDateTime());
+            userInfo.setCreatTime(LocalDateTime.now());
 
                 return userInfoMapper.insertUserInfo(userInfo);
         }else {

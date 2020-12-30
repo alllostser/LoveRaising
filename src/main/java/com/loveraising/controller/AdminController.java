@@ -11,9 +11,12 @@ import com.loveraising.pojo.UserInfo;
 import com.loveraising.service.UserInfoService;
 import com.loveraising.util.CommonResult;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -21,6 +24,7 @@ import java.util.List;
  */
 @RestController
 @RequestMapping("/admin")
+@CrossOrigin
 public class AdminController {
     @Autowired
     private UserInfoService userInfoService;
@@ -72,6 +76,15 @@ public class AdminController {
     @GetMapping("/list")
     @CrossOrigin
     public TableResult getUserList(Page<UserInfo> page, UserInfo userInfo){
+        if(StringUtils.isEmpty(userInfo.getUserName())){
+            userInfo.setUserName(null);
+        }
+        if(StringUtils.isEmpty(userInfo.getSex())){
+            userInfo.setSex(null);
+        }
+        if(StringUtils.isEmpty(userInfo.getEmail())){
+            userInfo.setEmail(null);
+        }
         IPage<UserInfo> infoIpage = userInfoService.page(page,new QueryWrapper<UserInfo>(userInfo));
         List<UserInfo> list = infoIpage.getRecords();
         List<UserInfo> userVos = new ArrayList<>();
@@ -111,10 +124,31 @@ public class AdminController {
     }
 
     /**
+     * 添加用户
+     * @param userInfo
+     * @return
+     */
+    @PostMapping("/insert")
+    public R insert(@RequestBody UserInfo userInfo){
+        userInfo.setCreatTime(LocalDateTime.now());
+        userInfo.setStatus(0);
+        if(StringUtils.isEmpty(userInfo.getPassword())){
+            userInfo.setPassword("123456");
+        }
+        boolean save = userInfoService.save(userInfo);
+        return R.ok(save);
+    }
+    /**
      * 禁用启用用户
      */
-    @PostMapping("/updateStatus")
-    public CommonResult updateStatus(UserInfo userInfo) {
+    @GetMapping("/updateStatus/{userId}")
+    public CommonResult updateStatus(@PathVariable Integer userId) {
+        UserInfo userInfo = userInfoService.selectOne(userId);
+        if (userInfo.getStatus()==0){
+            userInfo.setStatus(1);
+        }else {
+            userInfo.setStatus(0);
+        }
         int result = userInfoService.updateStatus(userInfo);
         if(result == 1){
             return new CommonResult(200,"修改成功！",1);
@@ -135,8 +169,5 @@ public class AdminController {
         }else {
             return new CommonResult(200,"操作成功",null);
         }
-
-
-
     }
 }

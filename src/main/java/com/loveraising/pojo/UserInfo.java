@@ -8,6 +8,9 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -36,7 +39,7 @@ public class UserInfo implements Serializable {
 
     private Integer status;
 
-    private String creatTime;
+    private LocalDateTime creatTime;
 
 
 

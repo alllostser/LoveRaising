@@ -31,7 +31,7 @@ public class ActivitiesInfo {
 
     private String creatTime;
 
-    private Integer userName;
+    private String userName;
 
 
 }

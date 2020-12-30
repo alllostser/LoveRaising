@@ -50,7 +50,7 @@
     <dependency>
       <groupId>com.alibaba</groupId>
       <artifactId>druid</artifactId>
-      <version>1.1.10</version>
+      <version>1.1.22</version>
     </dependency>
 
     <!-- mybatis-plus 依赖-->
