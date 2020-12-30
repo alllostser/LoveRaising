@@ -32,7 +32,7 @@ public class AdminController {
     /**
      * 添加管理员(在管理员界面添加，需要新的用户名和密码)
      * */
-    @PostMapping("/insertAdmin")
+    @PostMapping("/insertAdmin.do")
     public CommonResult insertUserInfo(UserInfo userInfo){
         if(userInfo != null){
             userInfo.setRoleId(1);
@@ -54,7 +54,7 @@ public class AdminController {
     /**
      * 管理员登录接口
      */
-    @PostMapping("/login")
+    @PostMapping("/login.do")
     public CommonResult login(UserInfo userInfo) {
         if(userInfo!=null){
             UserInfo result = userInfoService.login(userInfo);
@@ -73,7 +73,7 @@ public class AdminController {
      * 查看用户列表
      * @return
      */
-    @GetMapping("/list")
+    @GetMapping("/list.do")
     @CrossOrigin
     public TableResult getUserList(Page<UserInfo> page, UserInfo userInfo){
         if(StringUtils.isEmpty(userInfo.getUserName())){
@@ -102,7 +102,7 @@ public class AdminController {
      * @param id
      * @return
      */
-    @GetMapping("/getOneById")
+    @GetMapping("/getOneById.do")
     public R getUserById(Integer id){
         UserInfo userInfo = userInfoService.getById(id);
        // boolean result = ObjectUtil.isNotNull(userInfo);
@@ -114,7 +114,7 @@ public class AdminController {
      * @param userInfo
      * @return
      */
-    @PutMapping("/update")
+    @PutMapping("/update.do")
     public R update(UserInfo userInfo){
         boolean result = userInfoService.updateById(userInfo);
         if (!result){
@@ -128,7 +128,7 @@ public class AdminController {
      * @param userInfo
      * @return
      */
-    @PostMapping("/insert")
+    @PostMapping("/insert.do")
     public R insert(@RequestBody UserInfo userInfo){
         userInfo.setCreatTime(LocalDateTime.now());
         userInfo.setStatus(0);
@@ -141,7 +141,7 @@ public class AdminController {
     /**
      * 禁用启用用户
      */
-    @GetMapping("/updateStatus/{userId}")
+    @GetMapping("/updateStatus.do/{userId}")
     public CommonResult updateStatus(@PathVariable Integer userId) {
         UserInfo userInfo = userInfoService.selectOne(userId);
         if (userInfo.getStatus()==0){
@@ -161,7 +161,7 @@ public class AdminController {
     /**
      * 搜索用户接口
      */
-    @PostMapping("/selectUserInfo")
+    @PostMapping("/selectUserInfo.do")
     public CommonResult selectUserInfo(String keyword) {
         if(keyword!=null||!keyword.trim().equals("")){
             List<UserInfo> list = userInfoService.selectUserInfo(keyword);

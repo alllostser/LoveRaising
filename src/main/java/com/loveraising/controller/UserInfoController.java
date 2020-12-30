@@ -23,7 +23,7 @@ public class UserInfoController {
      * @param userInfo
      * @return
      */
-    @PostMapping("/insertUserInfo")
+    @PostMapping("/insertUserInfo.do")
     public CommonResult insertUserInfo(UserInfo userInfo){
         if(userInfoService.checkUserName(userInfo.getUserName())){
             if(userInfoService.insertUserInfo(userInfo)==1){
@@ -41,7 +41,7 @@ public class UserInfoController {
      * @param userInfo
      * @return
      */
-    @PostMapping("/login")
+    @PostMapping("/login.do")
     public CommonResult login(UserInfo userInfo) {
         if(userInfo != null){
             UserInfo result = userInfoService.login(userInfo);
@@ -60,7 +60,7 @@ public class UserInfoController {
      * @param id
      * @return
      */
-    @PostMapping("/selectOne")
+    @PostMapping("/selectOne.do")
     public CommonResult selectOne(Integer id) {
         UserInfo result = userInfoService.selectOne(id);
         if(result != null){
@@ -77,7 +77,7 @@ public class UserInfoController {
      * @param pageSize
      * @return
      */
-    @PostMapping("fineByKeyWordInPage")
+    @PostMapping("fineByKeyWordInPage.do")
     public CommonResult findByKeyWordInPage(String keyword, int currentPage, int pageSize) {
         if(keyword != null && currentPage>0 && pageSize>0){
             PageBean<UserInfo> result = userInfoService.findByKeyWordInPage(keyword,currentPage,pageSize);
@@ -87,13 +87,13 @@ public class UserInfoController {
         }
     }
 
-    @PostMapping("checkUserName")
+    @PostMapping("checkUserName.do")
     public CommonResult checkUserName(String userName) {
         boolean result = userInfoService.checkUserName(userName);
         return new CommonResult(200,"操作成功",result);
     }
 
-    @PostMapping("selectUserWallet")
+    @PostMapping("selectUserWallet.do")
     public CommonResult selectUserWallet(Integer id) {
         UserInfo userInfo = userInfoService.selectUserWallet(id);
         if(userInfo!=null){
@@ -102,7 +102,7 @@ public class UserInfoController {
             return new CommonResult(500,"查询失败！","");
         }
     }
-    @PostMapping("addRemainingSum")
+    @PostMapping("addRemainingSum.do")
     public CommonResult addRemainingSum(Integer id,Double add) {
         int result = userInfoService.addRemainingSum(id,add);
         if(result==1){

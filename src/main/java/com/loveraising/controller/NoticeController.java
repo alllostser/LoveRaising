@@ -29,7 +29,7 @@ public class NoticeController {
      * @param newsInfo
      * @return
      */
-    @GetMapping("/list")
+    @GetMapping("/list.do")
     public R list(Page<NewsInfo> page, NewsInfo newsInfo){
         IPage<NewsInfo> pageList = newsInfoService.page(page, new QueryWrapper<>(newsInfo));
         List<NewsInfo> records = pageList.getRecords();
@@ -41,7 +41,7 @@ public class NoticeController {
      * @param newsInfo
      * @return
      */
-    @PostMapping("/save")
+    @PostMapping("/save.do")
     public R save(NewsInfo newsInfo){
         boolean result = newsInfoService.save(newsInfo);
         if (!result){
@@ -55,7 +55,7 @@ public class NoticeController {
      * @param newsInfo
      * @return
      */
-    @PostMapping("/update")
+    @PostMapping("/update.do")
     public R update(NewsInfo newsInfo){
         if (ObjectUtil.isNotNull(newsInfo.getId())){
             boolean result = newsInfoService.updateById(newsInfo);

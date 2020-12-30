@@ -15,7 +15,7 @@ public class RaisingInfoController {
     /**
      * 添加筹款信息
      * */
-    @PostMapping("insertRaising")
+    @PostMapping("insertRaising.do")
     public CommonResult insertRaising(RaisingInfo raisingInfo) {
          if(raisingInfoService.insertRaising(raisingInfo)==1){
              return new CommonResult(200,"操作成功",1);
@@ -27,7 +27,7 @@ public class RaisingInfoController {
     /**
      * 编辑筹款信息
      * */
-    @PostMapping("updateRaising")
+    @PostMapping("updateRaising.do")
     public CommonResult updateRaising(RaisingInfo raisingInfo) {
         if(raisingInfoService.updateRaising(raisingInfo)==1){
             return new CommonResult(200,"操作成功",1);
@@ -38,14 +38,14 @@ public class RaisingInfoController {
     /**
      * 根据id查看筹款信息详情
      * */
-    @PostMapping("selectRaisingById")
+    @PostMapping("selectRaisingById.do")
     public CommonResult selectRaisingById(Integer id) {
         return new CommonResult(200,"操作成功",raisingInfoService.selectRaisingById(id));
     }
     /**
      * 根据用户id查看该用户发起的筹款(对应数据库中user_id)
      * */
-    @PostMapping("selectRaisingByUserId")
+    @PostMapping("selectRaisingByUserId.do")
     public CommonResult selectRaisingByUserId(int id) {
         return new CommonResult(200,"操作成功",raisingInfoService.selectRaisingByUserId(id));
     }
@@ -54,7 +54,7 @@ public class RaisingInfoController {
      * 分页查看所有待审核筹款信息
      * @return
      */
-    @PostMapping("selectRaisingBefore")
+    @PostMapping("selectRaisingBefore.do")
     public CommonResult selectRaisingBefore(int currentPage,int pageSize) {
         return new CommonResult(200,"操作成功",raisingInfoService.selectRaisingBefore(currentPage,pageSize));
     }
@@ -64,7 +64,7 @@ public class RaisingInfoController {
      * @param id
      * @return
      */
-    @PostMapping("pass")
+    @PostMapping("pass.do")
     public CommonResult passRaising(Integer id) {
         if(raisingInfoService.passRaising(id)==1){
             return new CommonResult(200,"操作成功",1);
@@ -78,7 +78,7 @@ public class RaisingInfoController {
      * @param id
      * @return
      */
-    @PostMapping("nopass")
+    @PostMapping("nopass.do")
     public CommonResult noPass(Integer id) {
         if(raisingInfoService.nopassRaising(id)==1){
             return new CommonResult(200,"操作成功",1);
@@ -90,21 +90,21 @@ public class RaisingInfoController {
     /**
      * 禁用当前筹款（已通过的筹款才会禁用）
      * */
-    @PostMapping("updateRaisingStatus")
+    @PostMapping("updateRaisingStatus.do")
     public CommonResult updateRaisingStatus(Integer id) {
         return new CommonResult(200,"操作成功",raisingInfoService.updateStatus(id));
     }
     /**
      *分页查看所有已通过筹款信息
      * */
-    @PostMapping("selectPassRaisingInPage")
+    @PostMapping("selectPassRaisingInPage.do")
     public CommonResult selectPassRaisingInPage(int currentPage,int pageSize) {
         return new CommonResult(200,"操作成功",raisingInfoService.selectPassRaising(currentPage,pageSize));
     }
     /**
      *关键词分页搜索筹款信息
      */
-    @PostMapping("selectRaisingByKeyWordInPage")
+    @PostMapping("selectRaisingByKeyWordInPage.do")
     public CommonResult selectRaisingByKeyWordInPage(String keyword,int currentPage,int pageSize) {
         return new CommonResult(200,"操作成功",raisingInfoService.selectByKeyWord(keyword,currentPage,pageSize));
     }

@@ -25,8 +25,7 @@ public class UploadController {
      * @return
      * @throws IOException
      */
-    @RequestMapping(value="/upload",method= RequestMethod.POST)
-    @ResponseBody
+    @RequestMapping(value="/upload.do",method= RequestMethod.POST)
     public R upload(MultipartFile file, HttpServletRequest request)  {
         String path = request.getSession().getServletContext().getRealPath("upload");
         String fileName = file.getOriginalFilename();
@@ -41,7 +40,7 @@ public class UploadController {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return R.ok("upload/newFileName");
+        return R.ok("upload/"+newFileName);
     }
 
     /**
