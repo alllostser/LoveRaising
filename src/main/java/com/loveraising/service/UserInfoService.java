@@ -7,6 +7,7 @@ import com.loveraising.util.PageBean;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 
 import java.util.List;
 
@@ -21,4 +22,6 @@ public interface UserInfoService extends IService<UserInfo> {
     PageBean<UserInfo> findByKeyWordInPage(String keyword, int currentPage, int pageSize);
     boolean checkUserName(String userName);
     List<UserInfo> selectUserInfo(String keyword);
+    UserInfo selectUserWallet(int id);
+    int addRemainingSum(Integer id,Double add);
 }

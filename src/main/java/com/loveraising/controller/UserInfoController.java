@@ -93,5 +93,25 @@ public class UserInfoController {
         return new CommonResult(200,"操作成功",result);
     }
 
+    @PostMapping("selectUserWallet")
+    public CommonResult selectUserWallet(Integer id) {
+        UserInfo userInfo = userInfoService.selectUserWallet(id);
+        if(userInfo!=null){
+            return new CommonResult(200,"查询成功",userInfo);
+        }else {
+            return new CommonResult(500,"查询失败！","");
+        }
+    }
+    @PostMapping("addRemainingSum")
+    public CommonResult addRemainingSum(Integer id,Double add) {
+        int result = userInfoService.addRemainingSum(id,add);
+        if(result==1){
+            return new CommonResult(200,"添加"+add+"元成功！",1);
+        }else{
+            return new CommonResult(500,"添加失败",0);
+        }
+
+    }
+
 
 }

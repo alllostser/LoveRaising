@@ -41,7 +41,7 @@ public class UserInfo implements Serializable {
 
     private LocalDateTime creatTime;
 
-
+    private double remainingSum;
 
 
 }
