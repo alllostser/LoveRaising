@@ -115,7 +115,7 @@ public class AdminController {
      * @param userInfo
      * @return
      */
-    @PutMapping("/update.do")
+    @PostMapping("/update.do")
     public R update(UserInfo userInfo){
         boolean result = userInfoService.updateById(userInfo);
         if (!result){
@@ -142,7 +142,7 @@ public class AdminController {
     /**
      * 禁用启用用户
      */
-    @GetMapping("/updateStatus.do/{userId}")
+    @GetMapping("/updateStatus/{userId}.do")
     public CommonResult updateStatus(@PathVariable Integer userId) {
         UserInfo userInfo = userInfoService.selectOne(userId);
         if (userInfo.getStatus()==0){

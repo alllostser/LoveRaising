@@ -12,7 +12,7 @@
     <input type="submit" value="上传">
 </form>
 <hr>
-<form action="http://localhost:8080/file/down.do" method="get">
+<form action="http://localhost:8080/file/download.do" method="get">
     <input name="fileName" type="text">
     <input type="submit" value="下载">
 </form>

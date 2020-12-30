@@ -49,7 +49,7 @@ public class UploadController {
      * @param response
      * @throws Exception
      */
-    @RequestMapping("/down.do")
+    @RequestMapping("/download.do")
     public void down(HttpServletRequest request, HttpServletResponse response){
         //模拟文件，myfile.txt为需要下载的文件
         String fileName = request.getSession().getServletContext().getRealPath("upload/")+request.getParameter("fileName");
