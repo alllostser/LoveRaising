@@ -1,10 +1,8 @@
 package com.loveraising.controller;
 
+import com.baomidou.mybatisplus.extension.api.R;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
@@ -19,25 +17,17 @@ import java.util.UUID;
  * @created: 2020/12/24 17:31
  */
 @RequestMapping("/file")
-@Controller
+@RestController
 public class UploadController {
-
-    @GetMapping("/toupload.do")
-    public String toUpload(){
-        return "index";
-    }
-
-
-
     /**
      * 文件上传功能
      * @param file
      * @return
      * @throws IOException
      */
-    @RequestMapping(value="/upload.do",method= RequestMethod.POST)
+    @RequestMapping(value="/upload",method= RequestMethod.POST)
     @ResponseBody
-    public String upload(MultipartFile file, HttpServletRequest request)  {
+    public R upload(MultipartFile file, HttpServletRequest request)  {
         String path = request.getSession().getServletContext().getRealPath("upload");
         String fileName = file.getOriginalFilename();
         String newFileName = UUID.randomUUID().toString()+fileName;
@@ -51,7 +41,7 @@ public class UploadController {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return "ok!";
+        return R.ok("upload/newFileName");
     }
 
     /**
