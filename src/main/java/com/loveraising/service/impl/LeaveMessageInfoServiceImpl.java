@@ -6,10 +6,11 @@ import com.loveraising.pojo.LeaveMessageInfo;
 import com.loveraising.service.LeaveMessageInfoService;
 import com.loveraising.util.PageBean;
 import com.loveraising.util.Utils;
+import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.util.List;
-
+@Service
 public class LeaveMessageInfoServiceImpl extends ServiceImpl<LeaveMessageInfoMapper, LeaveMessageInfo> implements LeaveMessageInfoService {
     @Resource
     LeaveMessageInfoMapper leaveMessageInfoMapper;

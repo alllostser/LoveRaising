@@ -9,6 +9,7 @@ import org.apache.ibatis.annotations.Select;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 
 public interface ActivitiesService extends IService<ActivitiesInfo> {
@@ -21,7 +22,7 @@ public interface ActivitiesService extends IService<ActivitiesInfo> {
     List<ActivitiesInfo> selectCreateActivitiesByUserId(int id);
     int updateStatus(int id,int statusId);
     PageBean<ActivitiesInfo> selectByKeyWordInPage(String keyword,int currentPage,int pageSize);
-    int updateFirstUrl(@Param("first_url")String firstUrl, @Param("id")String id);
-    int insretActivityImage(@Param("activity_id")int activityId,@Param("image_url")String imageUrl);
-    ArrayList selectImageInfo(int id);
+    int updateFirstUrl(String firstUrl,String activityId);
+    int insertActivityImage(String activityId,String imageUrl);
+    List<Map> selectImageInfo(String activityId);
 }

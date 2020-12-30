@@ -12,7 +12,9 @@ import com.loveraising.util.Utils;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class RaisingInfoServiceImpl extends ServiceImpl<RaisingInfoMapper, RaisingInfo> implements RaisingInfoService {
@@ -103,5 +105,21 @@ public class RaisingInfoServiceImpl extends ServiceImpl<RaisingInfoMapper, Raisi
         pageBean.setTotalCount(count);
         pageBean.setPageData(list);
         return pageBean;
+    }
+
+    @Override
+    public int updateFirstUrl(String firstUrl, String raisingId) {
+        return raisingInfoMapper.updateFirstUrl(firstUrl,raisingId);
+    }
+
+    @Override
+    public int insertRaisingImage(String raisingId, String imageUrl) {
+        return raisingInfoMapper.insretRaisingImage(raisingId,imageUrl);
+    }
+
+    @Override
+    public List<Map> selectImageInfo(String raisingId) {
+        List<Map> imageUrls = raisingInfoMapper.selectImageInfo(raisingId);
+        return imageUrls;
     }
 }

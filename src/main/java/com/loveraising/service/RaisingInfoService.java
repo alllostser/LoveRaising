@@ -4,7 +4,9 @@ import com.baomidou.mybatisplus.extension.service.IService;
 import com.loveraising.pojo.RaisingInfo;
 import com.loveraising.util.PageBean;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 
 public interface RaisingInfoService extends IService<RaisingInfo> {
@@ -19,4 +21,7 @@ public interface RaisingInfoService extends IService<RaisingInfo> {
     PageBean<RaisingInfo> selectPassRaising(int currentPage,int pageSize);
     PageBean<RaisingInfo> selectByKeyWord(String keyword,int currentPage,int pageSize);
     PageBean<RaisingInfo> selectAllInPage(int currentPage,int pageSize);
+    int updateFirstUrl(String firstUrl,String raisingId);
+    int insertRaisingImage(String raisingId,String imageUrl);
+    List<Map> selectImageInfo(String raisingId);
 }

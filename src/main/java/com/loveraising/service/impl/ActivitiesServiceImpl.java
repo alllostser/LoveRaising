@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import javax.annotation.Resource;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class ActivitiesServiceImpl extends ServiceImpl<ActivitiesInfoMapper, ActivitiesInfo> implements ActivitiesService {
@@ -85,17 +86,20 @@ public class ActivitiesServiceImpl extends ServiceImpl<ActivitiesInfoMapper, Act
     }
 
     @Override
-    public int updateFirstUrl(String firstUrl, String id) {
-        return activitiesInfoMapper.updateFirstUrl(firstUrl,id);
+    public int updateFirstUrl(String firstUrl, String activityId) {
+        return activitiesInfoMapper.updateFirstUrl(firstUrl,activityId);
     }
 
     @Override
-    public int insretActivityImage(int activityId, String imageUrl) {
+    public int insertActivityImage(String activityId, String imageUrl) {
         return activitiesInfoMapper.insretActivityImage(activityId,imageUrl);
     }
 
     @Override
-    public ArrayList selectImageInfo(int id) {
-        return activitiesInfoMapper.selectImageInfo(id);
+    public List<Map> selectImageInfo(String activityId) {
+        List<Map> imageUrls = activitiesInfoMapper.selectImageInfo(activityId);
+        return imageUrls;
     }
+
+
 }

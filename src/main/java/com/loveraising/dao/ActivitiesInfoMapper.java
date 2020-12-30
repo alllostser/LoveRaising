@@ -7,33 +7,34 @@ import org.apache.ibatis.annotations.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 @Mapper
 public interface ActivitiesInfoMapper extends BaseMapper<ActivitiesInfo> {
 
-    @Insert("insert into activitiesinfo(activity_title,activity_location,activity_description,activity_num,creat_time,user_id) " +
+    @Insert("insert into activitiesinfo(activity_id,activity_title,activity_location,activity_description,activity_num,creat_time,user_id) " +
             "values(#{activityTitile},#{activityLocation},#{activityDescription},#{activityNum},#{creatTime},#{userId})")
     int insertActivities(ActivitiesInfo activitiesInfo);
     @Update("update activitiesinfo set activity_title=#{activityTitle},activity_location=#{activityLocation}," +
             "activity_description=#{activityDescription},activity_num=#{activityNum} " +
             "where id=#{id}")
     int updateActivity(ActivitiesInfo activitiesInfo);
-    @Select("select a.id,a.activity_title,a.activity_location,a.activity_description,a.activity_num,a.current_num,a.creat_time,a.start_time,a.user_name,a.first_url,s.status " +
+    @Select("select a.id,a.activity_id,a.activity_title,a.activity_location,a.activity_description,a.activity_num,a.current_num,a.creat_time,a.start_time,a.user_name,a.first_url,s.status " +
             "from activitiesinfo a,statusinfo s where a.status_id=s.id limit #{beginIndex},#{pageSize}")
     List<ActivitiesInfo> selectAllActivities(PageBean<ActivitiesInfo> pageBean);
     @Select("select count(id) from activitiesinfo")
     int countAllActivities();
-    @Select("select a.id,a.activity_title,a.activity_location,a.activity_description,a.activity_num,a.current_num,a.creat_time,a.start_time,a.user_name,a.first_url,s.status " +
+    @Select("select a.id,a.activity_id,a.activity_title,a.activity_location,a.activity_description,a.activity_num,a.current_num,a.creat_time,a.start_time,a.user_name,a.first_url,s.status " +
             "from activitiesinfo a,statusinfo s where a.status_id=s.id and a.status_id=1 limit #{beginIndex},#{pageSize}")
     List<ActivitiesInfo> selectDoingActivities(PageBean<ActivitiesInfo> pageBean);
     @Select("select count(id) from activitiesinfo where status_id=1")
     int countDoingActivities();
     @Select("select * from activitiesinfo where id=#{id}")
     ActivitiesInfo selectById(int id);
-    @Select("select a.id,a.activity_title,a.activity_location,a.activity_description,a.activity_num,a.current_num,a.creat_time,a.start_time,a.user_name,a.first_url,s.status " +
+    @Select("select a.id,a.activity_id,a.activity_title,a.activity_location,a.activity_description,a.activity_num,a.current_num,a.creat_time,a.start_time,a.user_name,a.first_url,s.status " +
             "from activitiesinfo a,enrollinfo e,statusinfo s where a.id=e.activity_id and a.status_id=s.id and e.user_id=#{id}")
     List<ActivitiesInfo> selectActivitiesByUserId(int id);
-    @Select("select a.id,a.activity_title,a.activity_location,a.activity_description,a.activity_num,a.current_num,a.creat_time,a.start_time,a.user_name,a.first_url,s.status " +
+    @Select("select a.id,a.activity_id,a.activity_title,a.activity_location,a.activity_description,a.activity_num,a.current_num,a.creat_time,a.start_time,a.user_name,a.first_url,s.status " +
             "from activitiesinfo a,statusinfo s,userinfo u where a.status_id=s.id and a.user_name=u.user_name and u.id=#{id}")
     List<ActivitiesInfo> selectCreateActivitiesByUserId(int id);
     @Update("update activitiesinfo set status_id=#{statusId} where id=#{id}")
@@ -55,20 +56,20 @@ public interface ActivitiesInfoMapper extends BaseMapper<ActivitiesInfo> {
     /**
      * 更新活动的第一个图片
      * @param firstUrl
-     * @param id
+     * @param activityId
      * @return
      */
-    @Update("update activitiesinfo set first_url = #{firstUrl} where id=#{id}")
-    int updateFirstUrl(@Param("first_url")String firstUrl, @Param("id")String id);
+    @Update("update activitiesinfo set first_url = #{firstUrl} where activity_id=#{activityId}")
+    int updateFirstUrl(@Param("first_url")String firstUrl, @Param("id")String activityId);
     /**
      * 添加活动图片地址到活动图片表
      */
     @Insert("insert into activitiesimageinfo(activity_id,image_url) values(#{activityId},#{imageUrl})")
-    int insretActivityImage(@Param("activity_id")int activityId,@Param("image_url")String imageUrl);
+    int insretActivityImage(@Param("activity_id")String activityId,@Param("image_url")String imageUrl);
     /**
      * 获取图片地址信息
      */
-    @Select("select i.image_url from activitiesimageinfo i,activitiesinfo a where i.activity_id=a.id and a.id=#{id}")
-    ArrayList selectImageInfo(int id);
+    @Select("select image_url from activitiesimageinfo where activity_id=#{activityId}")
+    List<Map> selectImageInfo(String activityId);
 
 }

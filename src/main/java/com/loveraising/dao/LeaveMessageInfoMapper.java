@@ -4,10 +4,11 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.loveraising.pojo.LeaveMessageInfo;
 import com.loveraising.util.PageBean;
 import org.apache.ibatis.annotations.Insert;
+import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
 
 import java.util.List;
-
+@Mapper
 public interface LeaveMessageInfoMapper extends BaseMapper<LeaveMessageInfo> {
     @Insert("insert into leavemessageinfo(name,telephone,message,creat_time) values(#{name},#{telephone},#{message},#{creat_time})")
     int insertLeaveMessage(LeaveMessageInfo leaveMessageInfo);

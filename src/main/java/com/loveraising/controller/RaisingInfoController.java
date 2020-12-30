@@ -6,6 +6,8 @@ import com.loveraising.util.CommonResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.UUID;
+@CrossOrigin
 @RestController
 @RequestMapping("/raisinginfo")
 public class RaisingInfoController {
@@ -137,5 +139,20 @@ public class RaisingInfoController {
             return new CommonResult(200,"关键字为空！已搜索全部",raisingInfoService.selectAllInPage(currentPage,pageSize));
         }
 
+    }
+    @GetMapping("getRaisingId.do")
+    public CommonResult getRaisingId() {
+
+        return new CommonResult(200,"操作成功", UUID.randomUUID().toString());
+    }
+
+    /**
+     * 查询筹款照片地址列表
+     * @param raisingId
+     * @return
+     */
+    @PostMapping("selectImageInfos.do")
+    public CommonResult selectImageInfos(String raisingId) {
+        return new CommonResult(200,"操作成功",raisingInfoService.selectImageInfo(raisingId));
     }
 }

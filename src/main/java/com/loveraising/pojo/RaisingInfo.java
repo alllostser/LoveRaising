@@ -15,6 +15,8 @@ public class RaisingInfo {
     @TableId(type= IdType.AUTO)
     private Integer id;
 
+    private String raisingId;
+
     private Integer statusId;
 
     private String raisingTitle;

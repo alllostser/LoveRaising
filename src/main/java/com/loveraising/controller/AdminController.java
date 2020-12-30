@@ -10,13 +10,14 @@ import com.loveraising.common.TableResult;
 import com.loveraising.pojo.UserInfo;
 import com.loveraising.service.UserInfoService;
 import com.loveraising.util.CommonResult;
+import com.loveraising.util.Utils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
-import java.time.LocalDateTime;
+
 import java.util.ArrayList;
-import java.util.Date;
+
 import java.util.List;
 
 /**
@@ -130,7 +131,7 @@ public class AdminController {
      */
     @PostMapping("/insert.do")
     public R insert(@RequestBody UserInfo userInfo){
-        userInfo.setCreatTime(LocalDateTime.now());
+        userInfo.setCreatTime(Utils.getDateTime());
         userInfo.setStatus(0);
         if(StringUtils.isEmpty(userInfo.getPassword())){
             userInfo.setPassword("123456");

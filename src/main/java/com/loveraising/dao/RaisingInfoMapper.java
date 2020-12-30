@@ -3,16 +3,15 @@ package com.loveraising.dao;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.loveraising.pojo.RaisingInfo;
 import com.loveraising.util.PageBean;
-import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Select;
-import org.apache.ibatis.annotations.Update;
+import org.apache.ibatis.annotations.*;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 @Mapper
 public interface RaisingInfoMapper extends BaseMapper<RaisingInfo> {
-    @Insert("insert into raisinginfo(raising_title,raising_name,target_amount,current_amount,creat_time,raising_description,bank_num,user_name) " +
+    @Insert("insert into raisinginfo(raising_id,raising_title,raising_name,target_amount,current_amount,creat_time,raising_description,bank_num,user_name) " +
             "values(#{raisingTitle},#{raisingName},#{targetAmount},#{currentAmount},#{creatTime},#{raisingDescription},#{bankNum},#{userName})")
     int insertRaising(RaisingInfo raisingInfo);
     @Update("update raisinginfo set raising_title=#{raisingTitle},raising_name=#{raisingName},target_amount=#{targetAmount}," +
@@ -49,4 +48,22 @@ public interface RaisingInfoMapper extends BaseMapper<RaisingInfo> {
     List<RaisingInfo> selectAllInPage(PageBean<RaisingInfo> pageBean);
     @Select("select count(id) from raisinginfo")
     int countAll();
+    /**
+     * 更新筹款的第一个图片
+     * @param firstUrl
+     * @param
+     * @return
+     */
+    @Update("update raisinginfo set first_url = #{firstUrl} where raising_id=#{raisingId}")
+    int updateFirstUrl(@Param("first_url")String firstUrl, @Param("id")String raisingId);
+    /**
+     * 添加活动图片地址到活动图片表
+     */
+    @Insert("insert into raisingimageinfo(raising_id,image_url) values(#{raisingId},#{imageUrl})")
+    int insretRaisingImage(@Param("raising_id")String raisingId,@Param("image_url")String imageUrl);
+    /**
+     * 获取图片地址信息
+     */
+    @Select("select image_url from raisingimageinfo where raising_id=#{raisingId}")
+    List<Map> selectImageInfo(String raisingId);
 }

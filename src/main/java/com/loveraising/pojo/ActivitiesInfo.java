@@ -15,6 +15,8 @@ public class ActivitiesInfo {
     @TableId(type= IdType.AUTO)
     private Integer id;
 
+    private String activityId;
+
     private Integer statusId;
 
     private String activityTitle;

@@ -8,8 +8,9 @@ import com.loveraising.util.CommonResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.UUID;
 
-
+@CrossOrigin
 @RestController
 @RequestMapping("/activitiesinfo")
 public class ActivitiesInfoController {
@@ -114,5 +115,14 @@ public class ActivitiesInfoController {
     public CommonResult checkActivityByUserId(Integer userId,Integer activityId){
         boolean result = enrollInfoService.checkActivityByUserId(userId,activityId);
         return new CommonResult(200,"操作成功",result);
+    }
+    @GetMapping("getActivityId.do")
+    public CommonResult getActivityId() {
+
+        return new CommonResult(200,"操作成功",UUID.randomUUID().toString());
+    }
+    @PostMapping("selectImageInfos.do")
+    public CommonResult selectImageInfos(String activityId) {
+        return new CommonResult(200,"操作成功",activitiesService.selectImageInfo(activityId));
     }
 }
