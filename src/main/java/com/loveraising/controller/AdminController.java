@@ -116,7 +116,7 @@ public class AdminController {
      * @return
      */
     @PostMapping("/update.do")
-    public R update(UserInfo userInfo){
+    public R update(@RequestBody UserInfo userInfo){
         boolean result = userInfoService.updateById(userInfo);
         if (!result){
             return R.failed("更新失败");
