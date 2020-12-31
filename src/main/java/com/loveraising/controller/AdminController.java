@@ -21,7 +21,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * 管理员操作接口
+ *
  */
 @RestController
 @RequestMapping("/admin")

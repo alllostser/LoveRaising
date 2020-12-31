@@ -125,4 +125,8 @@ public class ActivitiesInfoController {
     public CommonResult selectImageInfos(String activityId) {
         return new CommonResult(200,"操作成功",activitiesService.selectImageInfo(activityId));
     }
+
+    public static void main(String[] args) {
+        System.out.println(UUID.randomUUID().toString());
+    }
 }

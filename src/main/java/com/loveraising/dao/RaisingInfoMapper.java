@@ -11,8 +11,8 @@ import java.util.Map;
 
 @Mapper
 public interface RaisingInfoMapper extends BaseMapper<RaisingInfo> {
-    @Insert("insert into raisinginfo(raising_id,raising_title,raising_name,target_amount,current_amount,creat_time,raising_description,bank_num,user_name) " +
-            "values(#{raisingTitle},#{raisingName},#{targetAmount},#{currentAmount},#{creatTime},#{raisingDescription},#{bankNum},#{userName})")
+    @Insert("insert into raisinginfo(raising_id,raising_title,raising_name,first_url,target_amount,current_amount,creat_time,raising_description,bank_num,user_name) " +
+            "values(#{raisingId},#{raisingTitle},#{raisingName},#{firstUrl},#{targetAmount},#{currentAmount},#{creatTime},#{raisingDescription},#{bankNum},#{userName})")
     int insertRaising(RaisingInfo raisingInfo);
     @Update("update raisinginfo set raising_title=#{raisingTitle},raising_name=#{raisingName},target_amount=#{targetAmount}," +
             "current_amount=#{currentAmount},raising_description=#{raisingDescription},bank_num=#{bankNum} where id=#{id})")
