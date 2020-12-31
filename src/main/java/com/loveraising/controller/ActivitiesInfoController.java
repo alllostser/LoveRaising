@@ -51,7 +51,7 @@ public class ActivitiesInfoController {
     /**
      * 分页查看所有待进行活动接口（用户查看）
      * */
-    @PostMapping("selectDoingActicities.do")
+    @PostMapping("selectDoingActivities.do")
     public CommonResult selectDoingActivities(int currentPage,int pageSize) {
         return new CommonResult(200,"操作成功",activitiesService.selectDoingActivities(currentPage,pageSize));
     }
