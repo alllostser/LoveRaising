@@ -31,6 +31,8 @@ public class UserInfoServiceImpl extends ServiceImpl<UserInfoMapper,UserInfo> im
             //如果密码一致则认为登录成功
             if(userInfo.getPassword().equals(queryUser.getPassword())){
                 //将用户信息生成token数据返回给前端
+                queryUser.setPassword("");
+
                 return queryUser;
             }
         }
