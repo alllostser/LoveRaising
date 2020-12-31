@@ -9,6 +9,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.*;
 import java.net.URLEncoder;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 /**
@@ -26,21 +28,25 @@ public class UploadController {
      * @throws IOException
      */
     @RequestMapping(value="/upload.do",method= RequestMethod.POST)
-    public R upload(MultipartFile file, HttpServletRequest request)  {
+    public R upload(MultipartFile[] file, HttpServletRequest request)  {
         String path = request.getSession().getServletContext().getRealPath("upload");
-        String fileName = file.getOriginalFilename();
-        String newFileName = UUID.randomUUID().toString()+fileName;
-        File dir = new File(path,newFileName);
-        if(!dir.exists()){
-            dir.mkdirs();
+        List<String> newFileNames = new ArrayList<>();
+        for (MultipartFile multipartFile : file) {
+            String fileName = multipartFile.getOriginalFilename();
+            String newFileName = UUID.randomUUID().toString()+fileName;
+            File dir = new File(path,newFileName);
+            if(!dir.exists()){
+                dir.mkdirs();
+            }
+            //MultipartFile自带的解析方法
+            try {
+                multipartFile.transferTo(dir);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            newFileNames.add("upload/"+newFileName);
         }
-        //MultipartFile自带的解析方法
-        try {
-            file.transferTo(dir);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return R.ok("upload/"+newFileName);
+        return R.ok(newFileNames);
     }
 
     /**

@@ -2,7 +2,9 @@ package com.loveraising.controller;
 
 
 import cn.hutool.core.util.ObjectUtil;
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.enums.SqlLike;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.api.R;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
@@ -18,6 +20,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -170,5 +173,17 @@ public class AdminController {
         }else {
             return new CommonResult(200,"操作成功",null);
         }
+    }
+
+    /**
+     * 批量删除通过id
+     * @param ids
+     * @return
+     */
+    @DeleteMapping("/delete.do")
+    public R deleteByids(String ids){
+        List<String> strings = Arrays.asList(ids.split(","));
+        boolean result = userInfoService.removeByIds(strings);
+        return R.ok(result);
     }
 }
