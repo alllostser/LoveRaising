@@ -12,8 +12,8 @@ import java.util.Map;
 @Mapper
 public interface ActivitiesInfoMapper extends BaseMapper<ActivitiesInfo> {
 
-    @Insert("insert into activitiesinfo(activity_id,activity_title,activity_location,first_url,activity_description,activity_num,creat_time,user_id) " +
-            "values(#{activityId},#{activityTitile},#{activityLocation},#{firstUrl},#{activityDescription},#{activityNum},#{creatTime},#{userId})")
+    @Insert("insert into activitiesinfo(activity_id,activity_title,activity_location,first_url,activity_description,activity_num,creat_time,start_time,user_name) " +
+            "values(#{activityId},#{activityTitle},#{activityLocation},#{firstUrl},#{activityDescription},#{activityNum},#{creatTime},#{startTime},#{userName})")
     int insertActivities(ActivitiesInfo activitiesInfo);
     @Update("update activitiesinfo set activity_title=#{activityTitle},activity_location=#{activityLocation}," +
             "activity_description=#{activityDescription},activity_num=#{activityNum} " +

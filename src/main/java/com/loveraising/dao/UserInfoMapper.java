@@ -40,5 +40,9 @@ public interface UserInfoMapper extends BaseMapper<UserInfo> {
     UserInfo selectUserWallet(int id);
     @Update("update userinfo set remaining_sum = remaining_sum+#{add} where id=#{id}")
     int addRemainingSum(@Param("id")int id,@Param("add")double add);
+    @Update("update userinfo set remaining_sum = remaining_sum-${add} where id=#{id}")
+    int cutRemainSum(@Param("id")int userId,@Param("add")double add);
+    @Select("select remaining_sum-${add} from userinfo where id = #{id}")
+    double selectSum(@Param("id")int userId,@Param("add")double add);
 
 }

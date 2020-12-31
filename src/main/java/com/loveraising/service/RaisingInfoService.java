@@ -3,6 +3,8 @@ package com.loveraising.service;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.loveraising.pojo.RaisingInfo;
 import com.loveraising.util.PageBean;
+import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.annotations.Select;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,4 +26,6 @@ public interface RaisingInfoService extends IService<RaisingInfo> {
     int updateFirstUrl(String firstUrl,String raisingId);
     int insertRaisingImage(String raisingId,String imageUrl);
     List<Map> selectImageInfo(String raisingId);
+    int updateCurrentAmount(int id,int userId,double add);
+    double checkAmount(int id);
 }

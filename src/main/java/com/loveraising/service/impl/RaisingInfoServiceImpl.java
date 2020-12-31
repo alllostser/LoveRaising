@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.loveraising.dao.RaisingInfoMapper;
 
 
+import com.loveraising.dao.UserInfoMapper;
 import com.loveraising.pojo.RaisingInfo;
 
 import com.loveraising.service.RaisingInfoService;
@@ -20,6 +21,8 @@ import java.util.Map;
 public class RaisingInfoServiceImpl extends ServiceImpl<RaisingInfoMapper, RaisingInfo> implements RaisingInfoService {
     @Resource
     RaisingInfoMapper raisingInfoMapper;
+    @Resource
+    UserInfoMapper userInfoMapper;
     @Override
     public int insertRaising(RaisingInfo raisingInfo) {
         raisingInfo.setCreatTime(Utils.getDateTime());
@@ -121,5 +124,37 @@ public class RaisingInfoServiceImpl extends ServiceImpl<RaisingInfoMapper, Raisi
     public List<Map> selectImageInfo(String raisingId) {
         List<Map> imageUrls = raisingInfoMapper.selectImageInfo(raisingId);
         return imageUrls;
+    }
+
+    /**
+     * 捐款
+     * @param id
+     * @param add
+     * @return
+     */
+    @Override
+    public int updateCurrentAmount(int id, int userId,double add) {
+        double userSum = userInfoMapper.selectSum(userId,add);
+        if(userSum < 0) {                   //余额不足
+            return 2;
+        }else {
+            if( raisingInfoMapper.updateCurrentAmount(id,add)==1) {
+                userInfoMapper.cutRemainSum(userId,add);//用户扣款
+                return 1;
+            }else {
+                return 3;
+            }
+        }
+
+    }
+
+    /**
+     * 检查捐款还差多少金额凑齐
+     * @param id
+     * @return
+     */
+    @Override
+    public double checkAmount(int id) {
+        return raisingInfoMapper.checkAmount(id);
     }
 }

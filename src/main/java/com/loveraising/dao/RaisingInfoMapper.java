@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.loveraising.pojo.RaisingInfo;
 import com.loveraising.util.PageBean;
 import org.apache.ibatis.annotations.*;
+import org.springframework.web.bind.annotation.PostMapping;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -66,4 +67,8 @@ public interface RaisingInfoMapper extends BaseMapper<RaisingInfo> {
      */
     @Select("select image_url from raisingimageinfo where raising_id=#{raisingId}")
     List<Map> selectImageInfo(String raisingId);
+    @Update("update raisinginfo set current_amount = current_amount+${add} where id=#{id}")
+    int updateCurrentAmount(@Param("id")int id, @Param("add")double add);
+    @Select("select target_amount-current_amount from raisinginfo where id=#{id}")
+    double checkAmount(int id);
 }

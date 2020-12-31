@@ -155,4 +155,20 @@ public class RaisingInfoController {
     public CommonResult selectImageInfos(String raisingId) {
         return new CommonResult(200,"操作成功",raisingInfoService.selectImageInfo(raisingId));
     }
+    @PostMapping("selectAmount.do")
+    public CommonResult selectAmount(int id) {
+        return new CommonResult(200,"操作成功",raisingInfoService.checkAmount(id));
+    }
+    @PostMapping("addAmount.do")
+    public CommonResult addAmount(int id,int userId,double add) {
+        int result = raisingInfoService.updateCurrentAmount(id,userId,add);
+        if (result == 1) {
+            return new CommonResult(200,"成功捐款"+add+"元",1);
+        }else if(result == 2) {
+            return new CommonResult(500,"用户余额不足，请联系管理员充值！","");
+        }else {
+            return new CommonResult(500,"操作失败，请重试！","");
+        }
+
+    }
 }
