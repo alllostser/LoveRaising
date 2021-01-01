@@ -6,12 +6,14 @@ import com.loveraising.dao.ActivitiesInfoMapper;
 import com.loveraising.pojo.ActivitiesInfo;
 import com.loveraising.service.ActivitiesService;
 import com.loveraising.util.PageBean;
+import com.loveraising.util.Utils;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 @Service
 public class ActivitiesServiceImpl extends ServiceImpl<ActivitiesInfoMapper, ActivitiesInfo> implements ActivitiesService {
@@ -19,6 +21,8 @@ public class ActivitiesServiceImpl extends ServiceImpl<ActivitiesInfoMapper, Act
     ActivitiesInfoMapper activitiesInfoMapper;
     @Override
     public int insertActivities(ActivitiesInfo activitiesInfo) {
+        activitiesInfo.setCreatTime(Utils.getDateTime());
+        activitiesInfo.setActivityId(UUID.randomUUID().toString());
         return activitiesInfoMapper.insertActivities(activitiesInfo);
     }
 

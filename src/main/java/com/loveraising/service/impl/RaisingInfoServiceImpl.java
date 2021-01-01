@@ -16,6 +16,7 @@ import javax.annotation.Resource;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 @Service
 public class RaisingInfoServiceImpl extends ServiceImpl<RaisingInfoMapper, RaisingInfo> implements RaisingInfoService {
@@ -26,6 +27,7 @@ public class RaisingInfoServiceImpl extends ServiceImpl<RaisingInfoMapper, Raisi
     @Override
     public int insertRaising(RaisingInfo raisingInfo) {
         raisingInfo.setCreatTime(Utils.getDateTime());
+        raisingInfo.setRaisingId(UUID.randomUUID().toString());
         return raisingInfoMapper.insertRaising(raisingInfo);
     }
 

@@ -72,4 +72,6 @@ public interface ActivitiesInfoMapper extends BaseMapper<ActivitiesInfo> {
     @Select("select image_url from activitiesimageinfo where activity_id=#{activityId}")
     List<Map> selectImageInfo(String activityId);
 
+    int updateFirstImageUrl(String firstUrl);
+
 }

@@ -2,4 +2,8 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.loveraising.dao.ActivitiesInfoMapper">
 
+
+    <update id="updateFirstImageUrl">
+        update activitiesinfo set first_url = #{firstUrl} where id = #{id}
+    </update>
 </mapper>
