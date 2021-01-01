@@ -1,11 +1,14 @@
 package com.loveraising.controller;
 
+import com.loveraising.dao.RaisingInfoMapper;
 import com.loveraising.pojo.RaisingInfo;
 import com.loveraising.service.RaisingInfoService;
 import com.loveraising.util.CommonResult;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.annotation.Resource;
 import java.util.UUID;
 @CrossOrigin
 @RestController
@@ -13,7 +16,8 @@ import java.util.UUID;
 public class RaisingInfoController {
     @Autowired
     private RaisingInfoService raisingInfoService;
-
+    @Resource
+    RaisingInfoMapper raisingInfoMapper;
     /**
      * 添加筹款信息
      * */
@@ -170,5 +174,9 @@ public class RaisingInfoController {
             return new CommonResult(500,"操作失败，请重试！","");
         }
 
+    }
+    @PostMapping("updateFirstUrl.do")
+    public int updateUrl(String firstUrl,String raisingId) {
+        return raisingInfoMapper.updateFirstUrl(firstUrl,raisingId);
     }
 }

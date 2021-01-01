@@ -39,6 +39,4 @@ public class RaisingInfo {
 
     private String firstUrl;
 
-    private List<String> imageUrls;
-
 }
