@@ -51,12 +51,12 @@ public class RaisingInfoServiceImpl extends ServiceImpl<RaisingInfoMapper, Raisi
     }
 
     @Override
-    public PageBean<RaisingInfo> selectRaisingBefore(int currentPage, int pageSize) {
+    public PageBean<RaisingInfo> selectRaisingBefore(int currentPage, int pageSize, String keyword) {
         PageBean<RaisingInfo> pageBean = new PageBean<RaisingInfo>();
         pageBean.setCurrentPage(currentPage);
         pageBean.setPageSize(pageSize);
 
-        List<RaisingInfo> list = raisingInfoMapper.selectRaisingBeforeInPage(pageBean);
+        List<RaisingInfo> list = raisingInfoMapper.selectRaisingBeforeInPage(pageBean,keyword);
         int count = raisingInfoMapper.countRaisingBefore();
         pageBean.setTotalCount(count);
         pageBean.setPageData(list);
