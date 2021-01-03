@@ -39,6 +39,7 @@ public class RaisingInfoController {
      * */
     @PostMapping("insertRaising.do")
     public CommonResult insertRaising(RaisingInfoDto raisingInfo) {
+        raisingInfo.setCurrentAmount(0.0);
         List<String> strings = Arrays.asList(raisingInfo.getImageUrls().split(","));
          if(raisingInfoService.insertRaising(raisingInfo)==1){
              return new CommonResult(200,"操作成功",1);

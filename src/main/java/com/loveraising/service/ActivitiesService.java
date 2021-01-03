@@ -1,6 +1,7 @@
 package com.loveraising.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.loveraising.pojo.ActivitiesImageInfo;
 import com.loveraising.pojo.ActivitiesInfo;
 import com.loveraising.util.PageBean;
 import org.apache.ibatis.annotations.Insert;
@@ -24,5 +25,5 @@ public interface ActivitiesService extends IService<ActivitiesInfo> {
     PageBean<ActivitiesInfo> selectByKeyWordInPage(String keyword,int currentPage,int pageSize);
     int updateFirstUrl(String firstUrl,String activityId);
     int insertActivityImage(String activityId,String imageUrl);
-    List<Map> selectImageInfo(String activityId);
+    List<ActivitiesImageInfo> selectImageInfo(String activityId);
 }

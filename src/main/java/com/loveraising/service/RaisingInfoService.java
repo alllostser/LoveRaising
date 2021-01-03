@@ -1,6 +1,7 @@
 package com.loveraising.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.loveraising.pojo.RaisingImageInfo;
 import com.loveraising.pojo.RaisingInfo;
 import com.loveraising.pojo.dto.RaisingInfoDto;
 import com.loveraising.util.PageBean;
@@ -23,7 +24,7 @@ public interface RaisingInfoService extends IService<RaisingInfo> {
     PageBean<RaisingInfo> selectAllInPage(int currentPage,int pageSize);
     int updateFirstUrl(String firstUrl,String raisingId);
     int insertRaisingImage(String raisingId,String imageUrl);
-    List<Map> selectImageInfo(String raisingId);
+    List<RaisingImageInfo> selectImageInfo(String raisingId);
     int updateCurrentAmount(int id,int userId,double add);
     double checkAmount(int id);
 }

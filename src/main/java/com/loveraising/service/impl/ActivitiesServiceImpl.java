@@ -3,6 +3,7 @@ package com.loveraising.service.impl;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.loveraising.dao.ActivitiesInfoMapper;
 
+import com.loveraising.pojo.ActivitiesImageInfo;
 import com.loveraising.pojo.ActivitiesInfo;
 import com.loveraising.service.ActivitiesService;
 import com.loveraising.util.PageBean;
@@ -58,7 +59,11 @@ public class ActivitiesServiceImpl extends ServiceImpl<ActivitiesInfoMapper, Act
 
     @Override
     public ActivitiesInfo selectById(int id) {
-        return activitiesInfoMapper.selectById(id);
+
+        ActivitiesInfo activitiesInfo = activitiesInfoMapper.selectById(id);
+        List<ActivitiesImageInfo> urls = activitiesInfoMapper.selectImageInfo(activitiesInfo.getActivityId());
+        activitiesInfo.setUrls(urls);
+        return activitiesInfo;
     }
 
     @Override
@@ -100,8 +105,8 @@ public class ActivitiesServiceImpl extends ServiceImpl<ActivitiesInfoMapper, Act
     }
 
     @Override
-    public List<Map> selectImageInfo(String activityId) {
-        List<Map> imageUrls = activitiesInfoMapper.selectImageInfo(activityId);
+    public List<ActivitiesImageInfo> selectImageInfo(String activityId) {
+        List<ActivitiesImageInfo> imageUrls = activitiesInfoMapper.selectImageInfo(activityId);
         return imageUrls;
     }
 

@@ -1,6 +1,7 @@
 package com.loveraising.dao;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.loveraising.pojo.RaisingImageInfo;
 import com.loveraising.pojo.RaisingInfo;
 import com.loveraising.util.PageBean;
 import org.apache.ibatis.annotations.*;
@@ -65,7 +66,7 @@ public interface RaisingInfoMapper extends BaseMapper<RaisingInfo> {
      * 获取图片地址信息
      */
     @Select("select image_url from raisingimageinfo where raising_id=#{raisingId}")
-    List<Map> selectImageInfo(String raisingId);
+    List<RaisingImageInfo> selectImageInfo(String raisingId);
     @Update("update raisinginfo set current_amount = current_amount+${add} where id=#{id}")
     int updateCurrentAmount(@Param("id")int id, @Param("add")double add);
     @Select("select target_amount-current_amount from raisinginfo where id=#{id}")
