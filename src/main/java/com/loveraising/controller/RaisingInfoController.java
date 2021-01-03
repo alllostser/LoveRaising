@@ -1,10 +1,13 @@
 package com.loveraising.controller;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.loveraising.common.TableResult;
 import com.loveraising.pojo.RaisingInfo;
 import com.loveraising.pojo.dto.RaisingInfoDto;
 import com.loveraising.service.RaisingInfoService;
 import com.loveraising.util.CommonResult;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -14,16 +17,22 @@ import java.util.UUID;
 @CrossOrigin
 @RestController
 @RequestMapping("/raisinginfo")
-@Slf4j
 public class RaisingInfoController {
     @Autowired
     private RaisingInfoService raisingInfoService;
+
+    @GetMapping("/list.do")
+    public TableResult list(Page<RaisingInfo> page, RaisingInfo raisingInfo){
+        IPage raisingInfoIPage = raisingInfoService.page(page, new QueryWrapper<>(raisingInfo));
+        return TableResult.ResponseBySucess("成功",raisingInfoIPage.getTotal(), raisingInfoIPage.getRecords());
+    }
 
     /**
      * 添加筹款信息
      * */
     @PostMapping("insertRaising.do")
     public CommonResult insertRaising(RaisingInfoDto raisingInfo) {
+        List<String> strings = Arrays.asList(raisingInfo.getImageUrls().split(","));
          if(raisingInfoService.insertRaising(raisingInfo)==1){
              return new CommonResult(200,"操作成功",1);
          }else {

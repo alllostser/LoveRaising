@@ -1,6 +1,7 @@
 package com.loveraising.controller;
 
 import cn.hutool.core.util.ObjectUtil;
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.api.R;
@@ -31,7 +32,7 @@ public class NoticeController {
      */
     @GetMapping("/list.do")
     public R list(Page<NewsInfo> page, NewsInfo newsInfo){
-        IPage<NewsInfo> pageList = newsInfoService.page(page, new QueryWrapper<>(newsInfo));
+        IPage<NewsInfo> pageList = newsInfoService.page(page, new LambdaQueryWrapper<>(newsInfo).orderByDesc(NewsInfo::getCreatTime));
         List<NewsInfo> records = pageList.getRecords();
         return R.ok(records);
     }
