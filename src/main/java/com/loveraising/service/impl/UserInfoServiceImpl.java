@@ -32,7 +32,7 @@ public class UserInfoServiceImpl extends ServiceImpl<UserInfoMapper,UserInfo> im
             if(userInfo.getPassword().equals(queryUser.getPassword())){
                 //将用户信息生成token数据返回给前端
                 queryUser.setPassword("");
-
+                userInfoMapper.updateLastLogin(queryUser.getId(),Utils.getDateTime());
                 return queryUser;
             }
         }
@@ -127,6 +127,8 @@ public class UserInfoServiceImpl extends ServiceImpl<UserInfoMapper,UserInfo> im
     public int addRemainingSum(Integer id,Double add) {
         return userInfoMapper.addRemainingSum(id,add);
     }
+
+
 
 
 }

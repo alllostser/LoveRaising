@@ -43,5 +43,7 @@ public class UserInfo implements Serializable {
 
     private Double remainingSum;
 
+    private String lastLogin;
+
 
 }

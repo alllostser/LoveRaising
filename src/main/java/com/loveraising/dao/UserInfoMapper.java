@@ -5,6 +5,7 @@ import com.loveraising.pojo.UserInfo;
 
 import com.loveraising.util.PageBean;
 import org.apache.ibatis.annotations.*;
+import org.springframework.web.bind.annotation.PostMapping;
 
 import java.util.List;
 @Mapper
@@ -44,5 +45,7 @@ public interface UserInfoMapper extends BaseMapper<UserInfo> {
     int cutRemainSum(@Param("id")int userId,@Param("add")double add);
     @Select("select remaining_sum-${add} from userinfo where id = #{id}")
     double selectSum(@Param("id")int userId,@Param("add")double add);
+    @Update("update userinfo set last_login = #{lastLogin} where id = #{id}")
+    int updateLastLogin(@Param("id")int id, @Param("lastLogin")String lastLogin);
 
 }
