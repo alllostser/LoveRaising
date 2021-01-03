@@ -56,7 +56,7 @@ public interface RaisingInfoMapper extends BaseMapper<RaisingInfo> {
      * @return
      */
     @Update("update raisinginfo set first_url = #{firstUrl} where raising_id=#{raisingId}")
-    int updateFirstUrl(@Param("first_url")String firstUrl, @Param("id")String raisingId);
+    int updateFirstUrl(@Param("firstUrl")String firstUrl, @Param("raisingId")String raisingId);
     /**
      * 添加活动图片地址到活动图片表
      */

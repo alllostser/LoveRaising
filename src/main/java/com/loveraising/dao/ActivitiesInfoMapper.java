@@ -60,12 +60,12 @@ public interface ActivitiesInfoMapper extends BaseMapper<ActivitiesInfo> {
      * @return
      */
     @Update("update activitiesinfo set first_url = #{firstUrl} where activity_id=#{activityId}")
-    int updateFirstUrl(@Param("first_url")String firstUrl, @Param("id")String activityId);
+    int updateFirstUrl(@Param("firstUrl")String firstUrl, @Param("activityId")String activityId);
     /**
      * 添加活动图片地址到活动图片表
      */
     @Insert("insert into activitiesimageinfo(activity_id,image_url) values(#{activityId},#{imageUrl})")
-    int insretActivityImage(@Param("activity_id")String activityId,@Param("image_url")String imageUrl);
+    int insretActivityImage(@Param("activityId")String activityId,@Param("imageUrl")String imageUrl);
     /**
      * 获取图片地址信息
      */
