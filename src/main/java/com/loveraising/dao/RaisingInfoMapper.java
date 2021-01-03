@@ -61,7 +61,7 @@ public interface RaisingInfoMapper extends BaseMapper<RaisingInfo> {
      * 添加活动图片地址到活动图片表
      */
     @Insert("insert into raisingimageinfo(raising_id,image_url) values(#{raisingId},#{imageUrl})")
-    int insretRaisingImage(@Param("raising_id")String raisingId,@Param("image_url")String imageUrl);
+    int insretRaisingImage(@Param("raisingId")String raisingId,@Param("imageUrl")String imageUrl);
     /**
      * 获取图片地址信息
      */

@@ -25,9 +25,9 @@ public class RaisingInfo {
 
     private String raisingName;
 
-    private double targetAmount;
+    private Double targetAmount;
 
-    private double currentAmount;
+    private Double currentAmount;
 
     private String creatTime;
 
@@ -38,7 +38,5 @@ public class RaisingInfo {
     private String userName;
 
     private String firstUrl;
-
-    private List<String> imageUrls;
 
 }

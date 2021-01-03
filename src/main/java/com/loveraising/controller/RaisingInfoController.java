@@ -1,15 +1,20 @@
 package com.loveraising.controller;
 
+import com.loveraising.pojo.dto.RaisingInfoDto;
 import com.loveraising.pojo.RaisingInfo;
 import com.loveraising.service.RaisingInfoService;
 import com.loveraising.util.CommonResult;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Arrays;
+import java.util.List;
 import java.util.UUID;
 @CrossOrigin
 @RestController
 @RequestMapping("/raisinginfo")
+@Slf4j
 public class RaisingInfoController {
     @Autowired
     private RaisingInfoService raisingInfoService;
@@ -18,7 +23,7 @@ public class RaisingInfoController {
      * 添加筹款信息
      * */
     @PostMapping("insertRaising.do")
-    public CommonResult insertRaising(RaisingInfo raisingInfo) {
+    public CommonResult insertRaising(RaisingInfoDto raisingInfo) {
          if(raisingInfoService.insertRaising(raisingInfo)==1){
              return new CommonResult(200,"操作成功",1);
          }else {

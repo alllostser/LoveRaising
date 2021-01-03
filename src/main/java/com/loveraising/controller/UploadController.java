@@ -44,7 +44,7 @@ public class UploadController {
             } catch (IOException e) {
                 e.printStackTrace();
             }
-            newFileNames.add("upload/"+newFileName);
+            newFileNames.add("/upload/"+newFileName);
         }
         return R.ok(newFileNames);
     }

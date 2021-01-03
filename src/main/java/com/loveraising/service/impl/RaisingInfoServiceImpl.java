@@ -7,16 +7,15 @@ import com.loveraising.dao.RaisingInfoMapper;
 import com.loveraising.dao.UserInfoMapper;
 import com.loveraising.pojo.RaisingInfo;
 
+import com.loveraising.pojo.dto.RaisingInfoDto;
 import com.loveraising.service.RaisingInfoService;
 import com.loveraising.util.PageBean;
 import com.loveraising.util.Utils;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
 import javax.annotation.Resource;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.UUID;
+import java.util.*;
 
 @Service
 public class RaisingInfoServiceImpl extends ServiceImpl<RaisingInfoMapper, RaisingInfo> implements RaisingInfoService {
@@ -25,9 +24,14 @@ public class RaisingInfoServiceImpl extends ServiceImpl<RaisingInfoMapper, Raisi
     @Resource
     UserInfoMapper userInfoMapper;
     @Override
-    public int insertRaising(RaisingInfo raisingInfo) {
+    public int insertRaising(RaisingInfoDto raisingInfo) {
         raisingInfo.setCreatTime(Utils.getDateTime());
-        raisingInfo.setRaisingId(UUID.randomUUID().toString());
+        String raisingImage = UUID.randomUUID().toString();
+        raisingInfo.setRaisingId(raisingImage);
+        List<String> strings = Arrays.asList(raisingInfo.getImageUrls().split(","));
+        if (!StringUtils.isEmpty(strings)){
+            strings.forEach((url)->raisingInfoMapper.insretRaisingImage(raisingImage,url));
+        }
         return raisingInfoMapper.insertRaising(raisingInfo);
     }
 
