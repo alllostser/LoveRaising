@@ -13,22 +13,15 @@ public class NewsInfo {
 
     private String newsDescription;
 
-    private Integer type;
-
-    private Integer status;
-
-    private String imageUrl;
-
     private String creatTime;
 
     public NewsInfo() {
     }
 
-    public NewsInfo(Integer id, String newsTitle, String newsDescription, String imageUrl, String creatTime) {
+    public NewsInfo(Integer id, String newsTitle, String newsDescription, String creatTime) {
         this.id = id;
         this.newsTitle = newsTitle;
         this.newsDescription = newsDescription;
-        this.imageUrl = imageUrl;
         this.creatTime = creatTime;
     }
 
@@ -56,13 +49,6 @@ public class NewsInfo {
         this.newsDescription = newsDescription;
     }
 
-    public String getImageUrl() {
-        return imageUrl;
-    }
-
-    public void setImageUrl(String imageUrl) {
-        this.imageUrl = imageUrl;
-    }
 
     public String getCreatTime() {
         return creatTime;
@@ -72,29 +58,12 @@ public class NewsInfo {
         this.creatTime = creatTime;
     }
 
-    public Integer getType() {
-        return type;
-    }
-
-    public void setType(Integer type) {
-        this.type = type;
-    }
-
-    public Integer getStatus() {
-        return status;
-    }
-
-    public void setStatus(Integer status) {
-        this.status = status;
-    }
-
     @Override
     public String toString() {
         return "NewsInfo{" +
                 "id=" + id +
                 ", newsTitle='" + newsTitle + '\'' +
                 ", newsDescription='" + newsDescription + '\'' +
-                ", imageUrl='" + imageUrl + '\'' +
                 ", creatTime='" + creatTime + '\'' +
                 '}';
     }
