@@ -1,8 +1,10 @@
 package com.loveraising.controller;
 
 import com.loveraising.pojo.RaisingInfo;
+import com.loveraising.pojo.dto.RaisingInfoDto;
 import com.loveraising.service.RaisingInfoService;
 import com.loveraising.util.CommonResult;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
