@@ -22,7 +22,7 @@ public interface RaisingInfoMapper extends BaseMapper<RaisingInfo> {
     RaisingInfo selectRaisingById(int id);
     @Select("select r.* from raisinginfo r,userinfo u where r.user_name=u.user_name and u.id=#{id}")
     List<RaisingInfo> selectRaisingByUserId(int id);
-    @Select("select * from raisinginfo where status_id =2 limit #{beginIndex},#{pageSize} order by creat_time desc")
+    @Select("select * from raisinginfo where status_id =2 order by creat_time desc limit #{beginIndex},#{pageSize} ")
     List<RaisingInfo> selectRaisingBeforeInPage(PageBean<RaisingInfo> pageBean);
     @Select("select count(id) from raisinginfo where status_id=2")
     int countRaisingBefore();
@@ -32,7 +32,7 @@ public interface RaisingInfoMapper extends BaseMapper<RaisingInfo> {
     int nopassRaising(int id);
     @Update("update raisinginfo set status_id=2 where id=#{id}")
     int updateStatus(int id);
-    @Select("select * from raisinginfo where status_id=5 limit #{beginIndex},#{pageSize} order by creat_time desc")
+    @Select("select * from raisinginfo where status_id=5 order by creat_time desc limit #{beginIndex},#{pageSize} ")
     List<RaisingInfo> selectPassRaising(PageBean<RaisingInfo> pageBean);
     @Select("select count(id) from raisinginfo where status_id=5")
     int countPassRaising();
@@ -45,7 +45,7 @@ public interface RaisingInfoMapper extends BaseMapper<RaisingInfo> {
             "locate(#{keyword},raising_name)>0 OR locate(#{keyword},creat_time)>0 OR " +
             "locate(#{keyword},raising_description)>0 OR locate(#{keyword},user_name)>0 ")
     int countByKeyWord(String keyword);
-    @Select("select * from raisinginfo limit #{beginIndex},#{pageSize} orderby creat_time desc")
+    @Select("select * from raisinginfo order by creat_time desc limit #{beginIndex},#{pageSize}")
     List<RaisingInfo> selectAllInPage(PageBean<RaisingInfo> pageBean);
     @Select("select count(id) from raisinginfo")
     int countAll();
