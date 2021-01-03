@@ -5,6 +5,7 @@ import com.loveraising.dao.RaisingInfoMapper;
 
 
 import com.loveraising.dao.UserInfoMapper;
+import com.loveraising.pojo.RaisingImageInfo;
 import com.loveraising.pojo.RaisingInfo;
 
 import com.loveraising.pojo.dto.RaisingInfoDto;
@@ -42,7 +43,12 @@ public class RaisingInfoServiceImpl extends ServiceImpl<RaisingInfoMapper, Raisi
 
     @Override
     public RaisingInfo selectRaisingById(int id) {
-        return raisingInfoMapper.selectRaisingById(id);
+
+        RaisingInfo raisingInfo = raisingInfoMapper.selectRaisingById(id);
+        List<RaisingImageInfo> imageUrls = raisingInfoMapper.selectImageInfo(raisingInfo.getRaisingId());
+        raisingInfo.setUrls(imageUrls);
+        return raisingInfo;
+
     }
 
     @Override
@@ -127,8 +133,8 @@ public class RaisingInfoServiceImpl extends ServiceImpl<RaisingInfoMapper, Raisi
     }
 
     @Override
-    public List<Map> selectImageInfo(String raisingId) {
-        List<Map> imageUrls = raisingInfoMapper.selectImageInfo(raisingId);
+    public List<RaisingImageInfo> selectImageInfo(String raisingId) {
+        List<RaisingImageInfo> imageUrls = raisingInfoMapper.selectImageInfo(raisingId);
         return imageUrls;
     }
 
