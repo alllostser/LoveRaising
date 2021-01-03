@@ -32,7 +32,7 @@ public interface RaisingInfoMapper extends BaseMapper<RaisingInfo> {
     int nopassRaising(int id);
     @Update("update raisinginfo set status_id=2 where id=#{id}")
     int updateStatus(int id);
-    @Select("select * from raisinginfo where status_id=5 limit #{beginIndex},#{pageSize}")
+    @Select("select * from raisinginfo where status_id=5 limit #{beginIndex},#{pageSize} order by creat_time desc")
     List<RaisingInfo> selectPassRaising(PageBean<RaisingInfo> pageBean);
     @Select("select count(id) from raisinginfo where status_id=5")
     int countPassRaising();
