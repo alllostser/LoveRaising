@@ -1,6 +1,7 @@
 package com.loveraising.dao;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.loveraising.pojo.ActivitiesImageInfo;
 import com.loveraising.pojo.ActivitiesInfo;
 import com.loveraising.util.PageBean;
 import org.apache.ibatis.annotations.*;
@@ -25,7 +26,7 @@ public interface ActivitiesInfoMapper extends BaseMapper<ActivitiesInfo> {
     @Select("select count(id) from activitiesinfo")
     int countAllActivities();
     @Select("select a.id,a.activity_id,a.activity_title,a.first_url,a.activity_location,a.activity_description,a.activity_num,a.current_num,a.creat_time,a.start_time,a.user_name,a.first_url,s.status " +
-            "from activitiesinfo a,statusinfo s where a.status_id=s.id and a.status_id=1 limit #{beginIndex},#{pageSize}")
+            "from activitiesinfo a,statusinfo s where a.status_id=s.id and a.status_id=1 order by creat_time limit #{beginIndex},#{pageSize}")
     List<ActivitiesInfo> selectDoingActivities(PageBean<ActivitiesInfo> pageBean);
     @Select("select count(id) from activitiesinfo where status_id=1")
     int countDoingActivities();
@@ -70,7 +71,7 @@ public interface ActivitiesInfoMapper extends BaseMapper<ActivitiesInfo> {
      * 获取图片地址信息
      */
     @Select("select image_url from activitiesimageinfo where activity_id=#{activityId}")
-    List<Map> selectImageInfo(String activityId);
+    List<ActivitiesImageInfo> selectImageInfo(String activityId);
 
     int updateFirstImageUrl(String firstUrl);
 
