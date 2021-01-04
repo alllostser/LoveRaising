@@ -5,10 +5,7 @@ import com.loveraising.pojo.RaisingImageInfo;
 import com.loveraising.pojo.RaisingInfo;
 import com.loveraising.pojo.dto.RaisingInfoDto;
 import com.loveraising.util.PageBean;
-import org.apache.ibatis.annotations.Param;
-import org.apache.ibatis.annotations.Select;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -18,7 +15,7 @@ public interface RaisingInfoService extends IService<RaisingInfo> {
     int updateRaising(RaisingInfo raisingInfo);
     RaisingInfo selectRaisingById(int id);
     List<RaisingInfo> selectRaisingByUserId(int id);
-    PageBean<RaisingInfo> selectRaisingBefore(int currentPage,int pageSize);
+    PageBean<RaisingInfo> selectRaisingBefore(int currentPage,int pageSize,String keyword);
     int passRaising(int id);
     int nopassRaising(int id);
     int updateStatus(int id);

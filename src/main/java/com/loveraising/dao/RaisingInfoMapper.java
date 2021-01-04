@@ -23,8 +23,7 @@ public interface RaisingInfoMapper extends BaseMapper<RaisingInfo> {
     RaisingInfo selectRaisingById(int id);
     @Select("select r.* from raisinginfo r,userinfo u where r.user_name=u.user_name and u.id=#{id}")
     List<RaisingInfo> selectRaisingByUserId(int id);
-    @Select("select * from raisinginfo where status_id =2 order by creat_time desc limit #{beginIndex},#{pageSize} ")
-    List<RaisingInfo> selectRaisingBeforeInPage(PageBean<RaisingInfo> pageBean);
+    List<RaisingInfo> selectRaisingBeforeInPage(@Param("pageBean") PageBean<RaisingInfo> pageBean,@Param("keyword") String keyword);
     @Select("select count(id) from raisinginfo where status_id=2")
     int countRaisingBefore();
     @Update("update raisinginfo set status_id=5 where id=#{id}")

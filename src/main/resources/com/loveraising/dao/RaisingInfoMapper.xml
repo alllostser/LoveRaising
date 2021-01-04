@@ -2,4 +2,12 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.loveraising.dao.RaisingInfoMapper">
 
+    <select id="selectRaisingBeforeInPage" resultType="com.loveraising.pojo.RaisingInfo">
+        select * from raisinginfo
+        where status_id =2
+        <if test='keyword !=null and keyword !="" '>
+            and (locate(#{keyword},raising_title) or locate(#{keyword},raising_name))
+        </if>
+         order by creat_time desc limit #{pageBean.beginIndex},#{pageBean.pageSize}
+    </select>
 </mapper>

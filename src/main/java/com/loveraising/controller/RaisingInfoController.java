@@ -2,13 +2,17 @@ package com.loveraising.controller;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.api.R;
+import com.baomidou.mybatisplus.extension.enums.ApiErrorCode;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.loveraising.common.TableResult;
 import com.loveraising.pojo.RaisingInfo;
 import com.loveraising.pojo.dto.RaisingInfoDto;
 import com.loveraising.service.RaisingInfoService;
 import com.loveraising.util.CommonResult;
+import com.loveraising.util.PageBean;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Arrays;
@@ -23,6 +27,9 @@ public class RaisingInfoController {
 
     @GetMapping("/list.do")
     public TableResult list(Page<RaisingInfo> page, RaisingInfo raisingInfo){
+        if (StringUtils.isEmpty(raisingInfo.getRaisingName())){
+            raisingInfo.setRaisingName(null);
+        }
         IPage raisingInfoIPage = raisingInfoService.page(page, new QueryWrapper<>(raisingInfo));
         return TableResult.ResponseBySucess("成功",raisingInfoIPage.getTotal(), raisingInfoIPage.getRecords());
     }
@@ -44,13 +51,18 @@ public class RaisingInfoController {
     /**
      * 编辑筹款信息
      * */
-    @PostMapping("updateRaising.do")
+    @PostMapping("/updateRaising.do")
     public CommonResult updateRaising(RaisingInfo raisingInfo) {
         if(raisingInfo!=null && raisingInfoService.updateRaising(raisingInfo)==1){
             return new CommonResult(200,"操作成功",1);
         }else {
             return new CommonResult(500,"操作失败",0);
         }
+    }
+    @PostMapping("/update.do")
+    public R update(@RequestBody RaisingInfo raisingInfo) {
+        boolean result = raisingInfoService.updateById(raisingInfo);
+        return R.restResult(result, ApiErrorCode.fromCode(200));
     }
     /**
      * 根据id查看筹款信息详情
@@ -82,11 +94,12 @@ public class RaisingInfoController {
      * @return
      */
     @PostMapping("selectRaisingBefore.do")
-    public CommonResult selectRaisingBefore(int currentPage,int pageSize) {
+    public TableResult selectRaisingBefore(int currentPage,int pageSize,String keyword) {
         if(currentPage>0 && pageSize>0) {
-            return new CommonResult(200,"操作成功",raisingInfoService.selectRaisingBefore(currentPage,pageSize));
+            PageBean<RaisingInfo> raisingInfoPageBean = raisingInfoService.selectRaisingBefore(currentPage, pageSize,keyword);
+            return TableResult.ResponseBySucess("成功", (long) raisingInfoPageBean.getTotalCount(),raisingInfoPageBean.getPageData());
         }else {
-            return new CommonResult(500,"操作失败！","");
+            return TableResult.ResponseByFail(500,"操作失败！");
         }
 
     }
@@ -185,5 +198,17 @@ public class RaisingInfoController {
             return new CommonResult(500,"操作失败，请重试！","");
         }
 
+    }
+
+    /**
+     * 批量删除通过id
+     * @param ids
+     * @return
+     */
+    @DeleteMapping("/delete.do")
+    public R deleteByids(String ids){
+        List<String> strings = Arrays.asList(ids.split(","));
+        boolean result = raisingInfoService.removeByIds(strings);
+        return R.ok(result);
     }
 }
