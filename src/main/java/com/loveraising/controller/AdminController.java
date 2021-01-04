@@ -2,9 +2,7 @@ package com.loveraising.controller;
 
 
 import cn.hutool.core.util.ObjectUtil;
-import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.baomidou.mybatisplus.core.enums.SqlLike;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.api.R;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
@@ -61,7 +59,7 @@ public class AdminController {
     @PostMapping("/login.do")
     public CommonResult login(UserInfo userInfo) {
         if(userInfo!=null){
-            UserInfo result = userInfoService.login(userInfo);
+            UserInfo result = userInfoService.adminLogin(userInfo);
             if(result != null) {
                 if(result.getRoleId() == 1){   //如果是管理员
                     return new CommonResult(200,"管理员登录成功！",result);

@@ -11,6 +11,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.util.HashMap;
+import java.util.Map;
+
 
 @CrossOrigin
 @RestController
@@ -38,22 +43,23 @@ public class UserInfoController {
     }
 
     /**
-     * 用户登录接口
-     * @param userInfo
+     *
+     * @param request
+     * @param response
      * @return
      */
     @PostMapping("/login.do")
-    public CommonResult login(UserInfo userInfo) {
-        if(userInfo != null){
-            UserInfo result = userInfoService.login(userInfo);
-            if(result != null) {
-                if(result.getStatus()==0){
-                    return new CommonResult(200,"登录成功！",result);
-                }
-                    return new CommonResult(500,"当前账户已被禁用！","");
-            }
+    public Map login(HttpServletRequest request, HttpServletResponse response) {
+        String userName = request.getHeader("userName");
+        String password = request.getHeader("password");
+        if(!userName.trim().equals("") && !userName.trim().equals("")){
+            Map<String,Object> result = userInfoService.login(userName,password,response);
+            return result;
         }
-        return new CommonResult(500,"用户名或密码错误!","");
+        Map<String,Object> map = new HashMap<>();
+        map.put("code",500);
+        map.put("message","用户名或密码不能为空！");
+        return map;
     }
 
     /**

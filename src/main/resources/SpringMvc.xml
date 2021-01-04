@@ -32,6 +32,12 @@
             </bean>
         </mvc:message-converters>
     </mvc:annotation-driven>
+    <mvc:interceptors>
+        <mvc:interceptor>
+            <mvc:mapping path="/**"/>
+            <bean class="com.loveraising.token.AuthenticationInterceptor"/>
+        </mvc:interceptor>
+    </mvc:interceptors>
     <!-- 把标记了@Controller注解的类转换为bean 扫包 -->
     <context:component-scan base-package="com.loveraising.controller"/>
     <!-- 对模型视图名称的解析，即在模型视图名称添加前后缀 -->

@@ -8,10 +8,14 @@ import org.apache.ibatis.annotations.*;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import java.util.List;
+import java.util.Map;
+
 @Mapper
 public interface UserInfoMapper extends BaseMapper<UserInfo> {
     @Select("select id,user_name,real_name,sex,email,telephone,birthday,id_number,status,creat_time,role_id from userinfo")
     List<UserInfo> findAll();
+    @Select("select * from userinfo where user_name=#{userName} and password=#{password}")
+    UserInfo adminLogin(@Param("userName")String userName,@Param("password")String password);
     @Insert("insert into userinfo(user_name,password,real_name,sex,email,telephone,birthday,id_number,creat_time) " +
             "values(#{userName},#{password},#{realName},#{sex},#{email},#{telephone},#{birthday},#{idNumber},#{creatTime})")
     int insertUserInfo(UserInfo userInfo);
@@ -47,5 +51,9 @@ public interface UserInfoMapper extends BaseMapper<UserInfo> {
     double selectSum(@Param("id")int userId,@Param("add")double add);
     @Update("update userinfo set last_login = #{lastLogin} where id = #{id}")
     int updateLastLogin(@Param("id")int id, @Param("lastLogin")String lastLogin);
+    @Select("select * from userinfo where id = #{id}")
+    UserInfo findById(int id);
+    @Select("select * from userinfo where user_name=#{userName} and password=#{password}")
+    Map<String,Object> selectUserInfoByUserNameAndPassword(@Param("userName")String userName,@Param("password")String password);
 
 }

@@ -9,10 +9,13 @@ import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 
+import javax.servlet.http.HttpServletResponse;
 import java.util.List;
+import java.util.Map;
 
 public interface UserInfoService extends IService<UserInfo> {
-    UserInfo login(UserInfo userInfo);
+    Map login(String userName,String password,HttpServletResponse response);
+    UserInfo adminLogin(UserInfo userInfo);
     UserInfo findById(UserInfo userInfo);
     List<UserInfo> findAll();
     int insertUserInfo(UserInfo userInfo);
@@ -24,4 +27,6 @@ public interface UserInfoService extends IService<UserInfo> {
     List<UserInfo> selectUserInfo(String keyword);
     UserInfo selectUserWallet(int id);
     int addRemainingSum(Integer id,Double add);
+    UserInfo findById(int id);
+
 }

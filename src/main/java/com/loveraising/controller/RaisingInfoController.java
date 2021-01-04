@@ -15,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.Arrays;
 import java.util.List;
 import java.util.UUID;
@@ -38,7 +39,14 @@ public class RaisingInfoController {
      * 添加筹款信息
      * */
     @PostMapping("insertRaising.do")
-    public CommonResult insertRaising(RaisingInfoDto raisingInfo) {
+    public CommonResult insertRaising(RaisingInfoDto raisingInfo, HttpServletRequest httpServletRequest) {
+        String userName = httpServletRequest.getAttribute("userName").toString();
+        System.out.println("");
+        System.out.println();
+        System.out.println(userName+"=============================================");
+        System.out.println();
+        System.out.println();
+        raisingInfo.setUserName(userName);
         raisingInfo.setCurrentAmount(0.0);
         List<String> strings = Arrays.asList(raisingInfo.getImageUrls().split(","));
          if(raisingInfoService.insertRaising(raisingInfo)==1){

@@ -1,18 +1,24 @@
 package com.loveraising.service.impl;
 
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 
 import com.loveraising.dao.UserInfoMapper;
 import com.loveraising.pojo.UserInfo;
 import com.loveraising.service.UserInfoService;
+import com.loveraising.service.TokenService;
 import com.loveraising.util.PageBean;
 
 import com.loveraising.util.Utils;
 import org.springframework.stereotype.Service;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
+
 import javax.annotation.Resource;
-import java.time.LocalDateTime;
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletResponse;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 
 @Service
@@ -20,24 +26,51 @@ public class UserInfoServiceImpl extends ServiceImpl<UserInfoMapper,UserInfo> im
 
     @Resource
     UserInfoMapper userInfoMapper;
+    @Resource
+    TokenService tokenService;
     @Override
-    public UserInfo login(UserInfo userInfo) {
-        QueryWrapper<UserInfo> wrapper = new QueryWrapper<>();
-        //根据用户名查询 用户对象
-        wrapper.eq("user_name",userInfo.getUserName());
-        UserInfo queryUser = this.getOne(wrapper);
-        if(queryUser!=null){
-            //如果用户名存在则验证密码
-            //如果密码一致则认为登录成功
-            if(userInfo.getPassword().equals(queryUser.getPassword())){
-                //将用户信息生成token数据返回给前端
-                queryUser.setPassword("");
-                userInfoMapper.updateLastLogin(queryUser.getId(),Utils.getDateTime());
-                return queryUser;
-            }
-        }
+    public Map login(String userName,String password,HttpServletResponse response) {
+        Map map = new HashMap();
+        Map<String, Object> userMap = userInfoMapper.selectUserInfoByUserNameAndPassword(userName,password);
+        System.out.println(userMap);
+        if (userMap == null || userMap.size()==0){
+            map.put("code",500);
+            map.put("message","账号或密码错误");
+        }else if(Integer.parseInt(userMap.get("status").toString())==1){
+            map.put("code",500);
+            map.put("message","当前账户已禁用!");
+        }else {
+            //Map<String, String> usersMap = systemConfig.getMap();//用来存放已登录用户的信息，类似redis
+            String lastLogin = Utils.getDateTime();
+            userInfoMapper.updateLastLogin(Integer.parseInt(userMap.get("id").toString()),lastLogin);   //在数据库更新最后登录时间
+            //usersMap.put(name,lastLogin);
+            userMap.put("last_login",lastLogin);
+            String token = tokenService.getToken(userMap);
+            map.put("code", 200);
+            map.put("message","登录成功！");
+            map.put("token",token);
+            map.put("roleId",Integer.parseInt(userMap.get("role_id").toString()));
+            map.put("userName",userMap.get("user_name"));
+            map.put("lastLogin",lastLogin);
 
-        return null;
+            //systemConfig.getMap().put(name,lastlogin);//向全局的map中存放用户和上次登录时间，如果有则替换value
+
+            Cookie cookie = new Cookie("token", token);
+            cookie.setPath("/");
+            response = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getResponse();
+            response.addCookie(cookie);
+
+        }
+        return map;
+    }
+
+    @Override
+    public UserInfo adminLogin(UserInfo userInfo) {
+        UserInfo result = userInfoMapper.adminLogin(userInfo.getUserName(),userInfo.getPassword());
+        if(result!=null) {
+            userInfoMapper.updateLastLogin(result.getId(),Utils.getDateTime());
+        }
+        return result;
     }
 
     @Override
@@ -128,7 +161,10 @@ public class UserInfoServiceImpl extends ServiceImpl<UserInfoMapper,UserInfo> im
         return userInfoMapper.addRemainingSum(id,add);
     }
 
-
+    @Override
+    public UserInfo findById(int id) {
+        return userInfoMapper.findById(id);
+    }
 
 
 }
