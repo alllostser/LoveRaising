@@ -34,7 +34,10 @@
     </mvc:annotation-driven>
     <mvc:interceptors>
         <mvc:interceptor>
-            <mvc:mapping path="/**"/>
+            <mvc:mapping path="/xxx/*"/>
+<!--            <mvc:exclude-mapping path="/**/login.do"/>-->
+<!--            <mvc:exclude-mapping path="/**/register.do"/>-->
+<!--            <mvc:exclude-mapping path="/genCaptcha.do"/>-->
             <bean class="com.loveraising.token.AuthenticationInterceptor"/>
         </mvc:interceptor>
     </mvc:interceptors>

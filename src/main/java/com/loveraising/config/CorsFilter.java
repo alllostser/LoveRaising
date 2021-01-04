@@ -7,7 +7,6 @@ import java.io.IOException;
 /**
  * @ClassName CosFilter
  * @Description //TODO
- * @Author GuXinYu
  * @Date 2021/1/1 16:08
  * @Version 1.0
  **/

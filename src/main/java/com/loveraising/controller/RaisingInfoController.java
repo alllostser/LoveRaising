@@ -1,5 +1,6 @@
 package com.loveraising.controller;
 
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.api.R;
@@ -31,7 +32,7 @@ public class RaisingInfoController {
         if (StringUtils.isEmpty(raisingInfo.getRaisingName())){
             raisingInfo.setRaisingName(null);
         }
-        IPage raisingInfoIPage = raisingInfoService.page(page, new QueryWrapper<>(raisingInfo));
+        IPage raisingInfoIPage = raisingInfoService.page(page, new LambdaQueryWrapper<>(raisingInfo).orderByDesc(RaisingInfo::getCreatTime).orderByAsc(RaisingInfo::getStatusId));
         return TableResult.ResponseBySucess("成功",raisingInfoIPage.getTotal(), raisingInfoIPage.getRecords());
     }
 
