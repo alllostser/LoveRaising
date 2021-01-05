@@ -1,8 +1,10 @@
 package com.loveraising.controller;
 
+import com.loveraising.common.TableResult;
 import com.loveraising.pojo.LeaveMessageInfo;
 import com.loveraising.service.LeaveMessageInfoService;
 import com.loveraising.util.CommonResult;
+import com.loveraising.util.PageBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -27,12 +29,13 @@ public class LeaveMessageInfoController {
         }
 
     }
-    @PostMapping("/selectMessageInPage.do")
-    public CommonResult selectMessageInPage(int currentPage,int pageSize) {
+    @GetMapping("/selectMessageInPage.do")
+    public TableResult selectMessageInPage(int currentPage, int pageSize) {
         if(currentPage>0 && pageSize>0) {
-            return new CommonResult(200,"查询成功",leaveMessageInfoService.selectMessageInPage(currentPage,pageSize));
+            PageBean<LeaveMessageInfo> leaveMessageInfoPageBean = leaveMessageInfoService.selectMessageInPage(currentPage, pageSize);
+           return TableResult.ResponseBySucess("成功", (long) leaveMessageInfoPageBean.getTotalCount(),leaveMessageInfoPageBean.getPageData());
         }else {
-            return new CommonResult(500,"查询失败","");
+           return TableResult.ResponseByFail(400,"参数为空！");
         }
     }
 }
