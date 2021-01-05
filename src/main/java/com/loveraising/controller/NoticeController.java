@@ -7,11 +7,16 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.core.toolkit.support.SFunction;
 import com.baomidou.mybatisplus.extension.api.R;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.loveraising.common.TableResult;
 import com.loveraising.pojo.NewsInfo;
 import com.loveraising.service.NewsInfoService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDateTime;
+import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -32,10 +37,13 @@ public class NoticeController {
      * @return
      */
     @GetMapping("/list.do")
-    public R list(Page<NewsInfo> page, NewsInfo newsInfo){
+    public TableResult list(Page<NewsInfo> page, NewsInfo newsInfo){
+        if (StringUtils.isEmpty(newsInfo.getNewsTitle())){
+            newsInfo.setNewsTitle(null);
+        }
         IPage<NewsInfo> pageList = newsInfoService.page(page, new LambdaQueryWrapper<>(newsInfo).orderByDesc(NewsInfo::getCreatTime));
         List<NewsInfo> records = pageList.getRecords();
-        return R.ok(records);
+        return TableResult.ResponseBySucess("成功", page.getTotal(), records);
     }
 
     /**
@@ -44,7 +52,8 @@ public class NoticeController {
      * @return
      */
     @PostMapping("/save.do")
-    public R save(NewsInfo newsInfo){
+    public R save(@RequestBody NewsInfo newsInfo){
+        newsInfo.setCreatTime(new Date());
         boolean result = newsInfoService.save(newsInfo);
         if (!result){
             return R.failed("添加失败!");
@@ -58,7 +67,7 @@ public class NoticeController {
      * @return
      */
     @PostMapping("/update.do")
-    public R update(NewsInfo newsInfo){
+    public R update(@RequestBody NewsInfo newsInfo){
         if (ObjectUtil.isNotNull(newsInfo.getId())){
             boolean result = newsInfoService.updateById(newsInfo);
             if (!result){
@@ -67,5 +76,15 @@ public class NoticeController {
             return R.ok(result);
         }
         return null;
+    }
+
+    @DeleteMapping("/delete.do")
+    public R delete(String ids){
+        List<String> strings = Arrays.asList(ids.split(","));
+        boolean b = newsInfoService.removeByIds(strings);
+        if (!b){
+            return R.failed("操作失败");
+        }
+        return R.ok(b);
     }
 }

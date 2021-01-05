@@ -1,5 +1,6 @@
 package com.loveraising.controller;
 
+import com.baomidou.mybatisplus.extension.api.R;
 import com.loveraising.common.TableResult;
 import com.loveraising.pojo.LeaveMessageInfo;
 import com.loveraising.service.LeaveMessageInfoService;
@@ -37,5 +38,14 @@ public class LeaveMessageInfoController {
         }else {
            return TableResult.ResponseByFail(400,"参数为空！");
         }
+    }
+
+    @DeleteMapping("/delete.do")
+    public R delete(String id){
+        boolean b = leaveMessageInfoService.removeById(id);
+        if (!b){
+            return R .failed("操作失败");
+        }
+        return R.ok(b);
     }
 }

@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@TableName("enrollinfo")
+@TableName("leavemessageinfo")
 public class LeaveMessageInfo {
     @TableId(type= IdType.AUTO)
     private Integer id;

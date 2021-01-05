@@ -12,7 +12,7 @@ import java.util.List;
 public interface LeaveMessageInfoMapper extends BaseMapper<LeaveMessageInfo> {
     @Insert("insert into leavemessageinfo(name,telephone,message,creat_time) values(#{name},#{telephone},#{message},#{creatTime})")
     int insertLeaveMessage(LeaveMessageInfo leaveMessageInfo);
-    @Select("select * from leavemessageinfo limit #{beginIndex},#{pageSize} orderby creat_time desc")
+    @Select("select * from leavemessageinfo order by creat_time desc limit #{beginIndex},#{pageSize} ")
     List<LeaveMessageInfo> selectMessageInPage(PageBean<LeaveMessageInfo> pageBean);
     @Select("select count(id) from leavemessageinfo")
     int countMessage();
