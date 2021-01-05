@@ -3,6 +3,7 @@ package com.loveraising.dao;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.loveraising.pojo.ActivitiesImageInfo;
 import com.loveraising.pojo.ActivitiesInfo;
+import com.loveraising.pojo.vo.ActivitiesInfoVo;
 import com.loveraising.util.PageBean;
 import org.apache.ibatis.annotations.*;
 
@@ -20,9 +21,7 @@ public interface ActivitiesInfoMapper extends BaseMapper<ActivitiesInfo> {
             "activity_description=#{activityDescription},activity_num=#{activityNum} " +
             "where id=#{id}")
     int updateActivity(ActivitiesInfo activitiesInfo);
-    @Select("select a.id,a.activity_id,a.activity_title,a.first_url,a.activity_location,a.activity_description,a.activity_num,a.current_num,a.creat_time,a.start_time,a.user_name,a.first_url,s.status " +
-            "from activitiesinfo a,statusinfo s where a.status_id=s.id limit #{beginIndex},#{pageSize}")
-    List<ActivitiesInfo> selectAllActivities(PageBean<ActivitiesInfo> pageBean);
+    List<ActivitiesInfoVo> selectAllActivities(@Param("pageBean") PageBean<ActivitiesInfoVo> pageBean,@Param("activitiesInfoVo") ActivitiesInfoVo activitiesInfoVo);
     @Select("select count(id) from activitiesinfo")
     int countAllActivities();
     @Select("select a.id,a.activity_id,a.activity_title,a.first_url,a.activity_location,a.activity_description,a.activity_num,a.current_num,a.creat_time,a.start_time,a.user_name,a.first_url,s.status " +

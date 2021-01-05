@@ -1,13 +1,20 @@
 package com.loveraising.controller;
 
+import com.baomidou.mybatisplus.extension.api.R;
+import com.loveraising.common.TableResult;
 import com.loveraising.pojo.ActivitiesInfo;
+import com.loveraising.pojo.vo.ActivitiesInfoVo;
 import com.loveraising.service.ActivitiesService;
 import com.loveraising.service.EnrollInfoService;
 import com.loveraising.util.CommonResult;
 
+import com.loveraising.util.PageBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
+import java.util.Arrays;
+import java.util.List;
 import java.util.UUID;
 
 @CrossOrigin
@@ -22,7 +29,9 @@ public class ActivitiesInfoController {
      *添加活动信息
      **/
     @PostMapping("insertActivity.do")
-    public CommonResult insertActicity(ActivitiesInfo activitiesInfo) {
+    public CommonResult insertActicity(ActivitiesInfo activitiesInfo, HttpServletRequest request) {
+        String loginName = (String) request.getAttribute("userName");
+        activitiesInfo.setUserName(loginName);
         if(activitiesService.insertActivities(activitiesInfo)==1){
             return new CommonResult(200,"操作成功",1);
         }else {
@@ -44,9 +53,9 @@ public class ActivitiesInfoController {
      * 分页查看所有活动接口（管理员查看，包括已禁用的）
      */
     @PostMapping("selectAllActivities.do")
-    public CommonResult selectAllInPage(int currentPage,int pageSize) {
-
-        return new CommonResult(200,"操作成功",activitiesService.selectAllActivities(currentPage,pageSize));
+    public TableResult selectAllInPage(int currentPage, int pageSize,ActivitiesInfoVo activitiesInfoVo) {
+        PageBean<ActivitiesInfoVo> activitiesInfoPageBean = activitiesService.selectAllActivities(currentPage, pageSize,activitiesInfoVo);
+        return TableResult.ResponseBySucess("成功", (long) activitiesInfoPageBean.getTotalCount(),activitiesInfoPageBean.getPageData());
     }
     /**
      * 分页查看所有待进行活动接口（用户查看）
@@ -126,6 +135,16 @@ public class ActivitiesInfoController {
         return new CommonResult(200,"操作成功",activitiesService.selectImageInfo(activityId));
     }
 
+    @DeleteMapping("/delete.do")
+    public R deleteByids(String ids){
+        String[] split = ids.split(",");
+        List<String> strings = Arrays.asList(split);
+        boolean result = activitiesService.removeByIds(strings);
+        if (!result){
+            return R.failed("操作失败");
+        }
+        return R.ok(result);
+    }
     public static void main(String[] args) {
         System.out.println(UUID.randomUUID().toString());
     }

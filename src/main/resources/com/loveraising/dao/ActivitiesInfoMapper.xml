@@ -6,4 +6,26 @@
     <update id="updateFirstImageUrl">
         update activitiesinfo set first_url = #{firstUrl} where id = #{id}
     </update>
+    <select id="selectAllActivities" resultType="com.loveraising.pojo.vo.ActivitiesInfoVo">
+      select a.id,a.activity_id,a.activity_title
+           ,a.first_url,a.activity_location,
+             a.activity_description
+           ,a.activity_num,a.current_num
+           ,a.creat_time,a.start_time
+           ,a.user_name
+           ,a.first_url,s.status
+            from activitiesinfo a,statusinfo s
+      where a.status_id=s.id
+      <if test="activitiesInfoVo.activityTitle!=null and activitiesInfoVo.activityTitle!=''">
+          and locate(#{activitiesInfoVo.activityTitle},a.activity_title)
+      </if>
+      <if test="activitiesInfoVo.statusId !=null and activitiesInfoVo.statusId!=''">
+          and locate(#{activitiesInfoVo.statusId},a.status_id)
+      </if>
+      <if test="activitiesInfoVo.userName !=null and activitiesInfoVo.userName!=''">
+          and locate(#{activitiesInfoVo.userName},a.user_name)
+      </if>
+      order by a.start_time desc,a.creat_time desc
+      limit #{pageBean.beginIndex},#{pageBean.pageSize}
+    </select>
 </mapper>

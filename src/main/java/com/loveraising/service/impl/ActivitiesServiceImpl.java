@@ -5,15 +5,14 @@ import com.loveraising.dao.ActivitiesInfoMapper;
 
 import com.loveraising.pojo.ActivitiesImageInfo;
 import com.loveraising.pojo.ActivitiesInfo;
+import com.loveraising.pojo.vo.ActivitiesInfoVo;
 import com.loveraising.service.ActivitiesService;
 import com.loveraising.util.PageBean;
 import com.loveraising.util.Utils;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 import java.util.UUID;
 
 @Service
@@ -33,12 +32,12 @@ public class ActivitiesServiceImpl extends ServiceImpl<ActivitiesInfoMapper, Act
     }
 
     @Override
-    public PageBean<ActivitiesInfo> selectAllActivities(int currentPage,int pageSize) {
-        PageBean<ActivitiesInfo> pageBean = new PageBean<ActivitiesInfo>();
+    public PageBean<ActivitiesInfoVo> selectAllActivities(int currentPage, int pageSize, ActivitiesInfoVo activitiesInfoVo) {
+        PageBean<ActivitiesInfoVo> pageBean = new PageBean<ActivitiesInfoVo>();
         pageBean.setCurrentPage(currentPage);
         pageBean.setPageSize(pageSize);
 
-        List<ActivitiesInfo> list = activitiesInfoMapper.selectAllActivities(pageBean);
+        List<ActivitiesInfoVo> list = activitiesInfoMapper.selectAllActivities(pageBean,activitiesInfoVo);
         int count = activitiesInfoMapper.countAllActivities();
         pageBean.setTotalCount(count);
         pageBean.setPageData(list);
