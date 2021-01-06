@@ -49,6 +49,18 @@ public class ActivitiesInfoController {
             return new CommonResult(500,"操作失败",0);
         }
     }
+
+    /**
+     * 编辑活动信息
+     */
+    @PostMapping("update.do")
+    public R update(ActivitiesInfo activitiesInfo) {
+        if(activitiesService.updateById(activitiesInfo)){
+            return R.ok("操作成功");
+        }else {
+            return R.failed("操作失败");
+        }
+    }
     /**
      * 分页查看所有活动接口（管理员查看，包括已禁用的）
      */

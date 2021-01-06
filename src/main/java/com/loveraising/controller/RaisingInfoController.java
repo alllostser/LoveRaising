@@ -220,4 +220,10 @@ public class RaisingInfoController {
         boolean result = raisingInfoService.removeByIds(strings);
         return R.ok(result);
     }
+
+    @GetMapping("/count.do")
+    public R count(){
+        List<RaisingInfo> list = raisingInfoService.list(new LambdaQueryWrapper<RaisingInfo>().orderByAsc(RaisingInfo::getCreatTime).last("limit 0,6"));
+        return R.ok(list);
+    }
 }
