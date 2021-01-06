@@ -58,4 +58,6 @@
         <!-- 设置默认编码 -->
         <property name="defaultEncoding" value="utf-8"/>
     </bean>
+
+<!--    <mvc:default-servlet-handler/>-->
 </beans>  

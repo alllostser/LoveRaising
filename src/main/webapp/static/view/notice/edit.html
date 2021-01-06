@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en"  xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="../../component/pear/css/pear.css" />
+</head>
+<body>
+<form class="layui-form layuimini-form" lay-filter="layui-form" action="">
+    <div class="mainBox">
+        <div class="main-container">
+            <div class="layui-form-item layui-hide">
+                <label class="layui-form-label">id</label>
+                <div class="layui-input-block">
+                    <input type="text" name="id"  lay-reqtext="公告标题" autocomplete="off"  class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">公告标题</label>
+                <div class="layui-input-block">
+                    <input type="text" name="newsTitle"  lay-reqtext="公告标题" autocomplete="off"  class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">公告内容</label>
+                <div class="layui-input-block">
+                    <textarea style="height: 370px" name="newsDescription" placeholder="请输入公告信息" class="layui-textarea"></textarea>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="bottom">
+        <div class="button-container">
+            <button type="submit" class="layui-btn layui-btn-normal layui-btn-sm" lay-submit="" lay-filter="user-save">
+                <i class="layui-icon layui-icon-ok"></i>
+                提交
+            </button>
+            <button type="reset" class="layui-btn layui-btn-primary layui-btn-sm">
+                <i class="layui-icon layui-icon-refresh"></i>
+                重置
+            </button>
+        </div>
+    </div>
+</form>
+<script src="../../component/layui/layui.js"></script>
+<script src="../../component/pear/pear.js"></script>
+<script src="../../config/api.config.js"></script>
+<script>
+    layui.use(['form','jquery','laydate','context'],function(){
+        let form = layui.form;
+        let $ = layui.jquery;
+        let laydate = layui.laydate;
+        const context = layui.context;
+        var hostUrl = context.get("hostUrl");
+        const token = sessionStorage.getItem('token');
+
+        // 从父层获取值，json是父层的全局js变量。eval是将该string类型的json串变为标准的json串
+        var parent_json = eval('(' + parent.json + ')');
+        //初始化表单
+        form.val("layui-form", { //formTest 即 class="layui-form" 所在元素属性 lay-filter="" 对应的值
+            "id":parent_json.id
+            ,"newsTitle": parent_json.newsTitle // "name": "value"
+            ,"newsDescription": parent_json.newsDescription
+        });
+        form.on('submit(user-save)', function(data){
+            let roleIds = "";
+            $('input[type=checkbox]:checked').each(function() {
+                roleIds += $(this).val()+",";
+            });
+            roleIds = roleIds.substr(0,roleIds.length-1);
+            data.field.roleIds = roleIds;
+            $.ajax({
+                url:hostUrl+'/notice/update.do',
+                data:JSON.stringify(data.field),
+                dataType:'json',
+                headers:{'token':token},
+                contentType:'application/json',
+                type:'post',
+                success:function(result){
+                    if(result.data){
+                        layer.msg(result.msg,{icon:1,time:1000},function(){
+                            parent.layer.close(parent.layer.getFrameIndex(window.name));//关闭当前页
+                            parent.layui.table.reload("user-table");
+                        });
+                    }else{
+                        layer.msg(result.msg,{icon:2,time:1000});
+                    }
+                }
+            })
+            return false;
+        });
+    })
+</script>
+<script>
+</script>
+</body>
+</html>

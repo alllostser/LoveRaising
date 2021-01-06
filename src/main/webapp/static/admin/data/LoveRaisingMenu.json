@@ -1,0 +1,94 @@
+[
+	{
+		"id":"raising",
+		"title": "筹款管理",
+		"type": 0,
+		"icon": "layui-icon layui-icon-console",
+		"href": "",
+		"children": [{
+			"id": 10,
+			"title": "筹款列表",
+			"icon": "layui-icon layui-icon-console",
+			"type": 1,
+			"openType": "_iframe",
+			"href": "view/raising/raising.html"
+		}, {
+			"id": 13,
+			"title": "发起筹款",
+			"icon": "layui-icon layui-icon-console",
+			"type": 1,
+			"openType": "_iframe",
+			"href": "view/raising/adds.html"
+		}, {
+			"id": 14,
+			"title": "筹款审核",
+			"icon": "layui-icon layui-icon-console",
+			"type": 1,
+			"openType": "_iframe",
+			"href": "view/raising/review.html"
+		}]
+	},
+	{
+		"id": "activity",
+		"title": "活动管理",
+		"icon": "layui-icon layui-icon-auz",
+		"type": 0,
+		"href": "",
+		"children": [{
+			"id": "success",
+			"title": "发布活动",
+			"icon": "layui-icon layui-icon-face-smile",
+			"type": 1,
+			"openType": "_iframe",
+			"href": "view/activity/release.html"
+		},
+			{
+				"id": "failure",
+				"title": "活动列表",
+				"icon": "layui-icon layui-icon-face-cry",
+				"type": 1,
+				"openType": "_iframe",
+				"href": "view/activity/activity.html"
+			}
+		]
+	},
+	{
+		"id": "system",
+		"title": "系统管理",
+		"icon": "layui-icon layui-icon-set-fill",
+		"type": 0,
+		"href": "",
+		"children": [{
+			"id": 601,
+			"title": "用户管理",
+			"icon": "layui-icon layui-icon-face-smile",
+			"type": 1,
+			"openType": "_iframe",
+			"href": "view/system/user.html"
+		}
+
+		]
+	},
+	{
+		"id": "news",
+		"title": "留言查看",
+		"icon": "layui-icon layui-icon-face-cry",
+		"type": 1,
+		"href": "view/news/news.html"
+	},
+	{
+		"id": "notice",
+		"title": "公告管理",
+		"icon": "layui-icon layui-icon-template-1",
+		"type": 0,
+		"href": "",
+		"children": [{
+			"id": 701,
+			"title": "公告列表",
+			"icon": "layui-icon layui-icon-face-smile",
+			"type": 1,
+			"openType": "_iframe",
+			"href": "view/notice/notice.html"
+		}]
+	}
+]

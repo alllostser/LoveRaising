@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html xmlns:0>
+<head>
+    <meta charset="utf-8">
+    <title>筹款列表</title>
+    <link rel="stylesheet" href="../../component/pear/css/pear.css" />
+    <style>
+        .layui-table-cell{
+            height: 100% !important;
+            line-height: 100% !important;
+        }
+    </style>
+</head>
+<body class="pear-container">
+<div class="layui-card">
+    <div class="layui-card-body">
+        <form class="layui-form" action="">
+            <div class="layui-form-item">
+                <div class="layui-form-item layui-inline">
+                    <label class="layui-form-label">用户名</label>
+                    <div class="layui-input-inline">
+                        <input type="text" name="keyword" placeholder="" class="layui-input">
+                    </div>
+                </div>
+                <div class="layui-form-item layui-inline">
+                    <button class="pear-btn pear-btn-md pear-btn-primary" lay-submit lay-filter="user-query">
+                        <i class="layui-icon layui-icon-search"></i>
+                        查询
+                    </button>
+                    <button type="reset" class="pear-btn pear-btn-md">
+                        <i class="layui-icon layui-icon-refresh"></i>
+                        重置
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<div class="layui-card">
+    <div class="layui-card-body">
+        <table id="user-table" lay-filter="user-table"></table>
+    </div>
+</div>
+
+<script type="text/html" id="user-toolbar">
+<!--    <button class="pear-btn pear-btn-primary pear-btn-md" lay-event="add">-->
+<!--        <i class="layui-icon layui-icon-add-1"></i>-->
+<!--        新增-->
+<!--    </button>-->
+<!--    <button class="pear-btn pear-btn-danger pear-btn-md" lay-event="batchRemove">-->
+<!--        <i class="layui-icon layui-icon-delete"></i>-->
+<!--        删除-->
+<!--    </button>-->
+</script>
+
+<script type="text/html" id="user-bar">
+    <button class="pear-btn pear-btn-success pear-btn-sm" lay-event="pass"><i class="">Pass</i></button>
+    <button class="pear-btn pear-btn-danger pear-btn-sm" lay-event="fail"><i class="">Fail</i></button>
+</script>
+
+
+<!--		<script type="text/html" id="user-sex">-->
+<!--			{{#if (d.sex == 1) { }}-->
+<!--		    <span>男</span>-->
+<!--		    {{# }else if(d.sex == 2){ }}-->
+<!--		    <span>女</span>-->
+<!--		    {{# } }}-->
+<!--		</script>-->
+
+<script type="text/html" id="user-login">
+    {{#if (d.roleId == 1) { }}
+    <span class="layui-btn layui-btn-normal layui-btn-sm">管理员</span>
+    {{# }else if(d.roleId == 2){ }}
+    <span class="layui-btn layui-btn-sm layui-btn-danger data-delete-btn" >会员</span>
+    {{# } }}
+</script>
+
+<script type="text/html" id="user-createTime">
+    {{layui.util.toDateString(d.createTime, 'yyyy-MM-dd')}}
+</script>
+
+<script src="../../component/layui/layui.js"></script>
+<script src="../../component/pear/pear.js"></script>
+<script src="../../config/api.config.js"></script>
+<script>
+    layui.use(['table', 'form', 'jquery','common','context'], function() {
+        let table = layui.table;
+        let form = layui.form;
+        let $ = layui.jquery;
+        let common = layui.common;
+        let MODULE_PATH = "operate/";
+        const context = layui.context;
+        const token = sessionStorage.getItem('token');
+        var hostUrl = context.get("hostUrl")
+        let cols = [
+            [{
+                type: 'checkbox'
+            },
+                {
+                    title: '标题',
+                    field: 'raisingTitle',
+                    align: 'center',
+                    //width: 250
+                },
+                {
+                    title: '主图',
+                    field: 'firstUrl',
+                    rowspan: 6,
+                    style:'height:90px',
+                    width: 110,
+                    templet: function (d){
+                        return '<img  style="width: 85px;height: 85px;" src="'+hostUrl+d.firstUrl+'" alt="">'
+                    },
+                    align: 'center',
+                },
+                {
+                    title: '筹款描述',
+                    field: 'raisingDescription',
+                    align: 'center',
+                },
+                {
+                    title: '筹款人',
+                    field: 'raisingName',
+                    align: 'center',
+                    width: 100
+                },
+                {
+                    title: '筹款金额',
+                    field: 'targetAmount',
+                    align: 'center',
+                    width: 100,
+                },
+                {
+                    title: '已筹金额',
+                    field: 'currentAmount',
+                    width: 100,
+                    align: 'center'
+                },
+                {
+                    title: '状态',
+                    field: 'statusId',
+                    align: 'center',
+                    templet: function (d) {
+                        if (d.statusId==5){
+                            return '<span class="layui-badge layui-bg-green">筹款中</span>'
+                        }else if (d.statusId==2){
+                            return '<span class="layui-badge layui-bg-red">待审核</span>'
+                        }else if (d.statusId==6){
+                            return '<span class="layui-badge layui-bg-black">未通过</span>'
+                        }else if (d.statusId==7){
+                            return '<span class="layui-badge layui-bg-gray">已完成</span>'
+                        }
+
+                    }
+                },
+                {
+                    title: '申请时间',
+                    field: 'createTime',
+                    align: 'center',
+                    templet: '#user-createTime'
+                },
+                {
+                    title: '操作',
+                    toolbar: '#user-bar',
+                    align: 'center',
+                    width: 150
+                }
+            ]
+        ]
+
+        console.log(hostUrl)
+        table.render({
+            elem: '#user-table',
+            url: hostUrl+'/raisinginfo/selectRaisingBefore.do',
+            request: {
+                pageName: 'currentPage' ,//页码的参数名称，默认：page
+                limitName: 'pageSize' //每页数据量的参数名，默认：limit
+            },
+            headers:{'token':token},
+            method:'post',
+            page: true,
+            cols: cols,
+            skin: 'line',
+            toolbar: '#user-toolbar',
+            defaultToolbar: [{
+                layEvent: 'refresh',
+                icon: 'layui-icon-refresh',
+            }, 'filter', 'print', 'exports'],
+            limits: [10, 15, 20, 25, 50, 100],
+            limit:10,
+        });
+
+        table.on('tool(user-table)', function(obj) {
+            if (obj.event === 'pass') {
+                window.pass(obj);
+            } else if (obj.event === 'fail') {
+                window.fail(obj);
+            }
+        });
+
+        table.on('toolbar(user-table)', function(obj) {
+            if (obj.event === 'add') {
+                window.add();
+            } else if (obj.event === 'refresh') {
+                window.refresh();
+            } else if (obj.event === 'batchRemove') {
+                window.batchRemove(obj);
+            }
+        });
+
+        form.on('submit(user-query)', function(data) {
+            table.reload('user-table', {
+                url: hostUrl+'/raisinginfo/selectRaisingBefore.do',
+                method:"post",
+                headers:{'token':token},
+                page: {
+                    current: 1
+                },
+                where: {
+                    keyword: data.field.keyword,
+                }
+            })
+            // table.reload('user-table', {
+            // 	where: data.field
+            // })
+            return false;
+        });
+
+        form.on('switch(user-enable)', function(obj) {
+            //	console.log(obj)
+            //layer.tips(this.value + ' ' + this.name + '：' + obj.elem.checked, obj.othis);
+            $.ajax({
+                url: hostUrl + "/admin/updateStatus/" + this.value+".do",
+                dataType: 'json',
+                headers:{'token':token},
+                type: 'get',
+                success: function(result) {
+                }
+            })
+        });
+
+
+        window.pass = function(obj) {
+            var data = obj.data
+            json = JSON.stringify(data);
+            layer.confirm('确认通过？',{
+                icon: 3,
+                title: '提示'
+            },function (index) {
+                layer.close(index);
+                let loading = layer.load();
+                $.ajax({
+                    url:hostUrl+'/raisinginfo/update.do',
+                    dataType: 'json',
+                    contentType:'application/json',
+                    headers:{'token':token},
+                    data:JSON.stringify({
+                        id:data.id,
+                        statusId:5
+                    }),
+                    type: 'post',
+                    success: function(result) {
+                        layer.close(loading);
+                        if (result.data) {
+                            layer.msg(result.msg, {
+                                icon: 1,
+                                time: 1000
+                            },function() {
+                                obj.del();
+                            });
+                        }else {
+                            layer.msg(result.msg, {
+                                icon: 2,
+                                time: 1000
+                            });
+                        }}
+                })
+            });
+        }
+        window.fail = function(obj) {
+            var data = obj.data
+            json = JSON.stringify(data);
+            layer.confirm('确认打回？',{
+                icon: 3,
+                title: '提示'
+            },function (index) {
+                layer.close(index);
+                let loading = layer.load();
+                $.ajax({
+                    url:hostUrl+'/raisinginfo/update.do',
+                    dataType: 'json',
+                    contentType:'application/json',
+                    headers:{'token':token},
+                    data:JSON.stringify({
+                        id:data.id,
+                        statusId:6
+                    }),
+                    type: 'post',
+                    success: function(result) {
+                        layer.close(loading);
+                        if (result.data) {
+                            layer.msg(result.msg, {
+                                icon: 1,
+                                time: 1000
+                            },function() {
+                                obj.del();
+                            });
+                    }else {
+                        layer.msg(result.msg, {
+                            icon: 2,
+                            time: 1000
+                        });
+                    }}
+                })
+            });
+        }
+
+
+        window.refresh = function(param) {
+            table.reload('user-table');
+        }
+    })
+</script>
+</body>
+</html>

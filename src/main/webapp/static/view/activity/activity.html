@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html xmlns:0>
+<head>
+    <meta charset="utf-8">
+    <title>活动列表</title>
+    <link rel="stylesheet" href="../../component/pear/css/pear.css" />
+    <style>
+        .layui-table-cell{
+            height: 100% !important;
+            line-height: 100% !important;
+        }
+    </style>
+</head>
+<body class="pear-container">
+<div class="layui-card">
+    <div class="layui-card-body">
+        <form class="layui-form" action="">
+            <div class="layui-form-item">
+                <div class="layui-form-item layui-inline">
+                    <label class="layui-form-label">标题</label>
+                    <div class="layui-input-inline">
+                        <input type="text" name="activityTitle" placeholder="" class="layui-input">
+                    </div>
+                </div>
+                <div class="layui-form-item layui-inline">
+                    <label class="layui-form-label">状态</label>
+                    <div class="layui-input-inline">
+                        <select name="statusId"  lay-search>
+                            <option value=""></option>
+                            <option value="5">进行中</option>
+                            <option value="1">待进行</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="layui-form-item layui-inline">
+                    <label class="layui-form-label">发布人</label>
+                    <div class="layui-input-inline">
+                        <input type="text" name="userName" placeholder="" class="layui-input">
+                    </div>
+                </div>
+                <div class="layui-form-item layui-inline">
+                    <button class="pear-btn pear-btn-md pear-btn-primary" lay-submit lay-filter="user-query">
+                        <i class="layui-icon layui-icon-search"></i>
+                        查询
+                    </button>
+                    <button type="reset" class="pear-btn pear-btn-md">
+                        <i class="layui-icon layui-icon-refresh"></i>
+                        重置
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<div class="layui-card">
+    <div class="layui-card-body">
+        <table id="user-table" lay-filter="user-table"></table>
+    </div>
+</div>
+
+<script type="text/html" id="user-toolbar">
+    <button class="pear-btn pear-btn-primary pear-btn-md" lay-event="add">
+        <i class="layui-icon layui-icon-add-1"></i>
+        新增
+    </button>
+    <button class="pear-btn pear-btn-danger pear-btn-md" lay-event="batchRemove">
+        <i class="layui-icon layui-icon-delete"></i>
+        删除
+    </button>
+</script>
+
+<script type="text/html" id="user-bar">
+    <button class="pear-btn pear-btn-primary pear-btn-sm" lay-event="edit"><i class="layui-icon layui-icon-edit"></i></button>
+    <button class="pear-btn pear-btn-danger pear-btn-sm" lay-event="remove"><i class="layui-icon layui-icon-delete"></i></button>
+</script>
+
+<script type="text/html" id="user-createTime">
+    {{layui.util.toDateString(d.createTime, 'yyyy-MM-dd')}}
+</script>
+
+<script src="../../component/layui/layui.js"></script>
+<script src="../../component/pear/pear.js"></script>
+<script src="../../config/api.config.js"></script>
+<script>
+    layui.use(['table', 'form', 'jquery','common','context'], function() {
+        let table = layui.table;
+        let form = layui.form;
+        let $ = layui.jquery;
+        let common = layui.common;
+
+        const token = sessionStorage.getItem('token')
+        const context = layui.context;
+        var hostUrl = context.get("hostUrl")
+        let cols = [
+            [{
+                type: 'checkbox'
+            },
+                {
+                    title: '主图',
+                    field: 'firstUrl',
+                    align: 'center',
+                    style:'height:90px',
+                    width: 110,
+                    templet: function (d){
+                        return '<img  style="width: 85px;height: 85px;" src="'+hostUrl+d.firstUrl+'" alt="">'
+                    },
+                },
+                {
+                    title: '活动标题',
+                    field: 'activityTitle',
+                    align: 'center',
+                },
+                {
+                    title: '活动地点',
+                    field: 'activityLocation',
+                    align: 'center',
+                },
+                {
+                    title: '活动详情',
+                    field: 'activityDescription',
+                    align: 'center'
+                },
+                // {
+                //     title: '活动人数',
+                //     field: 'activityNum',
+                //     align: 'center',
+                // },
+                // {
+                //     title: '已报名',
+                //     field: 'currentNum',
+                //     align: 'center',
+                // },
+                {
+                    title: '开始时间',
+                    field: 'startTime',
+                    align: 'center',
+                },
+                {
+                    title: '发布人',
+                    field: 'userName',
+                    align: 'center',
+                },
+                {
+                    title: '状态',
+                    field: 'status',
+                    align: 'center',
+                    // templet:function (d) {
+                    //     console.log(d.status)
+                    //     if (d.statusId==1){
+                    //         return '<span class="layui-badge layui-bg-green">待进行</span>'
+                    //     }else if (d.statusId==4){
+                    //         return '<span class="layui-badge layui-bg-red">已冻结</span>'
+                    //     }else if (d.statusId==6){
+                    //         return '<span class="layui-badge layui-bg-black">未通过</span>'
+                    //     }else if (d.statusId==7){
+                    //         return '<span class="layui-badge layui-bg-gray">已完成</span>'
+                    //     }
+                    // }
+                },
+                {
+                    title: '操作',
+                    toolbar: '#user-bar',
+                    align: 'center',
+                    width: 130
+                }
+            ]
+        ]
+        console.log(hostUrl)
+        table.render({
+            elem: '#user-table',
+            url: hostUrl+'/activitiesinfo/selectAllActivities.do',
+            request: {
+                pageName: 'currentPage' ,//页码的参数名称，默认：page
+                limitName: 'pageSize' //每页数据量的参数名，默认：limit
+            },
+            headers:{'token':token},
+            method:'post',
+            page: true,
+            cols: cols,
+            //skin: 'line',
+            toolbar: '#user-toolbar',
+            defaultToolbar: [{
+                layEvent: 'refresh',
+                icon: 'layui-icon-refresh',
+            }, 'filter', 'print', 'exports'],
+            limits: [5, 15, 20, 25, 50, 100],
+            limit:5,
+        });
+
+        table.on('tool(user-table)', function(obj) {
+            if (obj.event === 'remove') {
+                window.remove(obj);
+            } else if (obj.event === 'edit') {
+                window.edit(obj);
+            }
+        });
+
+        table.on('toolbar(user-table)', function(obj) {
+            if (obj.event === 'add') {
+                window.add();
+            } else if (obj.event === 'refresh') {
+                window.refresh();
+            } else if (obj.event === 'batchRemove') {
+                window.batchRemove(obj);
+            }
+        });
+
+        form.on('submit(user-query)', function(data) {
+            table.reload('user-table', {
+                url: hostUrl+'/activitiesinfo/selectAllActivities.do',
+                method:"post",
+                page: {
+                    current: 1
+                },
+                headers:{'token':token},
+                where: {
+                    userName: data.field.userName,
+                    activityTitle:data.field.activityTitle,
+                    statusId:data.field.statusId
+                }
+            })
+            // table.reload('user-table', {
+            // 	where: data.field
+            // })
+            return false;
+        });
+
+        window.add = function() {
+            layer.open({
+                type: 2,
+                title: '新增',
+                shade: 0.1,
+                area: ['90%', '90%'],
+                content:'release.html'
+            });
+        }
+
+        window.edit = function(obj) {
+            var data = obj.data
+            json = JSON.stringify(data);
+            layer.open({
+                type: 2,
+                title: '编辑',
+                maxmin:true,
+                shadeClose: true,
+                shade: 0.1,
+                area: ['800px', '700px'],
+                content:'edit.html'
+            });
+        }
+        window.remove = function(obj) {
+            layer.confirm('确定要删除该记录', {
+                icon: 3,
+                title: '提示'
+            }, function(index) {
+                layer.close(index);
+                let loading = layer.load();
+                $.ajax({
+                    url: hostUrl + "/activitiesinfo/delete.do?ids=" + obj.data['id'],
+                    dataType: 'json',
+                    type: 'delete',
+                    headers:{'token':token},
+                    success: function(result) {
+                        layer.close(loading);
+                        if (result.data) {
+                            layer.msg(result.msg, {
+                                icon: 1,
+                                time: 1000
+                            },function() {
+                                obj.del();
+                            });
+                        } else {
+                            layer.msg(result.msg, {
+                                icon: 2,
+                                time: 1000
+                            });
+                        }
+                    }
+                })
+            });
+        }
+
+        window.batchRemove = function(obj) {
+
+            var checkIds = common.checkField(obj,'id');
+            console.log(checkIds)
+
+            if (checkIds === "") {
+                layer.msg("未选中数据", {
+                    icon: 3,
+                    time: 1000
+                });
+                return false;
+            }
+
+            layer.confirm('确定要删除这些活动', {
+                icon: 3,
+                title: '提示'
+            }, function(index) {
+                layer.close(index);
+                let loading = layer.load();
+                $.ajax({
+                    url: hostUrl + "/activitiesinfo/delete.do?ids=" + checkIds,
+                    dataType: 'json',
+                    headers:{'token':token},
+                    type: 'delete',
+                    success: function(result) {
+                        layer.close(loading);
+                        if (result.data) {
+                            layer.msg(result.msg, {
+                                icon: 1,
+                                time: 1000
+                            }, function() {
+                                table.reload('user-table');
+                            });
+                        } else {
+                            layer.msg(result.msg, {
+                                icon: 2,
+                                time: 1000
+                            });
+                        }
+                    }
+                })
+            });
+        }
+
+        window.refresh = function(param) {
+            table.reload('user-table');
+        }
+    })
+</script>
+</body>
+</html>

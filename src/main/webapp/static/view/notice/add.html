@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en"  xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="../../component/pear/css/pear.css" />
+</head>
+<body>
+<form class="layui-form" action="">
+    <div class="mainBox">
+        <div class="main-container">
+                <div class="layui-form-item">
+                    <label class="layui-form-label">公告标题</label>
+                    <div class="layui-input-block">
+                        <input type="text" name="newsTitle" lay-verify="newsTitle" lay-reqtext="公告标题" autocomplete="off"  class="layui-input">
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">公告内容</label>
+                    <div class="layui-input-block">
+                        <textarea style="height: 370px" name="newsDescription" placeholder="请输入公告信息" class="layui-textarea"></textarea>
+                    </div>
+                </div>
+        </div>
+    </div>
+    <div class="bottom">
+        <div class="button-container">
+            <button type="submit" class="layui-btn layui-btn-normal layui-btn-sm" lay-submit="" lay-filter="user-save">
+                <i class="layui-icon layui-icon-ok"></i>
+                提交
+            </button>
+            <button type="reset" class="layui-btn layui-btn-primary layui-btn-sm">
+                <i class="layui-icon layui-icon-refresh"></i>
+                重置
+            </button>
+        </div>
+    </div>
+</form>
+<script src="../../component/layui/layui.js"></script>
+<script src="../../component/pear/pear.js"></script>
+<script src="../../config/api.config.js"></script>
+<script>
+    layui.use(['form','jquery','context','laydate'],function(){
+        let form = layui.form;
+        let $ = layui.jquery;
+        let laydate = layui.laydate;
+        const context = layui.context;
+        const token = sessionStorage.getItem('token');
+        var hostUrl = context.get("hostUrl")
+
+        form.on('submit(user-save)', function(data){
+            $.ajax({
+                url:hostUrl+'/notice/save.do',
+                data:JSON.stringify(data.field),
+                dataType:'json',
+                headers:{'token':token},
+                contentType:'application/json',
+                type:'post',
+                success:function(result){
+                    console.log(result.data)
+                    if(result.data){
+                        layer.msg(result.msg,{icon:1,time:1000},function(){
+                            parent.layer.close(parent.layer.getFrameIndex(window.name));//关闭当前页
+                            parent.layui.table.reload("user-table");
+                        });
+                    }else{
+                        layer.msg(result.msg,{icon:2,time:1000});
+                    }
+                }
+            })
+            return false;
+        });
+    })
+</script>
+<script>
+</script>
+</body>
+</html>
