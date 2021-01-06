@@ -38,14 +38,14 @@
     <div class="layui-form-item">
         <label class="layui-form-label required">筹款标题</label>
         <div class="layui-input-inline">
-            <input type="text" name="raisingTitle" lay-verify="required" lay-reqtext="输入筹款标题" placeholder="输入筹款标题" value="" class="layui-input">
+            <input type="text" name="raisingTitle" lay-verify="clength|required" lay-reqtext="输入筹款标题" placeholder="输入筹款标题" value="" class="layui-input">
         </div>
     </div>
 
     <div class="layui-form-item">
         <label class="layui-form-label required">筹款描述</label>
         <div class="layui-input-inline">
-            <input type="text" name="raisingDescription"   placeholder="请输入描述信息" value="" class="layui-input">
+            <textarea type="text" name="raisingDescription"  lay-verify="required"  placeholder="请输入描述信息" value="" class="layui-textarea"></textarea>
         </div>
     </div>
 
@@ -61,14 +61,6 @@
             <input type="number" name="bankNum"  placeholder="请输入银行卡号" value="" class="layui-input">
         </div>
     </div>
-<!--    <div class="layui-form-item">-->
-<!--        <label class="layui-form-label required">权限</label>-->
-<!--        <div class="layui-input-block">-->
-<!--            <input type="radio" name="userType" value="3" title="考生" checked="">-->
-<!--            <input type="radio" name="userType" value="2" title="教师">-->
-<!--            <input type="radio" name="userType" value="1" title="管理员">-->
-<!--        </div>-->
-<!--    </div>-->
     <div class="layui-form-item">
         <label class="layui-form-label">筹款人姓名</label>
         <div class="layui-input-inline">
@@ -109,6 +101,22 @@
         const context = layui.context;
         const token = sessionStorage.getItem('token');
         var hostUrl = context.get("hostUrl")
+
+        form.verify({
+            clength: function (value) {
+                var i,sum;
+                sum=0;
+                for(i=0;i<value.length;i++){
+                    if ((value.charCodeAt(i)>=0) && (value.charCodeAt(i)<=255))
+                        sum=sum+1;
+                    else
+                        sum=sum+2;
+                }
+                if (sum > 50) {
+                    return '筹款标题最多只能50个字符或者25个中文字';
+                }
+            }
+        });
 
         upload.render({
             elem: '#pic' //绑定元素

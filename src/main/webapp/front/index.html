@@ -109,7 +109,7 @@
       </ul>
     </div>
   </div>
-  <div class="activelist" style="width: 68%;border: 1px dotted #eee;height: 300px;float: left;border-radius: 4px">
+  <div class="activelist" style="margin-left:80px;width: 68%;border: 1px solid #eee;height: 300px;float: left;border-radius: 4px">
 
   </div>
   <div style="clear: both"></div>
@@ -216,7 +216,7 @@
                 success:function (result){
                   if (result.code == 200){
                     $.each(result.obj.pageData,function (index,elem){
-                      $(".choukuanlisttwo").append("<li style='width: 25%;float: left;text-align: center'><a><img  style='width: 80%;height:200px;vertical-align: center;border-radius: 10px' src='http://localhost:8080"+elem.firstUrl+"'></a><h5 class='fontsizea' style='font-size: 16px;width: 80%;margin: 0 auto'>"+elem.activityDescription+"</h5></li>")
+                      $(".choukuanlisttwo").append("<li style='width: 25%;float: left;text-align: center'><a><img  style='width: 80%;height:200px;vertical-align: center;border-radius: 10px' src='http://localhost:8080"+elem.firstUrl+"'></a><h5 class='fontsizea' style='font-size: 16px;width: 80%;margin: 0 auto'>"+elem.activityTitle+"</h5></li>")
                     })
                   }
                 }

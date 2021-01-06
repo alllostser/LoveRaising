@@ -42,7 +42,7 @@
     <div class="layui-form-item">
         <label class="layui-form-label required">筹款描述</label>
         <div class="layui-input-inline">
-            <input type="text" name="raisingDescription"   placeholder="请输入描述信息" value="" class="layui-input">
+            <textarea type="text" name="raisingDescription"   placeholder="请输入描述信息" value="" class="layui-textarea"></textarea>
         </div>
     </div>
 
@@ -145,6 +145,7 @@ layui.use(['form','jquery','laydate','context','upload'],function(){
         ,"bankNum":parent_json.bankNum
         ,"raisingName":parent_json.raisingName
         ,"imageUrls":parent_json.imageUrls
+        ,"statusId":parent_json.statusId
     });
     $(".pic_url").attr("src", hostUrl+parent_json.firstUrl);
     form.on('submit(saveBtn)', function(data){
