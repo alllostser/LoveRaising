@@ -217,7 +217,7 @@
               url:'http://localhost:8080/message/insertMessage.do',
               dataType:'json',
               headers: {"token":token},
-              data:{'id':id,'myname': myname, 'mytelephone': mytelephone,'mymessage':mymessage},
+              data:{'name': myname, 'telephone': mytelephone,'message':mymessage},
               success:function (result){
                   if (result.code == 200){
                       alert("添加留言成功")
