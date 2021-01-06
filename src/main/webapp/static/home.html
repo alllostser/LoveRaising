@@ -76,6 +76,7 @@
 		<!-- 依 赖 脚 本 -->
 		<script src="component/layui/layui.js"></script>
 		<script src="component/pear/pear.js"></script>
+		<script src="config/api.config.js"></script>
 		<!-- 框 架 初 始 化 -->
 		<script>
 			layui.use(['admin','jquery','convert'], function() {
@@ -119,7 +120,7 @@
 									sessionStorage.removeItem("uesrname");
 									sessionStorage.removeItem("id");
 									// window.location.reload();
-									window.location.href='login.html'
+									window.location.href='../index.html'
 								}
 							}
 						})
@@ -133,7 +134,7 @@
 						title: '提示'
 					}, function(index) {
 						sessionStorage.clear();
-						window.location.href = "../login.html"
+						window.location.href = "../index.html"
 					})
 				})
 			})
