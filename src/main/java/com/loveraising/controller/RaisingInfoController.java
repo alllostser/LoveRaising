@@ -199,6 +199,17 @@ public class RaisingInfoController {
     @PostMapping("addAmount.do")
     public CommonResult addAmount(int id,int userId,double add) {
         int result = raisingInfoService.updateCurrentAmount(id,userId,add);
+        RaisingInfo raisingInfo = raisingInfoService.getById(id);
+        if (raisingInfo!=null){
+            if (raisingInfo.getCurrentAmount()!=null && raisingInfo.getTargetAmount()!=null){
+                if (raisingInfo.getCurrentAmount()>=raisingInfo.getTargetAmount()){
+                    CommonResult commonResult = this.updateRaisingStatus(id);
+                    if (commonResult.getCode()!=200){
+                        return commonResult;
+                    }
+                }
+            }
+        }
         if (result == 1) {
             return new CommonResult(200,"成功捐款"+add+"元",1);
         }else if(result == 2) {

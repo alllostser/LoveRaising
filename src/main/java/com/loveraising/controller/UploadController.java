@@ -33,7 +33,8 @@ public class UploadController {
         List<String> newFileNames = new ArrayList<>();
         for (MultipartFile multipartFile : file) {
             String fileName = multipartFile.getOriginalFilename();
-            String newFileName = UUID.randomUUID().toString()+fileName;
+            String fileLastName = fileName.substring(fileName.lastIndexOf("."));
+            String newFileName = UUID.randomUUID().toString()+System.currentTimeMillis()+fileLastName;
             File dir = new File(path,newFileName);
             if(!dir.exists()){
                 dir.mkdirs();

@@ -521,7 +521,7 @@
                         method:'post',
                         crossDomain: true,
                         async:false,
-                        token:{"token":token},
+                        headers:{"token":token},
                         data:data.field,
                         dataType:'JSON',
                         success:function(res){
@@ -532,11 +532,6 @@
                                 end:function () {
                                     var iframeIndex = parent.layer.getFrameIndex(window.name);
                                     parent.layer.close(iframeIndex);
-                                    parent.layui.table.reload('currentTableId',{
-                                        page:{curr:1},
-                                        url: hostUrl+'/user/list.do',
-                                        method:"get",
-                                        headers:{"Authorization":token},});
                                 }
                             });
                             $(".wenjianshangchuan").css("display","none")
