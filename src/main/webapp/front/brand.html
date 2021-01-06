@@ -1,0 +1,238 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <title>筹款菜单</title>
+    <script src="js/jquery-2.1.3.min.js"></script>
+    <link rel="stylesheet" href="css/iconfont.css">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <script type="text/javascript">
+      $(function () {
+        $('.top .pcnone').click(function () {
+          $('.top').addClass('phone');
+          $('header,body').addClass('ph_fixed');
+        })
+        $('.logo .meau').click(function () {
+          $('header .nav').addClass('show');
+        })
+
+        $('header .nav .icon-zuo').click(function () {
+          $('header .nav').removeClass('show sea');
+        })
+        $('.logo .search').click(function () {
+          $('.nav').addClass('show sea');
+        })
+      })
+    </script>
+    <section class="top">
+        <div class="cont">
+            <div class="l">
+                <只要人人的献出一点爱,世上就变成美好的人间>
+            </div>
+            <div class="r phone" style=""><a class="lang" href="javascript:;">
+
+                <ul>
+                    <li onclick="myFunction()">注销登录</li>
+                    <li onclick="myFunctionupdate()">修改密码</li>
+                </ul>
+                <i class="xiala iconfont icon-xia"></i> </a>
+                <a href="register.html"><i class="iconfont icon-zhuce reg"></i>注册</a>
+            </div>
+            <span class="r" id="user" ></span>
+            <i class="iconfont icon-diqiu r" style="display: inline-block;margin-right: 6px"></i>
+            <i class="pcnone iconfont icon-guanbi" ></i>
+        </div>
+    </section>
+    <header>
+      <div class="cont">
+        <div class="logo l">
+          <img class="l" src="img/logo7.png" alt="">
+          <div class="pcnone r">
+            <i class="iconfont icon-liebiao meau"></i>
+            <i class="iconfont icon-search search"></i>
+          </div>
+        </div>
+        <div class="nav r">
+          <div class="pcnone tit"><i class="iconfont icon-zuo"></i>目录</div>
+            <div class="navs"> <a id="index" >首页</a> <a id="brand" class="act">公益活动</a> <a id="activity" class="choukuancaidan">筹款菜单</a> <a id="gerenzhongxin">个人中心</a>  <a id="contact">联系我们</a> </div>
+          <div class="pcnone log">
+            <a href="register.html" class="hidelogin">注册</a>
+            <a href="/">注销登录</a>
+            <a href="/">修改密码</a>
+          </div>
+        </div>
+      </div>
+    </header>
+    <section class="zbanner"></section>
+    <section class="brand" style="height: auto">
+      <div class="cont" style="text-align: center">
+          <h1 style="font-weight:bold;padding-top:30px">关于公益活动有哪些？</h1>
+          <ul class="ul_icontwo">
+          </ul>
+          <div style="clear: both"></div>
+        </div>
+      </div>
+    </section>
+    <footer>
+        <div class="footer">
+            <div >
+                <ul>
+                    <li><a href="">关于我们</a></li>
+                    <li><a href="">服务条款</a></li>
+                    <li><a href="">新手指南</a></li>
+                    <li><a href="">个人中心</a></li>
+                    <li><a href="">联系我们</a></li>
+                    <li><a href="">友情链接</a></li>
+                </ul>
+                <p class="center">版权所有 © 爱心筹. 2020 @ CopyRight</p>
+            </div>
+        </div>
+    </footer>
+    <script type="text/javascript">
+      $(function () {
+        $('.xiala').click(function () {
+          $('.lang ul').toggle();
+        })
+        $('.lang ul li').click(function () {
+          var text =  $(this).html();
+          $('.lang span').html(text);
+          $('.lang ul').hide();
+        })
+      })
+      window.onload = function (){
+          var token = sessionStorage.getItem("token")
+        $.ajax({
+                type:'post',
+                url:'http://localhost:8080/activitiesinfo/selectDoingActivities.do',
+                dataType:'json',
+                headers:{"token":token},
+                data: {'currentPage':1,'pageSize':8},
+                success:function (result){
+                  if (result.code == 200){
+                    $.each(result.obj.pageData,function (index,elem){
+                      $(".ul_icontwo").append("<li style='width: 25%;float: left;text-align: center;'><a><img style='width: 98%;height:200px;vertical-align: center;border-radius: 10px' src='http://localhost:8080"+elem.firstUrl+"'></a><h5 style='font-size: 16px'>"+elem.activityDescription+"</h5></li>")
+                    })
+                  }
+                }
+              });
+          $("#index").click(function (){
+              window.location.href = 'index.html'
+          })
+          $("#brand").click(function (){
+              window.location.href = 'brand.html'
+          })
+          $("#activity").click(function (){
+              window.location.href = 'activity.html'
+          })
+          $("#gerenzhongxin").click(function (){
+              if (sessionStorage.getItem("uesrname") !== null){
+                  window.location.href = 'shop.html'
+              }else{
+                  alert("请登录！！")
+                  window.location.href = '../login.html'
+              }
+          });
+          $(".choukuancaidan").click(function (){
+              if (sessionStorage.getItem("uesrname") !== null){
+                  window.location.href = 'activity.html'
+              }else{
+                  alert("请登录！！")
+                  window.location.href = '../login.html'
+              }
+          });
+          $("#contact").click(function (){
+              window.location.href = 'contact.html'
+          })
+          if (sessionStorage.getItem("uesrname") !== null){
+              $(".hidelogin").css('display','none');
+              $(".hidelogin").css('display','none');
+              $("#user").html(sessionStorage.getItem("uesrname"))
+              console.log(sessionStorage.getItem("uesrname"))
+          }else{
+              $("#user").html("登录")
+              if ( $("#user").html() == '登录'){
+                  $('#user').css("cursor","pointer")
+                  $('#user').click(function (){
+                      window.location.href = '../login.html'
+                  })
+              }else{
+                  console.log("用户已登录")
+              }
+          }
+      }
+      function myFunction() {
+          var txt;
+          if (confirm("是否要退出登录")) {
+              txt = "您按了确定";
+              sessionStorage.removeItem("uesrname");
+              sessionStorage.removeItem("token");
+              window.location.href = '../login.html'
+          } else {
+              txt = "您按了取消";
+          }
+      };
+      function myFunctionupdate() {
+          var txt;
+          var id = sessionStorage.getItem("id");
+          var token = sessionStorage.getItem("token")
+          // debugger;
+          var password = prompt("请输入密码：");
+          var passwordtwo = prompt("请再次输入密码：");
+          var parms = {'id': id, 'password': password}
+          if (password == null || password == "" ||passwordtwo == null || passwordtwo == "") {
+              alert("密码不能为空")
+          } else if(password !=passwordtwo ){
+              alert("俩次输入密码不一致")
+          }else{
+              $.ajax({
+                  type:'post',
+                  url:'http://localhost:8080/admin/update.do',
+                  contentType:'application/json',
+                  headers:{"token":token},
+                  data:JSON.stringify(parms),
+                  success:function (result){
+                      console.log(result)
+                      if (result.code == 0){
+                          alert("密码修改成功，请重新登录")
+                          sessionStorage.removeItem("uesrname");
+                          sessionStorage.removeItem("id");
+                          // window.location.reload();
+                          window.location.href='../login.html'
+                      }
+                  }
+              })
+          }
+      }
+    </script>
+    <style>
+    .ul_icon{
+      height: 200px;
+      text-align: center
+    }
+    .ul_icon>li{
+      width: 33%;
+      float: left;
+      padding: 0 50px;
+
+    }
+    .ul_icon>li>p{
+      font-size: 18px;
+      color: #444444
+    }
+    .ul_icontwo{
+      height: 420px;
+      /* border: 1px solid #f00; */
+    }
+    .ul_icontwo>li{
+      float: left;
+      width: 33.3%;
+      padding-top: 40px;
+      padding: 20px 16px
+    }
+    </style>
+</body>
+</html>

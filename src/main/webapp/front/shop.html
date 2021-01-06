@@ -1,0 +1,597 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <title>个人中心</title>
+    <script src="js/jquery-2.1.3.min.js"></script>
+<!--    <script src="js/page.js"></script>-->
+<!--    <link rel="stylesheet" href="css/page.css">-->
+    <link rel="stylesheet" href="css/iconfont.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/index.css">
+<!--    <link rel="stylesheet" href="css/bootstrap.min.css">-->
+    <script src="js/bootstrap.min.js"></script>
+    <style type="text/css">
+      #box{
+          height: 560px;
+          width: 100%;
+          /* border: 1px solid #ccc; */
+          padding: 10px;
+      }
+      .floatul{
+          height: 30px;
+          width: 600px;
+          padding: 0;
+          margin: 0;
+      }
+      .floatul>li{
+          display: block;
+          text-align: center;
+          width: 100px;
+          float: left;
+          list-style: none;
+          cursor: pointer;
+          height: 30px;
+          line-height: 30px;
+          font-size: 14px;
+          font-weight: bold;
+          color: #444444;
+      }
+      .choice{
+              /*background: #f00;*/
+              color: #ae262c;
+      }
+      .tab-item{
+          display: none;
+      }
+      .show{
+          display: block;
+      }
+  </style>
+</head>
+<body>
+    <script type="text/javascript">
+      $(function () {
+        $('.top .pcnone').click(function () {
+          $('.top').addClass('phone');
+          $('header,body').addClass('ph_fixed');
+        })
+        $('.logo .meau').click(function () {
+          $('header .nav').addClass('show');
+        })
+
+        $('header .nav .icon-zuo').click(function () {
+          $('header .nav').removeClass('show sea');
+        })
+        $('.logo .search').click(function () {
+          $('.nav').addClass('show sea');
+        })
+      })
+    </script>
+    <section class="top">
+        <div class="cont">
+            <div class="l">
+                <只要人人的献出一点爱,世上就变成美好的人间>
+            </div>
+            <div class="r phone" style=""><a class="lang" href="javascript:;">
+
+                <ul>
+                    <li onclick="myFunction()">注销登录</li>
+                    <li onclick="myFunctionupdate()">修改密码</li>
+                </ul>
+                <i class="xiala iconfont icon-xia"></i> </a>
+                <a href="register.html"><i class="iconfont icon-zhuce reg"></i>注册</a>
+            </div>
+            <span class="r" id="user" ></span>
+            <i class="iconfont icon-diqiu r" style="display: inline-block;margin-right: 6px"></i>
+            <i class="pcnone iconfont icon-guanbi" ></i>
+        </div>
+    </section>
+    <header>
+      <div class="cont">
+        <div class="logo l">
+          <img class="l" src="img/logo7.png" alt="">
+          <div class="pcnone r">
+            <i class="iconfont icon-liebiao meau"></i>
+            <i class="iconfont icon-search search"></i>
+          </div>
+        </div>
+        <div class="nav r">
+          <div class="pcnone tit"><i class="iconfont icon-zuo"></i>目录</div>
+            <div class="navs"> <a id="index" >首页</a> <a id="brand" >公益活动</a> <a id="activity" >筹款菜单</a> <a class="act" id="gerenzhongxin">个人中心</a>  <a id="contact">联系我们</a> </div>
+
+          <div class="pcnone log">
+            <a href="../login.html" class="hidelogin">登录</a>
+            <a href="register.html" class="hidelogin">注册</a>
+            <a href="/">注销登录</a>
+            <a href="/">修改密码</a>
+          </div>
+        </div>
+      </div>
+    </header>
+    <!-- <section class="zbanner"></section> -->
+    <section class="shop">
+      <div class="cont">
+        <div class="title" style="margin-bottom:0px">
+          <ul class="floatul">
+              <li class="bgli" tabid="1" class="choice" id="reds">个人信息</li>
+              <li class="bgli" tabid="2">我发起的筹款</li>
+              <li class="bgli" tabid="3">我参与的活动</li>
+              <li class="bgli" tabid="4">我发起的活动</li>
+              <li class="bgli" tabid="5">我的钱包</li>
+          </ul>
+        </div>
+        <div class="gerenxinxi">
+            <div id="box">
+                <div class="tab-item show">
+                  <p style="border-bottom:#eee 2px solid;padding-top:20px;padding-bottom:30px">
+                    <span  style="font-weight:bold;font-size:20px">用户名：</span>
+                    <span class="userName">暂无数据</span>
+                  </p>
+                  <p style="border-bottom:#eee 2px solid;padding-top:20px;padding-bottom:30px">
+                      <span style="font-weight:bold;font-size:20px">真实姓名：</span>
+                      <span class="realName">暂无数据</span>
+                  </p>
+                    <p style="border-bottom:#eee 2px solid;padding-top:20px;padding-bottom:30px">
+                        <span style="font-weight:bold;font-size:20px">性别：</span>
+                        <span class="sex">暂无数据</span>
+                    </p>
+                      <p style="border-bottom:#eee 2px solid;padding-top:20px;padding-bottom:30px">
+                          <span style="font-weight:bold;font-size:20px">邮箱：</span>
+                          <span class="email">暂无数据</span>
+                      </p>
+                        <p style="border-bottom:#eee 2px solid;padding-top:20px;padding-bottom:30px">
+                            <span style="font-weight:bold;font-size:20px">电话号码：</span>
+                            <span class="telephone">暂无数据</span>
+                        </p>
+                          <p style="border-bottom:#eee 2px solid;padding-top:20px;padding-bottom:30px">
+                              <span style="font-weight:bold;font-size:20px">生日：</span>
+                              <span class="birthday">暂无数据</span>
+                          </p>
+                    <p style="border-bottom:#eee 2px solid;padding-top:20px;padding-bottom:30px">
+                        <span style="font-weight:bold;font-size:20px">身份证号：</span>
+                        <span class="idNumber">暂无数据</span>
+                    </p>
+                </div>
+                <div class="tab-item">
+                    <table class="table table-hover" style="width: 100%; border:1px dotted #eeeeee;" >
+                        <thead style="width: 100%">
+                        <tr style="width: 100%;text-align: center">
+                            <th style="width:25%;font-size: 18px">日期</th>
+                            <th style="width:25%;font-size: 18px">标题</th>
+                            <th style="width:25%;font-size: 18px">筹款人</th>
+                            <th style="width:25%;font-size: 18px">描述</th>
+                        </tr>
+
+                    </table>
+                    <table class="table table-hover table-striped" id="table_result" style="width: 100%;height: 500px;border:1px solid #eeeeee;">
+                        <tbody id="table_body_result" style="width: 100%">
+                        <!--中间省略多行数据-->
+                        </tbody>
+                    </table>
+                    <p id="barcon" name="barcon" style="padding: 10px 100px;font-size: 18px;text-align: center;"></p>
+                </div>
+
+                <div class="tab-item">
+                    <table class="table table-hover" style="width: 100%; border:1px dotted #eeeeee;" >
+                        <thead style="width: 100%">
+                        <tr style="width: 100%;text-align: center">
+                            <th style="width:25%;font-size: 18px">日期</th>
+                            <th style="width:25%;font-size: 18px">标题</th>
+                            <th style="width:25%;font-size: 18px">参与活动者</th>
+                            <th style="width:25%;font-size: 18px">活动描述</th>
+                        </tr>
+
+                    </table>
+                    <table class="table table-hover table-striped" id="table_resulttwo" style="width: 100%;height: 500px;border:1px solid #eeeeee;">
+                        <tbody id="table_body_resulttwo" style="width: 100%">
+                        <!--中间省略多行数据-->
+                        </tbody>
+                    </table>
+                    <p id="barcontwo" name="barcontwo" style="padding: 10px 100px;font-size: 18px;text-align: center;"></p>
+                </div>
+
+                <div class="tab-item">
+                    <table class="table table-hover" style="width: 100%; border:1px dotted #eeeeee;" >
+                        <thead style="width: 100%">
+                        <tr style="width: 100%;text-align: center">
+                            <th style="width:25%;font-size: 18px">日期</th>
+                            <th style="width:25%;font-size: 18px">活动标题</th>
+                            <th style="width:25%;font-size: 18px">发起活动者</th>
+                            <th style="width:25%;font-size: 18px">活动描述</th>
+                        </tr>
+
+                    </table>
+                    <table class="table table-hover table-striped" id="table_resultthree" style="width: 100%;height: 500px;border:1px solid #eeeeee;">
+                        <tbody id="table_body_resultthree" style="width: 100%">
+                        <!--中间省略多行数据-->
+                        </tbody>
+                    </table>
+                    <p id="barconthree" name="barconthree" style="padding: 10px 100px;font-size: 18px;text-align: center;"></p>
+                </div>
+
+                <div class="tab-item">
+                    <p style="border-bottom:#eee 2px solid;padding-top:20px;padding-bottom:30px">
+                        <span style="font-weight:bold;font-size:20px">用户名：</span>
+                        <span id="qianbaousername">暂无数据</span>
+                    </p>
+                    <p style="border-bottom:#eee 2px solid;padding-top:20px;padding-bottom:30px">
+                        <span style="font-weight:bold;font-size:20px">真实姓名：</span>
+                        <span id="qianbaorealName">暂无数据</span>
+                    </p>
+                    <p style="border-bottom:#eee 2px solid;padding-top:20px;padding-bottom:30px">
+                        <span style="font-weight:bold;font-size:20px">账户余额：</span>
+                        <span id="qianbaoyue">暂无数据</span>
+                    </p>
+                    <p style="border-bottom:#eee 2px solid;padding-top:20px;padding-bottom:30px">
+                        <span style="font-weight:bold;font-size:20px">公告：</span>
+                        <span>反诈人人有责，防骗步步为营；打击犯罪，共创和谐</span>
+                    </p>
+                </div>
+            </div>
+            <div style="clear:both"></div>
+        </div>
+      </div>
+    </section>
+    <footer>
+        <div class="footer">
+            <div >
+                <ul>
+                    <li><a href="">关于我们</a></li>
+                    <li><a href="">服务条款</a></li>
+                    <li><a href="">新手指南</a></li>
+                    <li><a href="">个人中心</a></li>
+                    <li><a href="">联系我们</a></li>
+                    <li><a href="">友情链接</a></li>
+                </ul>
+                <p class="center">版权所有 © 爱心筹. 2020@CopyRight</p>
+            </div>
+        </div>
+    </footer>
+    <script type="text/javascript">
+      $(function () {
+        $('.xiala').click(function () {
+          $('.lang ul').toggle();
+        })
+        $('.lang ul li').click(function () {
+          var text =  $(this).html();
+          $('.lang span').html(text);
+          $('.lang ul').hide();
+        })
+      })
+      window.onload = function (){
+          //查看个人中心信息
+          var id = sessionStorage.getItem("id");
+          var token = sessionStorage.getItem("token");
+              $.ajax({
+                  type:'post',
+                  url:'http://localhost:8080/userinfo/selectOne.do',
+                  dataType:'json',
+                  headers:{"token":token},
+                  data:{"id":id},
+                  success:function (result){
+                      if (result.code == 200){
+                          console.log(result)
+                          $(".userName").html(result.obj.userName)
+                          $(".realName").html(result.obj.realName)
+                          $(".sex").html(result.obj.sex)
+                          $(".email").html(result.obj.email)
+                          $(".telephone").html(result.obj.telephone)
+                          $(".birthday").html(result.obj.birthday)
+                          $(".idNumber").html(result.obj.idNumber)
+                      }
+                  }
+              });
+          //查看个人中心筹款
+          $.ajax({
+              type:'post',
+              url:'http://localhost:8080/raisinginfo/selectRaisingByUserId.do',
+              dataType:'json',
+              headers:{"token":token},
+              data:{"id":id},
+              success:function (result){
+                  if (result.code == 200){
+                      $.each(result.obj,function (index,elem){
+                          $("#table_body_result").append("<tr style='width: 100%'><td style='width:300px;font-size: 18px;text-align: center'>"+elem.creatTime+"</td><td style='width:300px;font-size: 18px;text-align: center'>"+elem.raisingTitle+"</td><td style='width:300px;font-size: 18px;text-align: center'>"+elem.raisingName+"</td><td style='width:300px;font-size: 18px;text-align: center;cursor: pointer'>"+elem.raisingDescription+"</td></tr>")
+                      })
+                      goPage(1,8);
+                  }
+              }
+          });
+          //查看我发起的活动
+          $.ajax({
+              type:'post',
+              url:'http://localhost:8080/activitiesinfo/selectCreateActivitiesByUserId.do',
+              dataType:'json',
+              headers:{"token":token},
+              data:{"id":id},
+              success:function (result){
+                  if (result.code == 200){
+                      $.each(result.obj,function (index,elem){
+                          $("#table_body_resultthree").append("<tr style='width: 100%'><td style='width:300px;font-size: 18px;text-align: center'>"+elem.startTime+"</td><td style='width:300px;font-size: 18px;text-align: center'>"+elem.activityTitle+"</td><td style='width:300px;font-size: 18px;text-align: center'>"+elem.userName+"</td><td style='width:300px;font-size: 18px;text-align: center;cursor: pointer'>"+elem.activityDescription+"</td></tr>")
+                      })
+                      goPagethree(1,15);
+                  }
+              }
+          });
+          // //查看我参与的活动
+          $.ajax({
+              type:'post',
+              url:'http://localhost:8080/activitiesinfo/selectJoinActivitiesByUserId.do',
+              dataType:'json',
+              headers:{"token":token},
+              data:{"id":id},
+              success:function (result){
+                  if (result.code == 200){
+                      $.each(result.obj,function (index,elem){
+                          $("#table_body_resulttwo").append("<tr style='width: 100% '><td style='width:300px;font-size: 18px;text-align: center'>"+elem.startTime+"</td><td style='width:300px;font-size: 18px;text-align: center'>"+elem.activityTitle+"</td><td style='width:300px;font-size: 18px;text-align: center'>"+elem.userName+"</td><td style='width:300px;font-size: 18px;text-align: center;cursor: pointer'>"+elem.activityDescription+"</td></tr>")
+                      })
+                      goPagetwo(1,15);
+                  }
+              }
+          });
+          //查看我的钱包接口
+          $.ajax({
+              type:'post',
+              url:'http://localhost:8080/userinfo/selectUserWallet.do',
+              dataType:'json',
+              headers:{"token":token},
+              data:{"id":id},
+              success:function (result){
+                  if (result.code == 200){
+                      $("#qianbaousername").html(result.obj.userName)
+                      $("#qianbaorealName").html(result.obj.realName)
+                      $("#qianbaoyue").html(result.obj.remainingSum)
+                  }
+              }
+          });
+          $("#index").click(function (){
+              window.location.href = 'index.html'
+          })
+          $("#brand").click(function (){
+              window.location.href = 'brand.html'
+          })
+          $("#activity").click(function (){
+              window.location.href = 'activity.html'
+          })
+          $("#gerenzhongxin").click(function (){
+              if (sessionStorage.getItem("uesrname") !== null){
+                  window.location.href = 'shop.html'
+              }else{
+                  alert("请登录！！")
+                  window.location.href = '../login.html'
+              }
+          })
+          $("#contact").click(function (){
+              window.location.href = 'contact.html'
+          })
+          $("#reds").css("color","#ae262c")
+        if (sessionStorage.getItem("uesrname") != null){
+          $(".hidelogin").css('display','none');
+          $(".hidelogin").css('display','none');
+          $("#user").html(sessionStorage.getItem("uesrname"))
+          console.log(sessionStorage.getItem("uesrname"))
+        }else{
+            $("#user").html("登录")
+            if ( $("#user").html() == '登录'){
+                $('#user').css("cursor","pointer")
+                $('#user').click(function (){
+                    window.location.href = '../login.html'
+                })
+            }else{
+                console.log("用户已登录")
+            }
+        }
+      };
+      function myFunction() {
+          var txt;
+          if (confirm("是否要退出登录")) {
+              txt = "您按了确定";
+              sessionStorage.removeItem("uesrname");
+              sessionStorage.removeItem("token");
+              window.location.href = '../login.html'
+          } else {
+              txt = "您按了取消";
+          }
+      };
+      function myFunctionupdate() {
+          var txt;
+          var id = sessionStorage.getItem("id");
+          // debugger;
+          var password = prompt("请输入密码：");
+          var passwordtwo = prompt("请再次输入密码：");
+          var parms = {'id': id, 'password': password}
+          if (password == null || password == "" ||passwordtwo == null || passwordtwo == "") {
+              alert("密码不能为空")
+          } else if(password !=passwordtwo ){
+              alert("俩次输入密码不一致")
+          }else{
+              var token = sessionStorage.getItem("token");
+              $.ajax({
+                  type:'post',
+                  url:'http://localhost:8080/admin/update.do',
+                  dataType:'json',
+                  contentType:'application/json',
+                  headers:{"token":token},
+                  data:JSON.stringify(parms),
+                  success:function (result){
+                      console.log(result)
+                      if (result.code == 0){
+                          alert("密码修改成功，请重新登录")
+                          sessionStorage.removeItem("uesrname");
+                          sessionStorage.removeItem("id");
+                          // window.location.reload();
+                          window.location.href='../login.html'
+                      }
+                  }
+              })
+          }
+      }
+    </script>
+
+    <script>
+        function goPage(pno, psize) {
+            var itable = document.getElementById("table_result");//通过ID找到表格
+            var num = itable.rows.length;//表格所有行数(所有记录数)
+            var totalPage = 0;//总页数
+            var pageSize = psize;//每页显示行数
+            //总共分几页
+            if (num / pageSize > parseInt(num / pageSize)) {
+                totalPage = parseInt(num / pageSize) + 1;
+            } else {
+                totalPage = parseInt(num / pageSize);
+            }
+            var currentPage = pno;//当前页数
+            var startRow = (currentPage - 1) * pageSize + 1;//开始显示的行  1
+            var endRow = currentPage * pageSize;//结束显示的行   15
+            endRow = (endRow > num) ? num : endRow;
+            //遍历显示数据实现分页
+            for (var i = 1; i < (num + 1); i++) {
+                var irow = itable.rows[i - 1];
+                if (i >= startRow && i <= endRow) {
+                    irow.style.display = "block";
+                } else {
+                    irow.style.display = "none";
+                }
+            }
+            var tempStr = "";
+            if (currentPage > 1) {
+                tempStr += "<a href=\"#\" onClick=\"goPage(" + (currentPage - 1) + "," + psize + ")\"><上一页&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>"
+                for (var j = 1; j <= totalPage; j++) {
+                    tempStr += "<a href=\"#\" onClick=\"goPage(" + j + "," + psize + ")\">" + j + "&nbsp;&nbsp;&nbsp;</a>"
+                }
+            } else {
+                tempStr += "<上一页&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;";
+                for (var j = 1; j <= totalPage; j++) {
+                    tempStr += "<a href=\"#\" onClick=\"goPage(" + j + "," + psize + ")\">" + j + "&nbsp;&nbsp;&nbsp;</a>"
+                }
+            }
+            if (currentPage < totalPage) {
+                tempStr += "<a href=\"#\" onClick=\"goPage(" + (currentPage + 1) + "," + psize + ")\">下一页>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>";
+                for (var j = 1; j <= totalPage; j++) {
+                }
+            } else {
+                tempStr += "  下一页>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;";
+                for (var j = 1; j <= totalPage; j++) {
+                }
+            }
+            document.getElementById("barcon").innerHTML = tempStr;
+        }
+    </script>
+    <script>
+        function goPagethree(pno, psize) {
+            var itable = document.getElementById("table_resultthree");//通过ID找到表格
+            var num = itable.rows.length;//表格所有行数(所有记录数)
+            var totalPage = 0;//总页数
+            var pageSize = psize;//每页显示行数
+            //总共分几页
+            if (num / pageSize > parseInt(num / pageSize)) {
+                totalPage = parseInt(num / pageSize) + 1;
+            } else {
+                totalPage = parseInt(num / pageSize);
+            }
+            var currentPage = pno;//当前页数
+            var startRow = (currentPage - 1) * pageSize + 1;//开始显示的行  1
+            var endRow = currentPage * pageSize;//结束显示的行   15
+            endRow = (endRow > num) ? num : endRow;
+            //遍历显示数据实现分页
+            for (var i = 1; i < (num + 1); i++) {
+                var irow = itable.rows[i - 1];
+                if (i >= startRow && i <= endRow) {
+                    irow.style.display = "block";
+                } else {
+                    irow.style.display = "none";
+                }
+            }
+            var tempStr = "";
+            if (currentPage > 1) {
+                tempStr += "<a href=\"#\" onClick=\"goPagethree(" + (currentPage - 1) + "," + psize + ")\"><上一页&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>"
+                for (var j = 1; j <= totalPage; j++) {
+                    tempStr += "<a href=\"#\" onClick=\"goPagethree(" + j + "," + psize + ")\">" + j + "&nbsp;&nbsp;&nbsp;</a>"
+                }
+            } else {
+                tempStr += "<上一页&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;";
+                for (var j = 1; j <= totalPage; j++) {
+                    tempStr += "<a href=\"#\" onClick=\"goPagethree(" + j + "," + psize + ")\">" + j + "&nbsp;&nbsp;&nbsp;</a>"
+                }
+            }
+            if (currentPage < totalPage) {
+                tempStr += "<a href=\"#\" onClick=\"goPagethree(" + (currentPage + 1) + "," + psize + ")\">下一页>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>";
+                for (var j = 1; j <= totalPage; j++) {
+                }
+            } else {
+                tempStr += "  下一页>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;";
+                for (var j = 1; j <= totalPage; j++) {
+                }
+            }
+            document.getElementById("barconthree").innerHTML = tempStr;
+        }
+    </script>
+    <script>
+        function goPagetwo(pno, psize) {
+            var itable = document.getElementById("table_resulttwo");//通过ID找到表格
+            var num = itable.rows.length;//表格所有行数(所有记录数)
+            var totalPage = 0;//总页数
+            var pageSize = psize;//每页显示行数
+            //总共分几页
+            if (num / pageSize > parseInt(num / pageSize)) {
+                totalPage = parseInt(num / pageSize) + 1;
+            } else {
+                totalPage = parseInt(num / pageSize);
+            }
+            var currentPage = pno;//当前页数
+            var startRow = (currentPage - 1) * pageSize + 1;//开始显示的行  1
+            var endRow = currentPage * pageSize;//结束显示的行   15
+            endRow = (endRow > num) ? num : endRow;
+            //遍历显示数据实现分页
+            for (var i = 1; i < (num + 1); i++) {
+                var irow = itable.rows[i - 1];
+                if (i >= startRow && i <= endRow) {
+                    irow.style.display = "block";
+                } else {
+                    irow.style.display = "none";
+                }
+            }
+            var tempStr = "";
+            if (currentPage > 1) {
+                tempStr += "<a href=\"#\" onClick=\"goPagetwo(" + (currentPage - 1) + "," + psize + ")\"><上一页&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>"
+                for (var j = 1; j <= totalPage; j++) {
+                    tempStr += "<a href=\"#\" onClick=\"goPagetwo(" + j + "," + psize + ")\">" + j + "&nbsp;&nbsp;&nbsp;</a>"
+                }
+            } else {
+                tempStr += "<上一页&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;";
+                for (var j = 1; j <= totalPage; j++) {
+                    tempStr += "<a href=\"#\" onClick=\"goPagetwo(" + j + "," + psize + ")\">" + j + "&nbsp;&nbsp;&nbsp;</a>"
+                }
+            }
+            if (currentPage < totalPage) {
+                tempStr += "<a href=\"#\" onClick=\"goPagetwo(" + (currentPage + 1) + "," + psize + ")\">下一页>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>";
+                for (var j = 1; j <= totalPage; j++) {
+                }
+            } else {
+                tempStr += "  下一页>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;";
+                for (var j = 1; j <= totalPage; j++) {
+                }
+            }
+            document.getElementById("barcontwo").innerHTML = tempStr;
+        }
+    </script>
+     <script type="text/javascript">
+      $(".bgli").click(function(){
+          // 修改tab标签样式
+          $("#reds").css("color","")
+          $(this).attr("class","choice")
+          $(this).siblings().attr("class","")
+          // 获取tab ID
+          var itemId = $(this).attr("tabid")-1;
+          // 切换到指定tab
+          $("#box").find("div:eq("+itemId+")").attr("class","show")
+          $("#box").find("div:eq("+itemId+")").siblings().attr("class","tab-item")
+          $(this).css("color","#ae262c")
+          $(".choice").siblings().css("color","#000")
+      })
+  </script>
+</body>
+</html>
