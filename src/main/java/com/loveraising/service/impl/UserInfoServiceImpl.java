@@ -49,6 +49,7 @@ public class UserInfoServiceImpl extends ServiceImpl<UserInfoMapper,UserInfo> im
             map.put("code", 200);
             map.put("message","登录成功！");
             map.put("token",token);
+            map.put("roleId",Integer.parseInt(userMap.get("role_id").toString()));
             map.put("id",Integer.parseInt(userMap.get("id").toString()));
             map.put("userName",userMap.get("user_name"));
             map.put("lastLogin",lastLogin);

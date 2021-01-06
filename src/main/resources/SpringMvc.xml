@@ -36,6 +36,10 @@
         <mvc:interceptor>
             <mvc:mapping path="/**/*"/>
             <mvc:exclude-mapping path="/**/login.do"/>
+            <mvc:exclude-mapping path="/raisinginfo/selectPassRaisingInPage.do"/>
+            <mvc:exclude-mapping path="/activitiesinfo/selectDoingActivities.do"/>
+            <mvc:exclude-mapping path="/notice/list.do"/>
+            <mvc:exclude-mapping path="/activitiesinfo/selectDoingActivities.do"/>
             <bean class="com.loveraising.token.AuthenticationInterceptor"/>
         </mvc:interceptor>
     </mvc:interceptors>

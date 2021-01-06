@@ -16,10 +16,9 @@ import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
 
-import java.util.ArrayList;
-
-import java.util.Arrays;
-import java.util.List;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.util.*;
 
 /**
  *
@@ -57,19 +56,28 @@ public class AdminController {
      * 管理员登录接口
      */
     @PostMapping("/login.do")
-    public CommonResult login(UserInfo userInfo) {
-        if(userInfo!=null){
-            UserInfo result = userInfoService.adminLogin(userInfo);
-            if(result != null) {
-                if(result.getRoleId() == 1){   //如果是管理员
-                    return new CommonResult(200,"管理员登录成功！",result);
-                }else {
-                    return new CommonResult(500,"登录失败！您没有管理员权限！",result);
-                }
-
+    public Map login(HttpServletRequest request, HttpServletResponse response) {
+        String userName = request.getHeader("userName");
+        String password = request.getHeader("password");
+        Map<String,Object> map = new HashMap<>();
+        if(!userName.trim().equals("") && !userName.trim().equals("")){
+            Map result = userInfoService.login(userName,password,response);
+            Integer code = (Integer) result.get("code");
+            if (code!=200){
+                return result;
             }
+            Integer roleId = (Integer) result.get("roleId");
+            System.out.println(roleId);
+            if (roleId!=1){
+                map.put("code",400);
+                map.put("message","您不是管理员！");
+                return map;
+            }
+            return result;
         }
-        return new CommonResult(500,"用户名或密码错误!","");
+        map.put("code",500);
+        map.put("message","用户名或密码不能为空！");
+        return map;
     }
     /**
      * 查看用户列表
